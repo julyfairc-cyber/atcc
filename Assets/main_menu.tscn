@@ -1,0 +1,46 @@
+[gd_scene format=3 uid="uid://djywf3k4hshpt"]
+
+[ext_resource type="Texture2D" uid="uid://bttqsprol7bsl" path="res://Assets/Sprites/Header.png" id="1_8bb2n"]
+
+[sub_resource type="GDScript" id="GDScript_kmbup"]
+script/source = "extends Control
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	pass
+"
+
+[node name="Main Menu" type="Node2D" unique_id=1703871954]
+
+[node name="button_manager" type="Control" parent="." unique_id=709417516]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = SubResource("GDScript_kmbup")
+
+[node name="start" type="Button" parent="button_manager" unique_id=216118422]
+layout_mode = 0
+offset_left = 394.0
+offset_top = 328.0
+offset_right = 786.0
+offset_bottom = 424.0
+action_mode = 0
+icon = ExtResource("1_8bb2n")
+flat = true
+
+[node name="settings" type="Button" parent="button_manager" unique_id=1742214435]
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
+
+[node name="quit" type="Button" parent="button_manager" unique_id=1096035690]
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0

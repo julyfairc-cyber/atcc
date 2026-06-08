@@ -1,0 +1,160 @@
+[gd_scene format=3 uid="uid://d188r5tcf5d5n"]
+
+[ext_resource type="Texture2D" uid="uid://dc8bs270pkf5w" path="res://Assets/Sprites/Goblin Idle Sprite.png" id="1_ebmjs"]
+[ext_resource type="PackedScene" uid="uid://c6iaqeabvtpdu" path="res://Scenes/water_slime.tscn" id="2_qxrlw"]
+
+[sub_resource type="GDScript" id="GDScript_wowpa"]
+script/source = "extends CharacterBody2D
+@onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
+
+
+const SPEED = 150.0
+const JUMP_VELOCITY = -400.0
+
+
+func _physics_process(_delta: float) -> void:
+	#Add animation
+	if velocity.x > 1 or velocity.x <-1:
+		animated_sprite_2d.animation = \"idle\"
+		
+	# Get the input direction and handle the movement/deceleration.
+	# As good practice, you should replace UI actions with custom gameplay actions.
+	var direction := Input.get_axis(\"ui_left\", \"ui_right\")
+	if direction:
+		velocity.x = direction * SPEED
+	else:
+		velocity.x = move_toward(velocity.x, 0, SPEED)
+
+	move_and_slide()
+	
+	if direction == 1.0 :
+		animated_sprite_2d.flip_h = false
+	elif direction == -1.0 :
+		animated_sprite_2d.flip_h = true
+"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qxrlw"]
+atlas = ExtResource("1_ebmjs")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wrm1d"]
+atlas = ExtResource("1_ebmjs")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3dryh"]
+atlas = ExtResource("1_ebmjs")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wowpa"]
+atlas = ExtResource("1_ebmjs")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i6g32"]
+atlas = ExtResource("1_ebmjs")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1l0tm"]
+atlas = ExtResource("1_ebmjs")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v158k"]
+atlas = ExtResource("1_ebmjs")
+region = Rect2(192, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h4fw4"]
+atlas = ExtResource("1_ebmjs")
+region = Rect2(224, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ldgsr"]
+atlas = ExtResource("1_ebmjs")
+region = Rect2(256, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o5yvi"]
+atlas = ExtResource("1_ebmjs")
+region = Rect2(288, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rku1e"]
+atlas = ExtResource("1_ebmjs")
+region = Rect2(320, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rfjv2"]
+atlas = ExtResource("1_ebmjs")
+region = Rect2(352, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ym3tv"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qxrlw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wrm1d")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3dryh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wowpa")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i6g32")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1l0tm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v158k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h4fw4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ldgsr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o5yvi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rku1e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rfjv2")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wowpa"]
+size = Vector2(87.5, 102.5)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_f3c8l"]
+
+[node name="Character" type="Node2D" unique_id=2002347884]
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="." unique_id=761168415]
+script = SubResource("GDScript_wowpa")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CharacterBody2D" unique_id=1921685091]
+position = Vector2(169.9659, 404.9659)
+scale = Vector2(4.060369, 4.060369)
+sprite_frames = SubResource("SpriteFrames_ym3tv")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D" unique_id=907902065]
+position = Vector2(161.93182, 414.00003)
+shape = SubResource("RectangleShape2D_wowpa")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1661791368]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=1016368342]
+position = Vector2(555, 488.00003)
+scale = Vector2(6.265, 6.265)
+shape = SubResource("WorldBoundaryShape2D_f3c8l")
+
+[node name="TileMap" type="TileMap" parent="StaticBody2D" unique_id=1660851539]
+format = 2
+
+[node name="Area2D" parent="." unique_id=1709489676 instance=ExtResource("2_qxrlw")]
+position = Vector2(877, 418)

@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://biwanyest4xo1"]
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_drmij"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_8ck1j"]
+load_path = "res://.godot/imported/Button Settings.png-0b848706a7adda8309170c0f1ecb1777.ctex"
+
+[node name="Settings" type="Control" unique_id=133396877]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MenuButton" type="MenuButton" parent="." unique_id=296772345]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.07700001
+anchor_bottom = 0.13700001
+offset_right = 0.29599
+offset_bottom = 0.2239914
+toggle_mode = false
+button_group = SubResource("ButtonGroup_drmij")
+icon = SubResource("CompressedTexture2D_8ck1j")
+expand_icon = true

@@ -1,0 +1,91 @@
+[gd_scene format=3 uid="uid://6akg4p2t7aya"]
+
+[ext_resource type="Texture2D" uid="uid://c1xm5j8xjuamg" path="res://Assets/Sprites/Portrait Box.png" id="1_0kxgl"]
+[ext_resource type="Texture2D" uid="uid://3jkaq0a7mxxa" path="res://Assets/Sprites/Dialogue Box.png" id="2_ot2p7"]
+[ext_resource type="Texture2D" uid="uid://3r74y7ia47of" path="res://Assets/Sprites/John Facecard.png" id="2_w6krc"]
+[ext_resource type="FontFile" uid="uid://b8lbphkr7l51t" path="res://Assets/Pixellari.ttf" id="4_8gqem"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_8gqem"]
+font = ExtResource("4_8gqem")
+font_size = 14
+font_color = Color(0.9764706, 0.83137256, 0.18431373, 1)
+
+[node name="text_box" type="Control" unique_id=2008745619]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 1.0
+offset_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="potrait" type="NinePatchRect" parent="." unique_id=782613703]
+layout_mode = 0
+offset_left = -3.0
+offset_top = 7.0
+offset_right = 174.0
+offset_bottom = 160.0
+texture = ExtResource("1_0kxgl")
+region_rect = Rect2(0, 0, 662, 192)
+patch_margin_left = 66
+patch_margin_top = 42
+patch_margin_right = 68
+patch_margin_bottom = 36
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="potrait" unique_id=883623967]
+layout_mode = 0
+offset_left = 14.0
+offset_top = 8.0
+offset_right = 154.0
+offset_bottom = 142.0
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 19
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 9
+
+[node name="Sprite2D" type="Sprite2D" parent="potrait/MarginContainer" unique_id=1185645834]
+position = Vector2(71, 71)
+scale = Vector2(0.2894366, 0.28943655)
+texture = ExtResource("2_w6krc")
+
+[node name="dialogue" type="NinePatchRect" parent="." unique_id=816305022]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.12200001
+anchor_top = 0.26900002
+anchor_right = 0.583
+anchor_bottom = 0.5
+offset_left = -0.54400635
+offset_top = -167.31201
+offset_right = 0.38397217
+offset_bottom = -164.0
+texture = ExtResource("2_ot2p7")
+patch_margin_left = 66
+patch_margin_top = 54
+patch_margin_right = 68
+patch_margin_bottom = 57
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[node name="dialogue_text" type="Label" parent="dialogue" unique_id=2070763391]
+layout_mode = 0
+offset_left = 42.0
+offset_top = 55.0
+offset_right = 464.0
+offset_bottom = 125.0
+text = "Hey traveler! Come here a sec!"
+label_settings = SubResource("LabelSettings_8gqem")
+
+[node name="Label" type="Label" parent="dialogue" unique_id=466310367]
+layout_mode = 0
+offset_left = 42.0
+offset_top = 29.0
+offset_right = 174.0
+offset_bottom = 45.0
+theme_override_colors/font_color = Color(0.9764706, 0.83137256, 0.18431373, 1)
+theme_override_constants/outline_size = 0
+theme_override_fonts/font = ExtResource("4_8gqem")
+text = "John"

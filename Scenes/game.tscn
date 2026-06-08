@@ -1,0 +1,208 @@
+[gd_scene format=3 uid="uid://d188r5tcf5d5n"]
+
+[ext_resource type="Texture2D" uid="uid://ba0xwhfuxhhqp" path="res://Assets/Terrain/ground.png" id="1_i6g32"]
+[ext_resource type="Texture2D" uid="uid://csfq2jitqskl7" path="res://Assets/Sprites/Aerys sprite.png" id="1_qxrlw"]
+[ext_resource type="PackedScene" uid="uid://c6iaqeabvtpdu" path="res://Scenes/water_slime.tscn" id="2_qxrlw"]
+[ext_resource type="Script" uid="uid://y21846mqrpxo" path="res://Assets/Sprites/Player.gd" id="2_wowpa"]
+[ext_resource type="Texture2D" uid="uid://bwjyu4gt3nlm4" path="res://Assets/Sprites/Aerys walk.png" id="2_wrm1d"]
+[ext_resource type="Texture2D" uid="uid://c6xusew7fff1c" path="res://Assets/Parallax/semak.png" id="6_1l0tm"]
+[ext_resource type="Texture2D" uid="uid://bmul63s748048" path="res://Assets/Parallax/Parallax bg.png" id="6_i6g32"]
+[ext_resource type="PackedScene" uid="uid://xocsi0yba52t" path="res://Scenes/fade_transition.tscn" id="8_v158k"]
+
+[sub_resource type="GDScript" id="GDScript_h4fw4"]
+script/source = "extends Node2D
+
+func _ready() :
+	$fade_transition/AnimationPlayer.play(\"fade_out\")
+"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_h4fw4"]
+size = Vector2(306.63214, 10.344532)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ldgsr"]
+size = Vector2(15.676141, 111.455635)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wrm1d"]
+atlas = ExtResource("1_qxrlw")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3dryh"]
+atlas = ExtResource("1_qxrlw")
+region = Rect2(128, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wowpa"]
+atlas = ExtResource("1_qxrlw")
+region = Rect2(256, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i6g32"]
+atlas = ExtResource("1_qxrlw")
+region = Rect2(384, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1l0tm"]
+atlas = ExtResource("1_qxrlw")
+region = Rect2(512, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v158k"]
+atlas = ExtResource("1_qxrlw")
+region = Rect2(640, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h4fw4"]
+atlas = ExtResource("2_wrm1d")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ldgsr"]
+atlas = ExtResource("2_wrm1d")
+region = Rect2(128, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o5yvi"]
+atlas = ExtResource("2_wrm1d")
+region = Rect2(256, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rku1e"]
+atlas = ExtResource("2_wrm1d")
+region = Rect2(384, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rfjv2"]
+atlas = ExtResource("2_wrm1d")
+region = Rect2(512, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1phco"]
+atlas = ExtResource("2_wrm1d")
+region = Rect2(640, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nb51f"]
+atlas = ExtResource("2_wrm1d")
+region = Rect2(768, 0, 128, 128)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ym3tv"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wrm1d")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3dryh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wowpa")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i6g32")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1l0tm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v158k")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h4fw4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ldgsr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o5yvi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rku1e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rfjv2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1phco")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nb51f")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 8.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_i6g32"]
+radius = 34.0
+height = 96.75
+
+[node name="Character" type="Node2D" unique_id=2002347884]
+script = SubResource("GDScript_h4fw4")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1719132711]
+position = Vector2(-4, -6)
+
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D" unique_id=2034404933]
+position = Vector2(894.57825, 289.5)
+scale = Vector2(0.5076521, 0.2939516)
+texture = ExtResource("1_i6g32")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=2003322418]
+position = Vector2(894.99994, 515.025)
+scale = Vector2(5.805, 5.805)
+shape = SubResource("RectangleShape2D_h4fw4")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D" unique_id=455651158]
+position = Vector2(-2.500002, 326.5)
+scale = Vector2(5.805, 5.805)
+shape = SubResource("RectangleShape2D_ldgsr")
+
+[node name="player" type="CharacterBody2D" parent="." unique_id=761168415]
+script = ExtResource("2_wowpa")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="player" unique_id=1921685091]
+position = Vector2(159, 428)
+scale = Vector2(0.9371004, 0.9371004)
+sprite_frames = SubResource("SpriteFrames_ym3tv")
+animation = &"walk"
+autoplay = "idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="player" unique_id=907902065]
+position = Vector2(157, 425.625)
+shape = SubResource("CapsuleShape2D_i6g32")
+
+[node name="Camera2D" type="Camera2D" parent="player" unique_id=1178220094]
+position = Vector2(161.605, 375.66)
+zoom = Vector2(1.14, 1.14)
+limit_left = 0
+limit_top = -51
+limit_right = 1785
+limit_bottom = 589
+limit_smoothed = true
+position_smoothing_enabled = true
+position_smoothing_speed = 8.0
+
+[node name="Area2D" parent="." unique_id=1709489676 instance=ExtResource("2_qxrlw")]
+position = Vector2(574, 380)
+scale = Vector2(1.64, 1.64)
+
+[node name="ParallaxScrolling" type="Node2D" parent="." unique_id=974059277]
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="ParallaxScrolling" unique_id=640895067]
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxScrolling/ParallaxBackground" unique_id=2092626276]
+motion_mirroring = Vector2(861.905, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxScrolling/ParallaxBackground/ParallaxLayer" unique_id=1131140157]
+z_index = 1
+position = Vector2(408.00003, 372.00003)
+scale = Vector2(0.2516284, 0.26119158)
+texture = ExtResource("6_1l0tm")
+offset = Vector2(-2.82, -270.82)
+
+[node name="ParallaxLayer2" type="ParallaxLayer" parent="ParallaxScrolling/ParallaxBackground" unique_id=951906443]
+motion_mirroring = Vector2(861.905, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxScrolling/ParallaxBackground/ParallaxLayer2" unique_id=1896703770]
+z_index = -7
+position = Vector2(446.56372, 400.37344)
+scale = Vector2(0.2516284, 0.26119158)
+texture = ExtResource("6_i6g32")
+offset = Vector2(-2.82, -291.935)
+
+[node name="fade_transition" parent="." unique_id=15545799 instance=ExtResource("8_v158k")]
+visible = false
