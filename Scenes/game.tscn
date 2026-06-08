@@ -195,11 +195,11 @@ texture = ExtResource("6_1l0tm")
 offset = Vector2(-2.82, -270.82)
 
 [node name="ParallaxLayer2" type="ParallaxLayer" parent="ParallaxScrolling/ParallaxBackground" unique_id=951906443]
-motion_mirroring = Vector2(861.905, 0)
+motion_mirroring = Vector2(882.49, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="ParallaxScrolling/ParallaxBackground/ParallaxLayer2" unique_id=1896703770]
 z_index = -7
-position = Vector2(446.56372, 400.37344)
+position = Vector2(441, 400.3734)
 scale = Vector2(0.2516284, 0.26119158)
 texture = ExtResource("6_i6g32")
 offset = Vector2(-2.82, -291.935)

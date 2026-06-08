@@ -5,7 +5,10 @@
 [ext_resource type="Texture2D" uid="uid://do6i1t1fwktdk" path="res://Assets/Sprites/light on.png" id="2_cayip"]
 [ext_resource type="Texture2D" uid="uid://bk3m860fs8po1" path="res://Assets/Sprites/Menu screen.png" id="3_158mb"]
 [ext_resource type="Texture2D" uid="uid://bnq334mloqn05" path="res://Assets/Sprites/Aerys Title.png" id="3_wwsa2"]
+[ext_resource type="Texture2D" uid="uid://x40n6jxamr8e" path="res://Assets/Sprites/Pentagram.png" id="4_q3rjx"]
+[ext_resource type="Texture2D" uid="uid://cyyhxwng7jby0" path="res://Assets/Sprites/© 2026 Pix-Elated. All Rights Reserved.png" id="5_6swd7"]
 [ext_resource type="PackedScene" uid="uid://xocsi0yba52t" path="res://Scenes/fade_transition.tscn" id="5_wwsa2"]
+[ext_resource type="FontFile" uid="uid://b8lbphkr7l51t" path="res://Assets/Pixellari.ttf" id="8_6swd7"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jsrd8"]
 atlas = ExtResource("3_wwsa2")
@@ -155,6 +158,11 @@ animations = [{
 "speed": 8.0
 }]
 
+[sub_resource type="LabelSettings" id="LabelSettings_7qvly"]
+font = ExtResource("8_6swd7")
+font_size = 28
+font_color = Color(0.13333334, 0.09411765, 0.03137255, 1)
+
 [node name="Menu" type="Control" unique_id=1898469515]
 layout_mode = 3
 anchors_preset = 15
@@ -185,6 +193,17 @@ color = Color(0.12, 0.06594, 0.0564, 0.6745098)
 position = Vector2(433.00003, 324)
 scale = Vector2(0.1780709, 0.1780709)
 texture = ExtResource("3_158mb")
+
+[node name="Sprite2D2" type="Sprite2D" parent="." unique_id=1789291363]
+position = Vector2(270.00003, 478)
+rotation = 3.1415927
+scale = Vector2(1.1124728, 1.1124728)
+texture = ExtResource("4_q3rjx")
+
+[node name="Sprite2D3" type="Sprite2D" parent="." unique_id=2070108956]
+position = Vector2(1030.1989, 635.3701)
+scale = Vector2(0.24038215, 0.24038215)
+texture = ExtResource("5_6swd7")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=861669596]
 position = Vector2(865, 155)
@@ -231,6 +250,22 @@ grow_horizontal = 1
 grow_vertical = 1
 
 [node name="Fade_timer" type="Timer" parent="fade_transition" unique_id=1822057048]
+
+[node name="Label" type="Label" parent="." unique_id=1819030284]
+layout_mode = 0
+offset_left = 87.0
+offset_top = 145.0
+offset_right = 443.0
+offset_bottom = 334.0
+text = "Welcome, player!
+
+Thank you for playing Aerys
+and The Cursed Codex!
+
+We hope you enjoy!"
+label_settings = SubResource("LabelSettings_7qvly")
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [connection signal="pressed" from="MarginContainer/VBoxContainer/play" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/settings" to="." method="_on_settings_pressed"]
