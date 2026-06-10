@@ -1,0 +1,29 @@
+[gd_resource type="Theme" format=3 uid="uid://ca3uhwvu4ib3g"]
+
+[ext_resource type="FontFile" uid="uid://b8lbphkr7l51t" path="res://Assets/Pixellari.ttf" id="1_t5r8a"]
+[ext_resource type="Texture2D" uid="uid://c1snga21dbqeq" path="res://Assets/Buttons/circle on.png" id="1_yc5by"]
+[ext_resource type="Texture2D" uid="uid://bsldtffoe6h26" path="res://Assets/Buttons/circle off.png" id="2_nhkjw"]
+[ext_resource type="Texture2D" uid="uid://csye4qenm3hx5" path="res://Assets/Buttons/Arrow.png" id="3_nhkjw"]
+[ext_resource type="Texture2D" uid="uid://bqtmmiwfcbw1w" path="res://Assets/Buttons/Text box big-export.png" id="4_do7yd"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_0m46j"]
+content_margin_left = 32.0
+content_margin_top = 27.0
+content_margin_bottom = 27.0
+texture = ExtResource("4_do7yd")
+texture_margin_left = 35.0
+texture_margin_top = 35.0
+texture_margin_right = 35.0
+texture_margin_bottom = 35.0
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 2
+region_rect = Rect2(0, 12, 363, 174)
+
+[resource]
+default_font = ExtResource("1_t5r8a")
+default_font_size = 19
+PopupMenu/icons/checked = ExtResource("1_yc5by")
+PopupMenu/icons/radio_checked = ExtResource("1_yc5by")
+PopupMenu/icons/radio_unchecked = ExtResource("2_nhkjw")
+PopupMenu/icons/submenu = ExtResource("3_nhkjw")
+PopupMenu/styles/panel = SubResource("StyleBoxTexture_0m46j")

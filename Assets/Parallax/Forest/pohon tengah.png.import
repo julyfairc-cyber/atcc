@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c7ljdd757uje2"
-path="res://.godot/imported/pohon(belakang).png-1aa08843eeedcfe02fe7aea94bf27831.ctex"
+uid="uid://7xepfey5mwif"
+path="res://.godot/imported/pohon tengah.png-bd13be7d4094f6eef4e8fc4d43ee96bf.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Parallax/pohon(belakang).png"
-dest_files=["res://.godot/imported/pohon(belakang).png-1aa08843eeedcfe02fe7aea94bf27831.ctex"]
+source_file="res://Assets/Parallax/Forest/pohon tengah.png"
+dest_files=["res://.godot/imported/pohon tengah.png-bd13be7d4094f6eef4e8fc4d43ee96bf.ctex"]
 
 [params]
 

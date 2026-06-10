@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://7xepfey5mwif"
-path="res://.godot/imported/pohon tengah.png-7815410e34f716e3185f393193b0961f.ctex"
+uid="uid://c4h6a8aruhdkd"
+path="res://.godot/imported/options dsbld.png-c01fe7f88e5b9150eba3d7c2267ae593.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Parallax/pohon tengah.png"
-dest_files=["res://.godot/imported/pohon tengah.png-7815410e34f716e3185f393193b0961f.ctex"]
+source_file="res://Assets/Buttons/options dsbld.png"
+dest_files=["res://.godot/imported/options dsbld.png-c01fe7f88e5b9150eba3d7c2267ae593.ctex"]
 
 [params]
 

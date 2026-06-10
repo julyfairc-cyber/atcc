@@ -5,22 +5,23 @@
 [ext_resource type="PackedScene" uid="uid://c6iaqeabvtpdu" path="res://Scenes/water_slime.tscn" id="2_qxrlw"]
 [ext_resource type="Script" uid="uid://y21846mqrpxo" path="res://Assets/Sprites/Player.gd" id="2_wowpa"]
 [ext_resource type="Texture2D" uid="uid://bwjyu4gt3nlm4" path="res://Assets/Sprites/Aerys walk.png" id="2_wrm1d"]
-[ext_resource type="Texture2D" uid="uid://c6xusew7fff1c" path="res://Assets/Parallax/semak.png" id="6_1l0tm"]
-[ext_resource type="Texture2D" uid="uid://bmul63s748048" path="res://Assets/Parallax/Parallax bg.png" id="6_i6g32"]
-[ext_resource type="PackedScene" uid="uid://xocsi0yba52t" path="res://Scenes/fade_transition.tscn" id="8_v158k"]
+[ext_resource type="Texture2D" uid="uid://c6xusew7fff1c" path="res://Assets/Parallax/Forest/semak.png" id="6_1l0tm"]
+[ext_resource type="Texture2D" uid="uid://bmul63s748048" path="res://Assets/Parallax/Forest/Parallax bg.png" id="6_i6g32"]
+[ext_resource type="PackedScene" uid="uid://xocsi0yba52t" path="res://Scenes/Fade_transition.tscn" id="8_v158k"]
 
 [sub_resource type="GDScript" id="GDScript_h4fw4"]
 script/source = "extends Node2D
 
 func _ready() :
-	$fade_transition/AnimationPlayer.play(\"fade_out\")
+	$Fade_Transition.show()
+	$Fade_Transition/AnimationPlayer.play(\"fade_out\")
 "
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_h4fw4"]
-size = Vector2(306.63214, 10.344532)
+size = Vector2(336.26178, 6.722658)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ldgsr"]
-size = Vector2(15.676141, 111.455635)
+size = Vector2(15.676141, 122.997406)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_wrm1d"]
 atlas = ExtResource("1_qxrlw")
@@ -137,21 +138,22 @@ script = SubResource("GDScript_h4fw4")
 position = Vector2(-4, -6)
 
 [node name="Sprite2D" type="Sprite2D" parent="StaticBody2D" unique_id=2034404933]
-position = Vector2(894.57825, 289.5)
-scale = Vector2(0.5076521, 0.2939516)
+position = Vector2(977.6354, 323.5)
+scale = Vector2(0.5550051, 0.32137093)
 texture = ExtResource("1_i6g32")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=2003322418]
-position = Vector2(894.99994, 515.025)
+position = Vector2(981.00006, 535.4875)
 scale = Vector2(5.805, 5.805)
 shape = SubResource("RectangleShape2D_h4fw4")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D" unique_id=455651158]
-position = Vector2(-2.500002, 326.5)
+position = Vector2(-2.500002, 360)
 scale = Vector2(5.805, 5.805)
 shape = SubResource("RectangleShape2D_ldgsr")
 
-[node name="player" type="CharacterBody2D" parent="." unique_id=761168415]
+[node name="player" type="CharacterBody2D" parent="." unique_id=761168415 groups=["player"]]
+position = Vector2(0, 33)
 script = ExtResource("2_wowpa")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="player" unique_id=1921685091]
@@ -162,22 +164,23 @@ animation = &"walk"
 autoplay = "idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="player" unique_id=907902065]
-position = Vector2(157, 425.625)
+position = Vector2(162, 426)
 shape = SubResource("CapsuleShape2D_i6g32")
 
 [node name="Camera2D" type="Camera2D" parent="player" unique_id=1178220094]
 position = Vector2(161.605, 375.66)
-zoom = Vector2(1.14, 1.14)
+offset = Vector2(3.965, 0)
+zoom = Vector2(1.325, 1.325)
 limit_left = 0
-limit_top = -51
-limit_right = 1785
-limit_bottom = 589
+limit_top = 0
+limit_right = 1943
+limit_bottom = 714
 limit_smoothed = true
 position_smoothing_enabled = true
 position_smoothing_speed = 8.0
 
 [node name="Area2D" parent="." unique_id=1709489676 instance=ExtResource("2_qxrlw")]
-position = Vector2(574, 380)
+position = Vector2(617, 416)
 scale = Vector2(1.64, 1.64)
 
 [node name="ParallaxScrolling" type="Node2D" parent="." unique_id=974059277]
@@ -185,24 +188,26 @@ scale = Vector2(1.64, 1.64)
 [node name="ParallaxBackground" type="ParallaxBackground" parent="ParallaxScrolling" unique_id=640895067]
 
 [node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxScrolling/ParallaxBackground" unique_id=2092626276]
-motion_mirroring = Vector2(861.905, 0)
+motion_mirroring = Vector2(982.055, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="ParallaxScrolling/ParallaxBackground/ParallaxLayer" unique_id=1131140157]
 z_index = 1
-position = Vector2(408.00003, 372.00003)
-scale = Vector2(0.2516284, 0.26119158)
+position = Vector2(470.00705, 427.35107)
+scale = Vector2(0.2869234, 0.297828)
 texture = ExtResource("6_1l0tm")
 offset = Vector2(-2.82, -270.82)
 
 [node name="ParallaxLayer2" type="ParallaxLayer" parent="ParallaxScrolling/ParallaxBackground" unique_id=951906443]
-motion_mirroring = Vector2(882.49, 0)
+motion_mirroring = Vector2(976, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="ParallaxScrolling/ParallaxBackground/ParallaxLayer2" unique_id=1896703770]
 z_index = -7
-position = Vector2(441, 400.3734)
-scale = Vector2(0.2516284, 0.26119158)
+position = Vector2(487.40714, 442.3781)
+scale = Vector2(0.2780438, 0.28861094)
 texture = ExtResource("6_i6g32")
 offset = Vector2(-2.82, -291.935)
 
-[node name="fade_transition" parent="." unique_id=15545799 instance=ExtResource("8_v158k")]
+[node name="Fade_Transition" parent="." unique_id=555550386 instance=ExtResource("8_v158k")]
 visible = false
+offset_right = 1278.0
+offset_bottom = 716.0

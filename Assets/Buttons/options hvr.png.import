@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bphuhft16wrd0"
-path="res://.godot/imported/Pohon(depan).png-1257a245bda6997cb534296103871783.ctex"
+uid="uid://c23rvdti1dbwb"
+path="res://.godot/imported/options hvr.png-9c2d5953d7b0170323b3bfcadc1289e3.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Parallax/Pohon(depan).png"
-dest_files=["res://.godot/imported/Pohon(depan).png-1257a245bda6997cb534296103871783.ctex"]
+source_file="res://Assets/Buttons/options hvr.png"
+dest_files=["res://.godot/imported/options hvr.png-9c2d5953d7b0170323b3bfcadc1289e3.ctex"]
 
 [params]
 

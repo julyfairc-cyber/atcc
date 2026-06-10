@@ -1,11 +1,15 @@
 [gd_resource type="Theme" format=3 uid="uid://cc3317xq3bjws"]
 
 [ext_resource type="FontFile" uid="uid://b8lbphkr7l51t" path="res://Assets/Pixellari.ttf" id="1_it4ts"]
+[ext_resource type="Texture2D" uid="uid://d0dxt7eymganr" path="res://Assets/Buttons/btn dsbld.png" id="2_5ut55"]
 [ext_resource type="Texture2D" uid="uid://d2o5w15nc4vwn" path="res://Assets/Buttons/Navbar.png" id="2_572gt"]
 [ext_resource type="Texture2D" uid="uid://i6sg6l6chy1q" path="res://Assets/Buttons/btn hvr.png" id="2_dtxal"]
 [ext_resource type="Texture2D" uid="uid://drpc04a3a6vf7" path="res://Assets/Buttons/btn prssd.png" id="4_5ut55"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_dtxal"]
+content_margin_top = 9.0
+content_margin_bottom = 9.0
+texture = ExtResource("2_5ut55")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5ut55"]
 content_margin_left = 4.0
@@ -46,7 +50,7 @@ texture = ExtResource("4_5ut55")
 [resource]
 default_font_size = 17
 Button/colors/font_color = Color(0.13333334, 0.09411765, 0.03137255, 1)
-Button/colors/font_disabled_color = Color(0.54665077, 0.4252846, 0.23120779, 1)
+Button/colors/font_disabled_color = Color(0.6239672, 0.6239672, 0.62396723, 1)
 Button/colors/font_focus_color = Color(0.95, 0.95, 0.95, 1)
 Button/colors/font_hover_color = Color(0.41357896, 0.3173286, 0.16267079, 1)
 Button/colors/font_hover_pressed_color = Color(0.072777085, 0.046144977, 0.012325076, 1)

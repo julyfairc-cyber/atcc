@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://xocsi0yba52t"]
 
-[sub_resource type="Animation" id="Animation_h8oqj"]
+[sub_resource type="Animation" id="Animation_k5pue"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -15,7 +15,7 @@ tracks/0/keys = {
 "values": [Color(0, 0, 0, 1)]
 }
 
-[sub_resource type="Animation" id="Animation_gjqor"]
+[sub_resource type="Animation" id="Animation_sy4rl"]
 resource_name = "fade_in"
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -30,7 +30,7 @@ tracks/0/keys = {
 "values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1)]
 }
 
-[sub_resource type="Animation" id="Animation_gcby7"]
+[sub_resource type="Animation" id="Animation_fi7me"]
 resource_name = "fade_out"
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -45,14 +45,14 @@ tracks/0/keys = {
 "values": [Color(0, 0, 0, 1), Color(0, 0, 0, 0)]
 }
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_b0wte"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_422ef"]
 _data = {
-&"RESET": SubResource("Animation_h8oqj"),
-&"fade_in": SubResource("Animation_gjqor"),
-&"fade_out": SubResource("Animation_gcby7")
+&"RESET": SubResource("Animation_k5pue"),
+&"fade_in": SubResource("Animation_sy4rl"),
+&"fade_out": SubResource("Animation_fi7me")
 }
 
-[node name="fade_transition" type="ColorRect" unique_id=15545799]
+[node name="Fade_Transition" type="ColorRect" unique_id=555550386]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -60,5 +60,5 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 1)
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1440174546]
-libraries/ = SubResource("AnimationLibrary_b0wte")
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1492340403]
+libraries/ = SubResource("AnimationLibrary_422ef")

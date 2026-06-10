@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c6xusew7fff1c"
-path="res://.godot/imported/semak.png-6ec69189e597d0b41fa49a14ab1a3313.ctex"
+uid="uid://bqtmmiwfcbw1w"
+path="res://.godot/imported/Text box big-export.png-80b0f1c2e5ddddc8f5ac44182f200929.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Parallax/semak.png"
-dest_files=["res://.godot/imported/semak.png-6ec69189e597d0b41fa49a14ab1a3313.ctex"]
+source_file="res://Assets/Buttons/Text box big-export.png"
+dest_files=["res://.godot/imported/Text box big-export.png-80b0f1c2e5ddddc8f5ac44182f200929.ctex"]
 
 [params]
 

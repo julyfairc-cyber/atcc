@@ -7,8 +7,8 @@
 [ext_resource type="Texture2D" uid="uid://bnq334mloqn05" path="res://Assets/Sprites/Aerys Title.png" id="3_wwsa2"]
 [ext_resource type="Texture2D" uid="uid://x40n6jxamr8e" path="res://Assets/Sprites/Pentagram.png" id="4_q3rjx"]
 [ext_resource type="Texture2D" uid="uid://cyyhxwng7jby0" path="res://Assets/Sprites/© 2026 Pix-Elated. All Rights Reserved.png" id="5_6swd7"]
-[ext_resource type="PackedScene" uid="uid://xocsi0yba52t" path="res://Scenes/fade_transition.tscn" id="5_wwsa2"]
 [ext_resource type="FontFile" uid="uid://b8lbphkr7l51t" path="res://Assets/Pixellari.ttf" id="8_6swd7"]
+[ext_resource type="PackedScene" uid="uid://xocsi0yba52t" path="res://Scenes/Fade_transition.tscn" id="9_6swd7"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jsrd8"]
 atlas = ExtResource("3_wwsa2")
@@ -163,51 +163,47 @@ font = ExtResource("8_6swd7")
 font_size = 28
 font_color = Color(0.13333334, 0.09411765, 0.03137255, 1)
 
-[node name="Menu" type="Control" unique_id=1898469515]
+[node name="Menu" type="Control" unique_id=2063806407]
 layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+anchors_preset = 0
 script = ExtResource("1_jsrd8")
 
-[node name="TextureRect" type="TextureRect" parent="." unique_id=1197522760]
-layout_mode = 1
-anchors_preset = -1
-anchor_right = 3.045
-anchor_bottom = 3.8270001
-offset_left = 235.0
-offset_right = -2356.2336
-offset_bottom = -1831.896
+[node name="TextureRect" type="TextureRect" parent="." unique_id=1005813272]
+layout_mode = 0
+offset_left = 264.0
+offset_right = 1279.7935
+offset_bottom = 720.0
+size_flags_horizontal = 4
 texture = ExtResource("2_cayip")
 expand_mode = 1
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=784948937]
 layout_mode = 0
-offset_right = 1152.0
-offset_bottom = 648.0
+offset_left = 1.0
+offset_right = 1280.0
+offset_bottom = 720.0
+size_flags_horizontal = 4
 color = Color(0.12, 0.06594, 0.0564, 0.6745098)
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1182077963]
-position = Vector2(433.00003, 324)
-scale = Vector2(0.1780709, 0.1780709)
+position = Vector2(481.00003, 360)
+scale = Vector2(0.19785655, 0.19785658)
 texture = ExtResource("3_158mb")
 
 [node name="Sprite2D2" type="Sprite2D" parent="." unique_id=1789291363]
-position = Vector2(270.00003, 478)
-rotation = 3.1415927
+position = Vector2(287.00003, 536)
+rotation = -3.1415925
 scale = Vector2(1.1124728, 1.1124728)
 texture = ExtResource("4_q3rjx")
 
 [node name="Sprite2D3" type="Sprite2D" parent="." unique_id=2070108956]
-position = Vector2(1030.1989, 635.3701)
+position = Vector2(1145, 699)
 scale = Vector2(0.24038215, 0.24038215)
 texture = ExtResource("5_6swd7")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=861669596]
-position = Vector2(865, 155)
-scale = Vector2(1.4630872, 1.4630871)
+position = Vector2(956, 210.00002)
+scale = Vector2(1.8389266, 1.8389263)
 sprite_frames = SubResource("SpriteFrames_i37ye")
 animation = &"Title"
 autoplay = "Title"
@@ -215,10 +211,11 @@ frame_progress = 0.4024785
 
 [node name="MarginContainer" type="MarginContainer" parent="." unique_id=2036232344]
 layout_mode = 0
-offset_left = 730.0
-offset_top = 319.0
-offset_right = 1004.79865
-offset_bottom = 536.0
+offset_left = 800.7986
+offset_top = 403.0
+offset_right = 1112.0
+offset_bottom = 620.0
+size_flags_horizontal = 4
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=1923875206]
 texture_filter = 1
@@ -232,6 +229,12 @@ layout_mode = 2
 text = "Play"
 autowrap_trim_flags = 0
 
+[node name="continue" type="Button" parent="MarginContainer/VBoxContainer" unique_id=937484396]
+layout_mode = 2
+disabled = true
+text = "Continue"
+autowrap_trim_flags = 0
+
 [node name="settings" type="Button" parent="MarginContainer/VBoxContainer" unique_id=445516340]
 layout_mode = 2
 text = "Settings"
@@ -240,23 +243,13 @@ text = "Settings"
 layout_mode = 2
 text = "Exit Game"
 
-[node name="fade_transition" parent="." unique_id=15545799 instance=ExtResource("5_wwsa2")]
-visible = false
-layout_mode = 0
-anchors_preset = 0
-anchor_right = 0.0
-anchor_bottom = 0.0
-grow_horizontal = 1
-grow_vertical = 1
-
-[node name="Fade_timer" type="Timer" parent="fade_transition" unique_id=1822057048]
-
 [node name="Label" type="Label" parent="." unique_id=1819030284]
 layout_mode = 0
-offset_left = 87.0
-offset_top = 145.0
-offset_right = 443.0
-offset_bottom = 334.0
+offset_left = 111.0
+offset_top = 210.0
+offset_right = 467.0
+offset_bottom = 399.0
+size_flags_horizontal = 4
 text = "Welcome, player!
 
 Thank you for playing Aerys
@@ -267,7 +260,18 @@ label_settings = SubResource("LabelSettings_7qvly")
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="Fade_Transition" parent="." unique_id=555550386 instance=ExtResource("9_6swd7")]
+visible = false
+custom_minimum_size = Vector2(-0.55, 0)
+layout_mode = 1
+offset_right = 1280.0
+offset_bottom = 720.0
+size_flags_vertical = 4
+
+[node name="Fade_timer" type="Timer" parent="Fade_Transition" unique_id=999390331]
+
 [connection signal="pressed" from="MarginContainer/VBoxContainer/play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/continue" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/settings" to="." method="_on_settings_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/exit_game" to="." method="_on_exit_game_pressed"]
-[connection signal="timeout" from="fade_transition/Fade_timer" to="." method="_on_fade_timer_timeout"]
+[connection signal="timeout" from="Fade_Transition/Fade_timer" to="." method="_on_fade_timer_timeout"]
