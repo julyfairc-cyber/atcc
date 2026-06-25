@@ -20,6 +20,10 @@ script/source = "extends Control
 
 var button_type = null
 
+func _ready() :
+	$Fade_Transition.show()
+	$Fade_Transition/AnimationPlayer.play(\"fade_out\")
+	
 func _on_volume_value_changed(value):
 	AudioServer.set_bus_volume_db(0, value)
 
@@ -224,6 +228,10 @@ stretch_mode = 0
 visible = false
 layout_mode = 0
 anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+grow_horizontal = 1
+grow_vertical = 1
 
 [node name="Fade_timer" type="Timer" parent="Fade_Transition" unique_id=1105995248]
 
@@ -302,6 +310,7 @@ popup/item_1/text = "Windowed"
 popup/item_1/id = 1
 
 [connection signal="value_changed" from="MarginContainer/VBoxContainer/master_volume" to="." method="_on_volume_value_changed"]
+[connection signal="drag_ended" from="MarginContainer/VBoxContainer/sfx_volume" to="." method="_on_sfx_volume_drag_ended"]
 [connection signal="value_changed" from="MarginContainer/VBoxContainer/sfx_volume" to="." method="_on_volume_value_changed"]
 [connection signal="value_changed" from="MarginContainer/VBoxContainer/music_volume" to="." method="_on_volume_value_changed"]
 [connection signal="pressed" from="back" to="." method="_on_back_pressed"]

@@ -23,6 +23,11 @@ func _process(delta: float) -> void:
 func _on_timer_timeout() -> void:
 	direction *= -1
 	animated_sprite_2d.flip_h = !animated_sprite_2d.flip_h 
+
+
+func _on_body_entered(body: Node2D) -> void:
+	if (body.name == \"player\"):
+		get_tree().change_scene_to_file(\"res://Scenes/battle.tscn\")
 "
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8nltr"]
@@ -381,4 +386,5 @@ shape = SubResource("CapsuleShape2D_uaeru")
 wait_time = 2.0
 autostart = true
 
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
