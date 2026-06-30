@@ -165,8 +165,13 @@ font_color = Color(0.13333334, 0.09411765, 0.03137255, 1)
 
 [node name="Menu" type="Control" unique_id=2063806407]
 layout_mode = 3
-anchors_preset = 0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("1_jsrd8")
+metadata/_edit_use_anchors_ = true
 
 [node name="TextureRect" type="TextureRect" parent="." unique_id=1005813272]
 layout_mode = 0
@@ -176,6 +181,7 @@ offset_bottom = 720.0
 size_flags_horizontal = 4
 texture = ExtResource("2_cayip")
 expand_mode = 1
+metadata/_edit_use_anchors_ = true
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=784948937]
 layout_mode = 0
@@ -184,6 +190,7 @@ offset_right = 1280.0
 offset_bottom = 720.0
 size_flags_horizontal = 4
 color = Color(0.12, 0.06594, 0.0564, 0.6745098)
+metadata/_edit_use_anchors_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1182077963]
 position = Vector2(481.00003, 360)

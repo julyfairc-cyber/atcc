@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bddkdwhr2dkb5"
-path="res://.godot/imported/Button Skill pressed.png-d83867fdf1e76c5094e88ed21a3c2b06.ctex"
+uid="uid://cd37eco66d1r"
+path="res://.godot/imported/Aerys 2nd.png-380c650a150700e09fefecec50086fd7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Sprites/Button Skill pressed.png"
-dest_files=["res://.godot/imported/Button Skill pressed.png-d83867fdf1e76c5094e88ed21a3c2b06.ctex"]
+source_file="res://Assets/characters/Aerys 2nd.png"
+dest_files=["res://.godot/imported/Aerys 2nd.png-380c650a150700e09fefecec50086fd7.ctex"]
 
 [params]
 

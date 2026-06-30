@@ -3,15 +3,37 @@
 [ext_resource type="Texture2D" uid="uid://bheklu4wrhylp" path="res://Assets/Terrain/Fight BG.png" id="1_oxf17"]
 [ext_resource type="Texture2D" uid="uid://biyx2pfiq8ttp" path="res://Assets/Sprites/Water Slime Idle.png" id="2_1ruyk"]
 [ext_resource type="Texture2D" uid="uid://d14ng8wd5dbnr" path="res://Assets/Sprites/Water Slime Attack.png" id="2_ww2ai"]
-[ext_resource type="PackedScene" uid="uid://xocsi0yba52t" path="res://Scenes/Fade_transition.tscn" id="3_1ruyk"]
 [ext_resource type="Texture2D" uid="uid://c8pok02bnswll" path="res://Assets/Sprites/Water Slime death sprite.png" id="3_lrv64"]
 [ext_resource type="Texture2D" uid="uid://cf8v7b3etk7jn" path="res://Assets/Sprites/Water Slime damaged.png" id="4_qeyqd"]
 [ext_resource type="Texture2D" uid="uid://m8hdy531ch5j" path="res://Assets/Sprites/idle blink.png" id="6_k7mbx"]
 [ext_resource type="Texture2D" uid="uid://dajxyxq8haqx" path="res://Assets/Buttons/bar border.png" id="8_rssjf"]
 [ext_resource type="Texture2D" uid="uid://co7w1vsgwxsgu" path="res://Assets/Buttons/bar fill.png" id="9_heh15"]
-[ext_resource type="FontFile" uid="uid://b8lbphkr7l51t" path="res://Assets/Pixellari.ttf" id="10_xkp4y"]
 [ext_resource type="Texture2D" uid="uid://bxyqnj2noaq7" path="res://Assets/Sprites/Mana bar.png" id="11_vd41i"]
 [ext_resource type="Texture2D" uid="uid://brlt2pakovdi7" path="res://Assets/Sprites/Mana bar full.png" id="12_nne6o"]
+[ext_resource type="Texture2D" uid="uid://c1xm5j8xjuamg" path="res://Assets/Sprites/Portrait Box.png" id="13_heh15"]
+[ext_resource type="Texture2D" uid="uid://b30c3m8dxwy57" path="res://Assets/characters/aerys_headshot.png" id="13_xkp4y"]
+[ext_resource type="Texture2D" uid="uid://dfcvohk7a4lef" path="res://Assets/Sprites/Physical.png" id="14_nne6o"]
+[ext_resource type="FontFile" uid="uid://b6eiyoqdxmwbn" path="res://Assets/Sprites/Pixellari.ttf" id="14_xkp4y"]
+[ext_resource type="Texture2D" uid="uid://3r74y7ia47of" path="res://Assets/Sprites/John Facecard.png" id="15_fonr4"]
+[ext_resource type="Texture2D" uid="uid://cqd4jwu5r6hlm" path="res://Assets/Sprites/Fire.png" id="16_7vlph"]
+[ext_resource type="Texture2D" uid="uid://05xrcmd0jd0d" path="res://Assets/characters/waterslimeportrait.png" id="17_7vlph"]
+[ext_resource type="Texture2D" uid="uid://cl1amxsxm0xbt" path="res://Assets/Sprites/Water.png" id="18_486ce"]
+[ext_resource type="Texture2D" uid="uid://d11ed5tcynh8a" path="res://Assets/Buttons/Button atk.png" id="19_rwop7"]
+[ext_resource type="Texture2D" uid="uid://dt7p0lwceqak4" path="res://Assets/Buttons/Button atk pressed.png" id="20_u4qsn"]
+[ext_resource type="Texture2D" uid="uid://ctr7kkbsjl1u5" path="res://Assets/Buttons/Button Skill.png" id="21_b73yr"]
+[ext_resource type="Texture2D" uid="uid://lpwg03gt600i" path="res://Assets/Buttons/Button skil pressedl.png" id="22_s1dsa"]
+[ext_resource type="Texture2D" uid="uid://dst8vsjx1wklq" path="res://Assets/Buttons/Button Bag.png" id="23_5gfn5"]
+[ext_resource type="Texture2D" uid="uid://kbkdbyt5crpv" path="res://Assets/Buttons/Button Bag Pressed.png" id="24_hatvd"]
+[ext_resource type="Texture2D" uid="uid://cqsy0xhodmua0" path="res://Assets/Buttons/Button Flee.png" id="25_dndgb"]
+[ext_resource type="Texture2D" uid="uid://ce7wrgtvh0k54" path="res://Assets/Buttons/Button Flee pressed.png" id="26_sk0lo"]
+[ext_resource type="Texture2D" uid="uid://dweir05uiwwr4" path="res://Assets/Buttons/Button Skip.png" id="27_xldyr"]
+[ext_resource type="Texture2D" uid="uid://cb1q3yo2d3vpi" path="res://Assets/Buttons/Button Skip Pressed.png" id="28_kmsla"]
+[ext_resource type="Texture2D" uid="uid://bmots2dbowprk" path="res://Assets/Buttons/Button ff.png" id="29_3mu0q"]
+[ext_resource type="Texture2D" uid="uid://b01rvxysu0e7t" path="res://Assets/Buttons/Button ff pressed.png" id="30_2knb8"]
+[ext_resource type="Texture2D" uid="uid://c086xrgsnueo8" path="res://Assets/Buttons/Button Settings.png" id="31_5gfn5"]
+[ext_resource type="Texture2D" uid="uid://c3inlpqsjvkt0" path="res://Assets/Buttons/Button Settings Pressed.png" id="32_rwop7"]
+[ext_resource type="Texture2D" uid="uid://lbi306efp6vj" path="res://Assets/Buttons/Button Stop.png" id="33_heee7"]
+[ext_resource type="Texture2D" uid="uid://dcay3eu42tnmg" path="res://Assets/Buttons/Button stop pressed.png" id="34_pgdia"]
 
 [sub_resource type="GDScript" id="GDScript_1ruyk"]
 resource_name = "battle"
@@ -23,9 +45,9 @@ func _ready() -> void:
 	pass # Replace with function body.
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
+
+func _on_flee_pressed() -> void:
+	get_tree().change_scene_to_file(\"res://Scenes/game.tscn\")
 "
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vd41i"]
@@ -451,15 +473,33 @@ animations = [{
 "speed": 9.0
 }]
 
-[sub_resource type="SystemFont" id="SystemFont_fonr4"]
+[sub_resource type="LabelSettings" id="LabelSettings_emx8f"]
+font = ExtResource("14_xkp4y")
+font_size = 22
 
-[sub_resource type="LabelSettings" id="LabelSettings_7vlph"]
-font = ExtResource("10_xkp4y")
-font_size = 27
+[sub_resource type="LabelSettings" id="LabelSettings_kcxpu"]
+font = ExtResource("14_xkp4y")
+font_size = 17
+
+[sub_resource type="LabelSettings" id="LabelSettings_hgaye"]
+font = ExtResource("14_xkp4y")
+font_size = 22
 
 [sub_resource type="LabelSettings" id="LabelSettings_486ce"]
-font = ExtResource("10_xkp4y")
-font_size = 21
+font = ExtResource("14_xkp4y")
+font_size = 15
+
+[sub_resource type="LabelSettings" id="LabelSettings_387br"]
+font = ExtResource("14_xkp4y")
+font_size = 12
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_xkp4y"]
+texture = ExtResource("13_heh15")
+texture_margin_top = 33.0
+texture_margin_bottom = 42.0
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+region_rect = Rect2(66, 0, 81, 102)
 
 [node name="battle" type="Control" unique_id=1809104410]
 layout_mode = 3
@@ -475,154 +515,658 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_top = -46.0
+offset_bottom = -46.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("1_oxf17")
 expand_mode = 1
 
 [node name="Slime" type="AnimatedSprite2D" parent="." unique_id=1667462938]
-position = Vector2(1029.0001, 466)
-scale = Vector2(7.7968745, 7.7968745)
+position = Vector2(1026, 432.99997)
+scale = Vector2(6.312498, 6.312498)
 sprite_frames = SubResource("SpriteFrames_vd41i")
 animation = &"attack"
 autoplay = "idle"
-frame_progress = 0.85541236
 flip_h = true
 
 [node name="Char" type="AnimatedSprite2D" parent="." unique_id=1349048093]
-position = Vector2(242.00002, 447.00003)
-scale = Vector2(2.4726565, 2.4726565)
+position = Vector2(233.99998, 441)
+scale = Vector2(1.7343751, 1.7343751)
 sprite_frames = SubResource("SpriteFrames_64d33")
 animation = &"idle"
 autoplay = "idle"
 frame_progress = 0.56320804
 
-[node name="Fade_Transition" parent="." unique_id=555550386 instance=ExtResource("3_1ruyk")]
-visible = false
+[node name="playerstats" type="Control" parent="." unique_id=1983756296]
 layout_mode = 1
-
-[node name="Fade_timer" type="Timer" parent="Fade_Transition" unique_id=1545492760]
-
-[node name="TextureProgressBar" type="TextureProgressBar" parent="." unique_id=1972852684]
-layout_mode = 0
-offset_left = 84.0
-offset_top = 74.0
-offset_right = 432.0
-offset_bottom = 136.0
-value = 100.0
-rounded = true
-nine_patch_stretch = true
-texture_under = ExtResource("8_rssjf")
-texture_progress = ExtResource("9_heh15")
-
-[node name="Label" type="Label" parent="TextureProgressBar" unique_id=1155742828]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.40086207
-anchor_top = 0.27419356
-anchor_right = 0.5991379
-anchor_bottom = 0.7258065
-offset_left = 34.0
-offset_top = 2.5
-offset_right = -33.999985
-offset_bottom = -2.5
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_fonts/font = SubResource("SystemFont_fonr4")
-text = "HP: 50/50"
-label_settings = SubResource("LabelSettings_7vlph")
-horizontal_alignment = 1
+anchor_left = 0.01171875
+anchor_top = 0.019444454
+anchor_right = 0.38536534
+anchor_bottom = 0.22361112
+grow_horizontal = 0
+grow_vertical = 0
 metadata/_edit_use_anchors_ = true
 
-[node name="TextureProgressBar2" type="TextureProgressBar" parent="." unique_id=193444600]
-layout_mode = 0
-offset_left = 855.0
-offset_top = 74.0
-offset_right = 1203.0
-offset_bottom = 136.0
-value = 100.0
-rounded = true
-nine_patch_stretch = true
-texture_under = ExtResource("8_rssjf")
-texture_progress = ExtResource("9_heh15")
-
-[node name="Label" type="Label" parent="TextureProgressBar2" unique_id=1833317638]
+[node name="cont" type="NinePatchRect" parent="playerstats" unique_id=2031046735]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.40086207
-anchor_top = 0.27419356
-anchor_right = 0.5991379
-anchor_bottom = 0.7258065
-offset_left = 34.0
-offset_top = 2.5
-offset_right = -33.999985
-offset_bottom = -2.5
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_fonts/font = SubResource("SystemFont_fonr4")
-text = "HP: 50/50"
-label_settings = SubResource("LabelSettings_7vlph")
-horizontal_alignment = 1
+anchor_left = 0.22510822
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+texture = ExtResource("13_heh15")
+region_rect = Rect2(66, 0, 596, 192)
+patch_margin_top = 42
+patch_margin_right = 74
+patch_margin_bottom = 33
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="TextureProgressBar3" type="TextureProgressBar" parent="." unique_id=712301202]
-layout_mode = 0
-offset_left = 932.0
-offset_top = 132.0
-offset_right = 1184.5806
-offset_bottom = 177.0
+[node name="portrait" type="NinePatchRect" parent="playerstats" unique_id=1167735927]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.33267123
+anchor_bottom = 1.0
+offset_right = 1.5258789e-05
+size_flags_horizontal = 3
+texture = ExtResource("13_heh15")
+region_rect = Rect2(0, 0, 662, 192)
+patch_margin_left = 66
+patch_margin_top = 42
+patch_margin_right = 74
+patch_margin_bottom = 33
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="playerbar" type="Control" parent="playerstats" unique_id=268151552]
+layout_mode = 1
+anchor_left = 0.03751804
+anchor_top = 0.112676054
+anchor_right = 0.94949496
+anchor_bottom = 0.9061033
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="healthbar_player" type="TextureProgressBar" parent="playerstats/playerbar" unique_id=1915131044]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.37658226
+anchor_top = 0.388664
+anchor_right = 0.84774035
+anchor_bottom = 0.65625113
+offset_left = 1.5258789e-05
+grow_horizontal = 2
+grow_vertical = 2
 value = 100.0
 rounded = true
 nine_patch_stretch = true
-texture_under = ExtResource("11_vd41i")
-texture_progress = ExtResource("12_nne6o")
+stretch_margin_left = 35
+stretch_margin_right = 35
+texture_under = ExtResource("8_rssjf")
+texture_progress = ExtResource("9_heh15")
+metadata/_edit_use_anchors_ = true
 
-[node name="Label" type="Label" parent="TextureProgressBar3" unique_id=1818963016]
+[node name="manabar_player" type="TextureProgressBar" parent="playerstats/playerbar" unique_id=456433282]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.14878653
-anchor_top = 0.044444446
-anchor_right = 0.8812258
-anchor_bottom = 0.7777778
-offset_left = 34.0
-offset_top = 2.5
-offset_right = -33.999985
-offset_bottom = -2.5
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_fonts/font = SubResource("SystemFont_fonr4")
-text = "SP: 50/50"
-label_settings = SubResource("LabelSettings_486ce")
-horizontal_alignment = 1
-
-[node name="TextureProgressBar4" type="TextureProgressBar" parent="." unique_id=1007128332]
-layout_mode = 0
-offset_left = 110.0
-offset_top = 132.0
-offset_right = 362.58057
-offset_bottom = 177.0
+anchor_left = 0.40189874
+anchor_top = 0.6253503
+anchor_right = 0.7176604
+anchor_bottom = 0.8028651
 value = 100.0
 rounded = true
 nine_patch_stretch = true
+stretch_margin_left = 35
+stretch_margin_right = 35
 texture_under = ExtResource("11_vd41i")
 texture_progress = ExtResource("12_nne6o")
+metadata/_edit_use_anchors_ = true
 
-[node name="Label" type="Label" parent="TextureProgressBar4" unique_id=1894919028]
+[node name="char_name" type="Label" parent="playerstats/playerbar" unique_id=1640434528]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.14878653
-anchor_top = 0.044444446
-anchor_right = 0.8812258
-anchor_bottom = 0.7777778
-offset_left = 34.0
-offset_top = 2.5
-offset_right = -33.999985
-offset_bottom = -2.5
+anchor_left = 0.32436714
+anchor_top = 0.13235117
+anchor_right = 0.53267896
+anchor_bottom = 0.39862332
+offset_right = -23.859161
+offset_bottom = -8.056337
+size_flags_horizontal = 0
+text = "Aerys"
+label_settings = SubResource("LabelSettings_emx8f")
+vertical_alignment = 1
+uppercase = true
+metadata/_edit_use_anchors_ = true
+
+[node name="hp" type="Label" parent="playerstats/playerbar" unique_id=1411522345]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.32436708
+anchor_top = 0.45966992
+anchor_right = 0.37758166
+anchor_bottom = 0.6365619
+offset_left = 1.5258789e-05
+offset_top = -4.0
+offset_right = -1.5258789e-05
+offset_bottom = -4.0
+size_flags_horizontal = 0
+text = "HP"
+label_settings = SubResource("LabelSettings_kcxpu")
+vertical_alignment = 1
+uppercase = true
+metadata/_edit_use_anchors_ = true
+
+[node name="mp" type="Label" parent="playerstats/playerbar" unique_id=1200462218]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.32436708
+anchor_top = 0.6608533
+anchor_right = 0.38349438
+anchor_bottom = 0.83774525
+offset_left = 1.5258789e-05
+offset_top = -4.0
+offset_right = -1.5258789e-05
+offset_bottom = -3.9999924
+size_flags_horizontal = 0
+text = "mp"
+label_settings = SubResource("LabelSettings_kcxpu")
+vertical_alignment = 1
+uppercase = true
+metadata/_edit_use_anchors_ = true
+
+[node name="lvl" type="Label" parent="playerstats/playerbar" unique_id=688958417]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.8140338
+anchor_top = 0.13235117
+anchor_right = 0.9607659
+anchor_bottom = 0.32954958
+size_flags_horizontal = 0
+text = "Lv. 70"
+label_settings = SubResource("LabelSettings_hgaye")
+uppercase = true
+metadata/_edit_use_anchors_ = true
+
+[node name="TextureRect" type="TextureRect" parent="playerstats/playerbar" unique_id=87252043]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.011341105
+anchor_top = 0.042250622
+anchor_right = 0.2555051
+anchor_bottom = 0.9443254
+texture = ExtResource("13_xkp4y")
+expand_mode = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Sprite2D" type="TextureRect" parent="playerstats/playerbar" unique_id=1761268480]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.8761554
+anchor_top = 0.56961715
+anchor_right = 0.96800005
+anchor_bottom = 0.90800005
+offset_right = 100.49484
+offset_bottom = 98.45336
+scale = Vector2(0.28605753, 0.2860576)
+texture = ExtResource("14_nne6o")
+expand_mode = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="allystats" type="Control" parent="." unique_id=966017534]
+layout_mode = 1
+anchor_left = 0.01171875
+anchor_top = 0.23472223
+anchor_right = 0.3091109
+anchor_bottom = 0.39722222
+grow_horizontal = 0
+grow_vertical = 0
+metadata/_edit_use_anchors_ = true
+
+[node name="cont" type="NinePatchRect" parent="allystats" unique_id=1391937642]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.22510822
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+texture = ExtResource("13_heh15")
+region_rect = Rect2(66, 0, 596, 192)
+patch_margin_top = 42
+patch_margin_right = 74
+patch_margin_bottom = 33
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="portrait" type="NinePatchRect" parent="allystats" unique_id=1300693687]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.33267123
+anchor_bottom = 1.0
+offset_right = 1.5258789e-05
+size_flags_horizontal = 3
+texture = ExtResource("13_heh15")
+region_rect = Rect2(0, 0, 662, 192)
+patch_margin_left = 66
+patch_margin_top = 42
+patch_margin_right = 74
+patch_margin_bottom = 33
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="playerbar" type="Control" parent="allystats" unique_id=241387686]
+layout_mode = 1
+anchor_left = 0.03751804
+anchor_top = 0.112676054
+anchor_right = 0.94949496
+anchor_bottom = 0.9061033
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_fonts/font = SubResource("SystemFont_fonr4")
-text = "SP: 50/50"
-label_settings = SubResource("LabelSettings_486ce")
-horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
 
-[connection signal="timeout" from="Fade_Transition/Fade_timer" to="." method="_on_fade_timer_timeout"]
+[node name="healthbar_player" type="TextureProgressBar" parent="allystats/playerbar" unique_id=1640815868]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.37658226
+anchor_top = 0.388664
+anchor_right = 0.844532
+anchor_bottom = 0.65625113
+offset_left = 1.5258789e-05
+grow_horizontal = 2
+grow_vertical = 2
+value = 100.0
+rounded = true
+nine_patch_stretch = true
+stretch_margin_left = 35
+stretch_margin_right = 35
+texture_under = ExtResource("8_rssjf")
+texture_progress = ExtResource("9_heh15")
+metadata/_edit_use_anchors_ = true
+
+[node name="manabar_player" type="TextureProgressBar" parent="allystats/playerbar" unique_id=1684227547]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.40189877
+anchor_top = 0.6253503
+anchor_right = 0.71912724
+anchor_bottom = 0.8028651
+value = 100.0
+rounded = true
+nine_patch_stretch = true
+stretch_margin_left = 35
+stretch_margin_right = 35
+texture_under = ExtResource("11_vd41i")
+texture_progress = ExtResource("12_nne6o")
+metadata/_edit_use_anchors_ = true
+
+[node name="char_name" type="Label" parent="allystats/playerbar" unique_id=792364109]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.32436708
+anchor_top = 0.16086411
+anchor_right = 0.46022227
+anchor_bottom = 0.3367276
+offset_left = 1.5258789e-05
+size_flags_horizontal = 0
+text = "John"
+label_settings = SubResource("LabelSettings_486ce")
+vertical_alignment = 1
+uppercase = true
+metadata/_edit_use_anchors_ = true
+
+[node name="hp" type="Label" parent="allystats/playerbar" unique_id=657899453]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.32436708
+anchor_top = 0.45966992
+anchor_right = 0.37758166
+anchor_bottom = 0.6365619
+offset_left = 1.5258789e-05
+offset_top = -4.0
+offset_right = -1.5258789e-05
+offset_bottom = -4.0
+size_flags_horizontal = 0
+text = "HP"
+label_settings = SubResource("LabelSettings_387br")
+vertical_alignment = 1
+uppercase = true
+metadata/_edit_use_anchors_ = true
+
+[node name="mp" type="Label" parent="allystats/playerbar" unique_id=375223539]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.32436708
+anchor_top = 0.6608533
+anchor_right = 0.38349438
+anchor_bottom = 0.83774525
+offset_left = 1.5258789e-05
+offset_top = -4.0
+offset_right = -1.5258789e-05
+offset_bottom = -3.9999924
+size_flags_horizontal = 0
+text = "mp"
+label_settings = SubResource("LabelSettings_387br")
+vertical_alignment = 1
+uppercase = true
+metadata/_edit_use_anchors_ = true
+
+[node name="lvl" type="Label" parent="allystats/playerbar" unique_id=56154159]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.8143866
+anchor_top = 0.16086411
+anchor_right = 0.9411311
+anchor_bottom = 0.3524971
+size_flags_horizontal = 0
+text = "Lv. 65"
+label_settings = SubResource("LabelSettings_486ce")
+uppercase = true
+metadata/_edit_use_anchors_ = true
+
+[node name="TextureRect" type="TextureRect" parent="allystats/playerbar" unique_id=1443996594]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.046498075
+anchor_top = 0.11652245
+anchor_right = 0.25826082
+anchor_bottom = 0.89888936
+texture = ExtResource("15_fonr4")
+expand_mode = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Sprite2D" type="TextureRect" parent="allystats/playerbar" unique_id=2042856104]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.8549823
+anchor_top = 0.5366408
+anchor_right = 0.9363257
+anchor_bottom = 0.835085
+offset_right = 77.793304
+offset_bottom = 76.351395
+scale = Vector2(0.28605753, 0.2860576)
+texture = ExtResource("16_7vlph")
+expand_mode = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="enemystats" type="Control" parent="." unique_id=729516401]
+layout_mode = 1
+anchor_left = 0.6070312
+anchor_top = 0.019444454
+anchor_right = 0.9806778
+anchor_bottom = 0.22361112
+grow_horizontal = 0
+grow_vertical = 0
+metadata/_edit_use_anchors_ = true
+
+[node name="cont" type="NinePatchRect" parent="enemystats" unique_id=739272894]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.7757163
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+texture = ExtResource("13_heh15")
+region_rect = Rect2(-3, 0, 597, 192)
+patch_margin_left = 75
+patch_margin_top = 42
+patch_margin_bottom = 33
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="portrait" type="NinePatchRect" parent="enemystats" unique_id=1796798836]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.6920812
+anchor_right = 1.0247525
+anchor_bottom = 1.0
+offset_right = 1.5258789e-05
+size_flags_horizontal = 3
+texture = ExtResource("13_heh15")
+region_rect = Rect2(0, 0, 662, 192)
+patch_margin_left = 66
+patch_margin_top = 42
+patch_margin_right = 74
+patch_margin_bottom = 33
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="enemybar" type="Control" parent="enemystats" unique_id=1182797328]
+layout_mode = 1
+anchor_left = 0.03751804
+anchor_top = 0.112676054
+anchor_right = 0.94949496
+anchor_bottom = 0.9061033
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="healthbar_enemy" type="TextureProgressBar" parent="enemystats/enemybar" unique_id=1301413062]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.15832463
+anchor_top = 0.388664
+anchor_right = 0.6294827
+anchor_bottom = 0.65625113
+offset_left = 1.5258789e-05
+grow_horizontal = 2
+grow_vertical = 2
+value = 100.0
+rounded = true
+nine_patch_stretch = true
+stretch_margin_left = 35
+stretch_margin_right = 35
+texture_under = ExtResource("8_rssjf")
+texture_progress = ExtResource("9_heh15")
+metadata/_edit_use_anchors_ = true
+
+[node name="manabar_enemy" type="TextureProgressBar" parent="enemystats/enemybar" unique_id=1679440929]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.29411006
+anchor_top = 0.6253503
+anchor_right = 0.6098717
+anchor_bottom = 0.8028651
+value = 100.0
+rounded = true
+nine_patch_stretch = true
+stretch_margin_left = 35
+stretch_margin_right = 35
+texture_under = ExtResource("11_vd41i")
+texture_progress = ExtResource("12_nne6o")
+metadata/_edit_use_anchors_ = true
+
+[node name="enemyname" type="Label" parent="enemystats/enemybar" unique_id=1840110431]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.54808193
+anchor_top = 0.13235117
+anchor_right = 0.6901708
+anchor_bottom = 0.33
+offset_right = 0.025238037
+offset_bottom = -0.05253601
+size_flags_horizontal = 0
+text = "slime"
+label_settings = SubResource("LabelSettings_emx8f")
+vertical_alignment = 1
+uppercase = true
+metadata/_edit_use_anchors_ = true
+
+[node name="hp" type="Label" parent="enemystats/enemybar" unique_id=505228218]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.644375
+anchor_top = 0.42537457
+anchor_right = 0.6902288
+anchor_bottom = 0.5797037
+size_flags_horizontal = 0
+text = "HP"
+label_settings = SubResource("LabelSettings_kcxpu")
+horizontal_alignment = 2
+vertical_alignment = 1
+uppercase = true
+metadata/_edit_use_anchors_ = true
+
+[node name="mp" type="Label" parent="enemystats/enemybar" unique_id=1964032221]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.63900006
+anchor_top = 0.6300169
+anchor_right = 0.689746
+anchor_bottom = 0.78401697
+offset_left = 0.13381958
+offset_top = -0.044654846
+offset_right = -1.5258789e-05
+offset_bottom = -0.006263733
+size_flags_horizontal = 0
+text = "mp"
+label_settings = SubResource("LabelSettings_kcxpu")
+horizontal_alignment = 2
+vertical_alignment = 1
+uppercase = true
+metadata/_edit_use_anchors_ = true
+
+[node name="lvl" type="Label" parent="enemystats/enemybar" unique_id=1782214994]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.05744643
+anchor_top = 0.13235117
+anchor_right = 0.20417859
+anchor_bottom = 0.32954958
+size_flags_horizontal = 0
+text = "Lv. 61"
+label_settings = SubResource("LabelSettings_hgaye")
+uppercase = true
+metadata/_edit_use_anchors_ = true
+
+[node name="TextureRect" type="TextureRect" parent="enemystats/enemybar" unique_id=115976278]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.7779869
+anchor_top = -0.07316596
+anchor_right = 1.0066197
+anchor_bottom = 0.9440702
+texture = ExtResource("17_7vlph")
+expand_mode = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Sprite2D" type="TextureRect" parent="enemystats/enemybar" unique_id=1344097467]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.057446394
+anchor_top = 0.56961715
+anchor_right = 0.14929104
+anchor_bottom = 0.9080001
+offset_right = 100.49484
+offset_bottom = 98.45336
+scale = Vector2(0.28605753, 0.2860576)
+texture = ExtResource("18_486ce")
+expand_mode = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="ui" type="PanelContainer" parent="." unique_id=2088756822]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.71800005
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 35.039978
+offset_bottom = 35.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxTexture_xkp4y")
+
+[node name="Container" type="Control" parent="." unique_id=1816489214]
+anchors_preset = 0
+offset_left = 25.0
+offset_top = 585.0
+offset_right = 1255.0
+offset_bottom = 713.0
+
+[node name="buttons" type="HBoxContainer" parent="Container" unique_id=1764834171]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -44.0
+offset_right = 380.0
+offset_bottom = 44.0
+grow_vertical = 2
+size_flags_horizontal = 0
+size_flags_vertical = 10
+
+[node name="attack" type="TextureButton" parent="Container/buttons" unique_id=1769333268]
+layout_mode = 2
+size_flags_horizontal = 0
+texture_normal = ExtResource("19_rwop7")
+texture_pressed = ExtResource("20_u4qsn")
+texture_hover = ExtResource("19_rwop7")
+
+[node name="sp" type="TextureButton" parent="Container/buttons" unique_id=1330101927]
+layout_mode = 2
+size_flags_horizontal = 0
+texture_normal = ExtResource("21_b73yr")
+texture_pressed = ExtResource("22_s1dsa")
+texture_hover = ExtResource("21_b73yr")
+
+[node name="inv" type="TextureButton" parent="Container/buttons" unique_id=1937567179]
+layout_mode = 2
+size_flags_horizontal = 0
+texture_normal = ExtResource("23_5gfn5")
+texture_pressed = ExtResource("24_hatvd")
+texture_hover = ExtResource("23_5gfn5")
+
+[node name="flee" type="TextureButton" parent="Container/buttons" unique_id=955688172]
+layout_mode = 2
+size_flags_horizontal = 0
+texture_normal = ExtResource("25_dndgb")
+texture_pressed = ExtResource("26_sk0lo")
+texture_hover = ExtResource("25_dndgb")
+
+[node name="buttons2" type="HBoxContainer" parent="Container" unique_id=259036114]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.6910569
+anchor_top = 0.15625
+anchor_right = 1.0
+anchor_bottom = 0.84375
+grow_horizontal = 0
+grow_vertical = 2
+size_flags_horizontal = 8
+size_flags_vertical = 10
+metadata/_edit_use_anchors_ = true
+
+[node name="skip" type="TextureButton" parent="Container/buttons2" unique_id=1337501844]
+layout_mode = 2
+size_flags_horizontal = 0
+texture_normal = ExtResource("27_xldyr")
+texture_pressed = ExtResource("28_kmsla")
+texture_hover = ExtResource("27_xldyr")
+
+[node name="ff" type="TextureButton" parent="Container/buttons2" unique_id=733395704]
+layout_mode = 2
+size_flags_horizontal = 0
+texture_normal = ExtResource("29_3mu0q")
+texture_pressed = ExtResource("30_2knb8")
+texture_hover = ExtResource("29_3mu0q")
+
+[node name="settings" type="TextureButton" parent="Container/buttons2" unique_id=90053467]
+layout_mode = 2
+size_flags_horizontal = 0
+texture_normal = ExtResource("31_5gfn5")
+texture_pressed = ExtResource("32_rwop7")
+texture_hover = ExtResource("31_5gfn5")
+
+[node name="pause" type="TextureButton" parent="Container/buttons2" unique_id=988107254]
+layout_mode = 2
+size_flags_horizontal = 0
+texture_normal = ExtResource("33_heee7")
+texture_pressed = ExtResource("34_pgdia")
+texture_hover = ExtResource("33_heee7")
+
+[connection signal="pressed" from="Container/buttons/flee" to="." method="_on_flee_pressed"]

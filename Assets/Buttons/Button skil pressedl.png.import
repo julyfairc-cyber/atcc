@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://chxlkcrjiittu"
-path="res://.godot/imported/Button Skip.png-6f20caf6f4c27429f40c668fc8865f3d.ctex"
+uid="uid://lpwg03gt600i"
+path="res://.godot/imported/Button skil pressedl.png-e08cda81737f28291bc67e47096c6f63.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Sprites/Button Skip.png"
-dest_files=["res://.godot/imported/Button Skip.png-6f20caf6f4c27429f40c668fc8865f3d.ctex"]
+source_file="res://Assets/Buttons/Button skil pressedl.png"
+dest_files=["res://.godot/imported/Button skil pressedl.png-e08cda81737f28291bc67e47096c6f63.ctex"]
 
 [params]
 

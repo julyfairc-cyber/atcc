@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c5ky63ogcgf3y"
-path="res://.godot/imported/Button Skip Pressed.png-c68f05f71dd19cafac4f2063263cf6e9.ctex"
+uid="uid://b30c3m8dxwy57"
+path="res://.godot/imported/aerys_headshot.png-03e8d22b770ee919eadff0e5b9c6699f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Sprites/Button Skip Pressed.png"
-dest_files=["res://.godot/imported/Button Skip Pressed.png-c68f05f71dd19cafac4f2063263cf6e9.ctex"]
+source_file="res://Assets/characters/aerys_headshot.png"
+dest_files=["res://.godot/imported/aerys_headshot.png-03e8d22b770ee919eadff0e5b9c6699f.ctex"]
 
 [params]
 
