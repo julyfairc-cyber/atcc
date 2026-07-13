@@ -11,9 +11,17 @@ config_version=5
 [application]
 
 config/name="Aerys and the Cursed Codex"
+config/description="Follow Aerys on their adventure to save Tatonia!"
+config/version="0.0.1"
 run/main_scene="uid://crjy0ybgc52r2"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
+boot_splash/description=""
+boot_splash/version=""
+
+[autoload]
+
+SceneManager="*uid://6nac8k6dg53"
 
 [display]
 

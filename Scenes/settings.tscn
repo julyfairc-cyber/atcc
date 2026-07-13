@@ -1,19 +1,19 @@
 [gd_scene format=3 uid="uid://biwanyest4xo1"]
 
-[ext_resource type="Texture2D" uid="uid://bfyvbd2vstpft" path="res://Assets/Sprites/BG-2.png" id="1_pl4pu"]
-[ext_resource type="Texture2D" uid="uid://b87a1dgjqsnuy" path="res://Assets/Buttons/Header.png" id="2_kd6p0"]
-[ext_resource type="FontFile" uid="uid://b8lbphkr7l51t" path="res://Assets/Pixellari.ttf" id="3_fio1f"]
-[ext_resource type="Theme" uid="uid://ca3uhwvu4ib3g" path="res://Assets/Buttons/Optionals.tres" id="4_fio1f"]
-[ext_resource type="Texture2D" uid="uid://bqtmmiwfcbw1w" path="res://Assets/Buttons/Text box big-export.png" id="5_fio1f"]
-[ext_resource type="Texture2D" uid="uid://72n5lav8ucnl" path="res://Assets/Buttons/options prssd.png" id="6_m6o7m"]
-[ext_resource type="Texture2D" uid="uid://c23rvdti1dbwb" path="res://Assets/Buttons/options hvr.png" id="7_1bc1l"]
-[ext_resource type="PackedScene" uid="uid://xocsi0yba52t" path="res://Scenes/Fade_transition.tscn" id="8_1bc1l"]
-[ext_resource type="Texture2D" uid="uid://c4h6a8aruhdkd" path="res://Assets/Buttons/options dsbld.png" id="8_10njw"]
-[ext_resource type="Texture2D" uid="uid://baxqygigeerji" path="res://Assets/Buttons/back.png" id="9_3hbws"]
-[ext_resource type="Texture2D" uid="uid://csye4qenm3hx5" path="res://Assets/Buttons/Arrow.png" id="9_6mf2a"]
-[ext_resource type="Texture2D" uid="uid://dpfgp3ebmsvac" path="res://Assets/Buttons/back prssd.png" id="10_10njw"]
-[ext_resource type="Theme" uid="uid://veku3bfwn7ph" path="res://Assets/Buttons/sliders.theme" id="10_cu7h4"]
-[ext_resource type="Texture2D" uid="uid://dr8s5gk2kibim" path="res://Assets/Buttons/back hvr.png" id="11_6mf2a"]
+[ext_resource type="Texture2D" uid="uid://bfyvbd2vstpft" path="res://Assets/Sprites/BG-2.png" id="1_1c72s"]
+[ext_resource type="Texture2D" uid="uid://b87a1dgjqsnuy" path="res://Assets/Buttons/Header.png" id="2_vmqi3"]
+[ext_resource type="FontFile" uid="uid://b8lbphkr7l51t" path="res://Assets/Pixellari.ttf" id="3_g8dc3"]
+[ext_resource type="Theme" uid="uid://ca3uhwvu4ib3g" path="res://Assets/Buttons/Optionals.tres" id="4_d6lvq"]
+[ext_resource type="Theme" uid="uid://veku3bfwn7ph" path="res://Assets/Buttons/sliders.theme" id="5_mth80"]
+[ext_resource type="Texture2D" uid="uid://baxqygigeerji" path="res://Assets/Buttons/back.png" id="6_h7htg"]
+[ext_resource type="Texture2D" uid="uid://dpfgp3ebmsvac" path="res://Assets/Buttons/back prssd.png" id="7_fsbv2"]
+[ext_resource type="Texture2D" uid="uid://dr8s5gk2kibim" path="res://Assets/Buttons/back hvr.png" id="8_qv72t"]
+[ext_resource type="PackedScene" uid="uid://xocsi0yba52t" path="res://Scenes/Fade_transition.tscn" id="9_cpoi7"]
+[ext_resource type="Texture2D" uid="uid://bqtmmiwfcbw1w" path="res://Assets/Buttons/Text box big-export.png" id="10_wsu6q"]
+[ext_resource type="Texture2D" uid="uid://72n5lav8ucnl" path="res://Assets/Buttons/options prssd.png" id="11_2q1bh"]
+[ext_resource type="Texture2D" uid="uid://c23rvdti1dbwb" path="res://Assets/Buttons/options hvr.png" id="12_fsr8i"]
+[ext_resource type="Texture2D" uid="uid://c4h6a8aruhdkd" path="res://Assets/Buttons/options dsbld.png" id="13_yehx4"]
+[ext_resource type="Texture2D" uid="uid://csye4qenm3hx5" path="res://Assets/Buttons/Arrow.png" id="14_e1toh"]
 
 [sub_resource type="GDScript" id="GDScript_drmij"]
 script/source = "extends Control
@@ -22,20 +22,22 @@ var button_type = null
 
 func _ready() :
 	$Fade_Transition.show()
+	$Fade_Transition/Fade_timer.start()
 	$Fade_Transition/AnimationPlayer.play(\"fade_out\")
 	
 func _on_volume_value_changed(value):
 	AudioServer.set_bus_volume_db(0, value)
 
-func _on_back_pressed():
-	get_tree().change_scene_to_file(\"res://Scenes/menu.tscn\")
-
+func _on_back_pressed() -> void:
+	$Fade_Transition.show()
+	$Fade_Transition/Fade_timer.start()
+	$Fade_Transition/AnimationPlayer.play(\"fade_in\")
+	SceneManager.go_back()
+	
 func _on_fs_2_item_selected(index):
 	match index:
-		0:
-			DisplayServer.WINDOW_MODE_WINDOWED
-		1:
-			DisplayServer.WINDOW_MODE_FULLSCREEN
+		0: DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
+		1: DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
 
 func _on_resolutions_item_Selected(index):
 	match index:
@@ -46,19 +48,19 @@ func _on_resolutions_item_Selected(index):
 "
 
 [sub_resource type="LabelSettings" id="LabelSettings_64ifj"]
-font = ExtResource("3_fio1f")
+font = ExtResource("3_g8dc3")
 font_size = 43
 font_color = Color(0.13333334, 0.09411765, 0.03137255, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_m6o7m"]
-font = ExtResource("3_fio1f")
+font = ExtResource("3_g8dc3")
 font_size = 25
 font_color = Color(0.13333334, 0.09411765, 0.03137255, 1)
 
 [sub_resource type="Theme" id="Theme_cu7h4"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_1bc1l"]
-font = ExtResource("3_fio1f")
+font = ExtResource("3_g8dc3")
 font_size = 25
 font_color = Color(0.13333334, 0.09411765, 0.03137255, 1)
 
@@ -66,7 +68,7 @@ font_color = Color(0.13333334, 0.09411765, 0.03137255, 1)
 content_margin_left = 32.0
 content_margin_top = 27.0
 content_margin_bottom = 27.0
-texture = ExtResource("5_fio1f")
+texture = ExtResource("10_wsu6q")
 texture_margin_left = 35.0
 texture_margin_top = 35.0
 texture_margin_right = 35.0
@@ -79,7 +81,7 @@ region_rect = Rect2(0, 12, 363, 174)
 content_margin_left = 32.0
 content_margin_top = 27.0
 content_margin_bottom = 27.0
-texture = ExtResource("6_m6o7m")
+texture = ExtResource("11_2q1bh")
 texture_margin_left = 35.0
 texture_margin_top = 35.0
 texture_margin_right = 35.0
@@ -90,7 +92,7 @@ region_rect = Rect2(0, 12, 363, 174)
 content_margin_left = 32.0
 content_margin_top = 27.0
 content_margin_bottom = 27.0
-texture = ExtResource("7_1bc1l")
+texture = ExtResource("12_fsr8i")
 texture_margin_left = 35.0
 texture_margin_top = 35.0
 texture_margin_right = 35.0
@@ -103,7 +105,7 @@ region_rect = Rect2(0, 12, 363, 174)
 content_margin_left = 32.0
 content_margin_top = 27.0
 content_margin_bottom = 27.0
-texture = ExtResource("7_1bc1l")
+texture = ExtResource("12_fsr8i")
 texture_margin_left = 35.0
 texture_margin_top = 35.0
 texture_margin_right = 35.0
@@ -116,7 +118,7 @@ region_rect = Rect2(0, 12, 363, 174)
 content_margin_left = 32.0
 content_margin_top = 27.0
 content_margin_bottom = 27.0
-texture = ExtResource("8_10njw")
+texture = ExtResource("13_yehx4")
 texture_margin_left = 35.0
 texture_margin_top = 35.0
 texture_margin_right = 35.0
@@ -138,7 +140,7 @@ script = SubResource("GDScript_drmij")
 layout_mode = 0
 offset_right = 1280.0
 offset_bottom = 720.0
-texture = ExtResource("1_pl4pu")
+texture = ExtResource("1_1c72s")
 region_rect = Rect2(9, 9, 372, 372)
 patch_margin_left = 122
 patch_margin_top = 141
@@ -151,7 +153,7 @@ offset_left = 375.0
 offset_top = 56.0
 offset_right = 901.0
 offset_bottom = 159.0
-texture = ExtResource("2_kd6p0")
+texture = ExtResource("2_vmqi3")
 patch_margin_left = 129
 patch_margin_right = 129
 axis_stretch_horizontal = 1
@@ -182,7 +184,7 @@ grow_vertical = 2
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=884461666]
 layout_mode = 2
 size_flags_stretch_ratio = 0.0
-theme = ExtResource("4_fio1f")
+theme = ExtResource("4_d6lvq")
 
 [node name="master" type="Label" parent="MarginContainer/VBoxContainer" unique_id=1506045652]
 layout_mode = 2
@@ -192,7 +194,7 @@ label_settings = SubResource("LabelSettings_m6o7m")
 [node name="master_volume" type="HSlider" parent="MarginContainer/VBoxContainer" unique_id=1013345099]
 layout_mode = 2
 size_flags_vertical = 4
-theme = ExtResource("10_cu7h4")
+theme = ExtResource("5_mth80")
 value = 100.0
 ticks_position = 1
 
@@ -204,7 +206,7 @@ label_settings = SubResource("LabelSettings_m6o7m")
 [node name="sfx_volume" type="HSlider" parent="MarginContainer/VBoxContainer" unique_id=1892401364]
 layout_mode = 2
 size_flags_vertical = 4
-theme = ExtResource("10_cu7h4")
+theme = ExtResource("5_mth80")
 value = 100.0
 rounded = true
 
@@ -216,7 +218,7 @@ label_settings = SubResource("LabelSettings_m6o7m")
 [node name="music_volume" type="HSlider" parent="MarginContainer/VBoxContainer" unique_id=1673599395]
 layout_mode = 2
 size_flags_vertical = 4
-theme = ExtResource("10_cu7h4")
+theme = ExtResource("5_mth80")
 value = 100.0
 rounded = true
 
@@ -232,13 +234,13 @@ offset_top = -0.15999985
 offset_right = 0.11999512
 offset_bottom = -0.08001709
 theme = SubResource("Theme_cu7h4")
-texture_normal = ExtResource("9_3hbws")
-texture_pressed = ExtResource("10_10njw")
-texture_hover = ExtResource("11_6mf2a")
+texture_normal = ExtResource("6_h7htg")
+texture_pressed = ExtResource("7_fsbv2")
+texture_hover = ExtResource("8_qv72t")
 ignore_texture_size = true
 stretch_mode = 0
 
-[node name="Fade_Transition" parent="." unique_id=555550386 instance=ExtResource("8_1bc1l")]
+[node name="Fade_Transition" parent="." unique_id=555550386 instance=ExtResource("9_cpoi7")]
 visible = false
 layout_mode = 0
 anchors_preset = 0
@@ -261,10 +263,10 @@ layout_mode = 2
 text = "Resolutions"
 label_settings = SubResource("LabelSettings_1bc1l")
 
-[node name="Resolutions" type="OptionButton" parent="resolutionset" unique_id=1049701445]
+[node name="resolutions" type="OptionButton" parent="resolutionset" unique_id=1049701445]
 layout_mode = 2
 size_flags_stretch_ratio = 0.0
-theme = ExtResource("4_fio1f")
+theme = ExtResource("4_d6lvq")
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_constants/h_separation = 0
 theme_override_constants/line_spacing = 0
@@ -275,7 +277,7 @@ theme_override_styles/hover = SubResource("StyleBoxTexture_fio1f")
 theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_3hbws")
 theme_override_styles/disabled = SubResource("StyleBoxTexture_6mf2a")
 theme_override_constants/arrow_margin = 38
-theme_override_icons/arrow = ExtResource("9_6mf2a")
+theme_override_icons/arrow = ExtResource("14_e1toh")
 autowrap_trim_flags = 0
 selected = 0
 fit_to_longest_item = false
@@ -301,7 +303,7 @@ label_settings = SubResource("LabelSettings_1bc1l")
 [node name="fs2" type="OptionButton" parent="windowmode" unique_id=305137805]
 layout_mode = 2
 size_flags_stretch_ratio = 0.0
-theme = ExtResource("4_fio1f")
+theme = ExtResource("4_d6lvq")
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_constants/h_separation = 0
 theme_override_constants/line_spacing = 0
@@ -312,7 +314,7 @@ theme_override_styles/hover = SubResource("StyleBoxTexture_fio1f")
 theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_3hbws")
 theme_override_styles/disabled = SubResource("StyleBoxTexture_6mf2a")
 theme_override_constants/arrow_margin = 38
-theme_override_icons/arrow = ExtResource("9_6mf2a")
+theme_override_icons/arrow = ExtResource("14_e1toh")
 toggle_mode = false
 autowrap_trim_flags = 0
 selected = 0
@@ -330,5 +332,5 @@ popup/item_1/id = 1
 [connection signal="value_changed" from="MarginContainer/VBoxContainer/music_volume" to="." method="_on_volume_value_changed"]
 [connection signal="pressed" from="back" to="." method="_on_back_pressed"]
 [connection signal="timeout" from="Fade_Transition/Fade_timer" to="." method="_on_fade_timer_timeout"]
-[connection signal="item_selected" from="resolutionset/Resolutions" to="." method="_on_resolutions_item_selected"]
+[connection signal="item_selected" from="resolutionset/resolutions" to="." method="_on_resolutions_item_selected"]
 [connection signal="item_selected" from="windowmode/fs2" to="." method="_on_fs_2_item_selected"]

@@ -17,9 +17,8 @@ func _on_settings_pressed() :
 func _on_exit_game_pressed() :
 	get_tree().quit()
 
-
 func _on_fade_timer_timeout():
 	if button_type == "play" :
 		get_tree().change_scene_to_file("res://Scenes/game.tscn")
 	elif button_type == "settings" :
-		get_tree().change_scene_to_file("res://Assets/settings.tscn")
+		SceneManager.go_to_scene("res://Scenes/settings.tscn")

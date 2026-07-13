@@ -2,6 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://bheklu4wrhylp" path="res://Assets/Terrain/Fight BG.png" id="1_oxf17"]
 [ext_resource type="Texture2D" uid="uid://biyx2pfiq8ttp" path="res://Assets/Sprites/Water Slime Idle.png" id="2_1ruyk"]
+[ext_resource type="Script" uid="uid://b57vit64e5bsj" path="res://battler.gd" id="2_u4qsn"]
 [ext_resource type="Texture2D" uid="uid://d14ng8wd5dbnr" path="res://Assets/Sprites/Water Slime Attack.png" id="2_ww2ai"]
 [ext_resource type="Texture2D" uid="uid://c8pok02bnswll" path="res://Assets/Sprites/Water Slime death sprite.png" id="3_lrv64"]
 [ext_resource type="Texture2D" uid="uid://cf8v7b3etk7jn" path="res://Assets/Sprites/Water Slime damaged.png" id="4_qeyqd"]
@@ -11,8 +12,8 @@
 [ext_resource type="Texture2D" uid="uid://bxyqnj2noaq7" path="res://Assets/Sprites/Mana bar.png" id="11_vd41i"]
 [ext_resource type="Texture2D" uid="uid://brlt2pakovdi7" path="res://Assets/Sprites/Mana bar full.png" id="12_nne6o"]
 [ext_resource type="Texture2D" uid="uid://c1xm5j8xjuamg" path="res://Assets/Sprites/Portrait Box.png" id="13_heh15"]
-[ext_resource type="Texture2D" uid="uid://b30c3m8dxwy57" path="res://Assets/characters/aerys_headshot.png" id="13_xkp4y"]
 [ext_resource type="Texture2D" uid="uid://dfcvohk7a4lef" path="res://Assets/Sprites/Physical.png" id="14_nne6o"]
+[ext_resource type="Texture2D" uid="uid://cvbgxqwhjb7be" path="res://Assets/characters/Aerys portrait.png" id="14_rwop7"]
 [ext_resource type="FontFile" uid="uid://b6eiyoqdxmwbn" path="res://Assets/Sprites/Pixellari.ttf" id="14_xkp4y"]
 [ext_resource type="Texture2D" uid="uid://3r74y7ia47of" path="res://Assets/Sprites/John Facecard.png" id="15_fonr4"]
 [ext_resource type="Texture2D" uid="uid://cqd4jwu5r6hlm" path="res://Assets/Sprites/Fire.png" id="16_7vlph"]
@@ -48,6 +49,104 @@ func _ready() -> void:
 
 func _on_flee_pressed() -> void:
 	get_tree().change_scene_to_file(\"res://Scenes/game.tscn\")
+"
+
+[sub_resource type="GDScript" id="GDScript_u4qsn"]
+resource_name = "battle_manager"
+script/source = "# battle_manager.gd
+extends Node
+class_name BattleManager
+
+# Drag your battler nodes directly into these in the Inspector
+@export var party: Array[Battler] = []
+@export var enemies: Array[Battler] = []
+@export var sword_button: TextureButton
+
+var turn_order: Array[Battler] = []
+var current_turn_index: int = 0
+var active_battler: Battler = null
+var awaiting_player_action: bool = false
+
+func _ready() -> void:
+	for battler in party + enemies:
+		battler.died.connect(_on_battler_died.bind(battler))
+
+	sword_button.pressed.connect(_on_attack_button_pressed)
+
+	_build_turn_order()
+	call_deferred(\"_start_next_turn\")
+
+func _build_turn_order() -> void:
+	turn_order.clear()
+	turn_order.append_array(party)
+	turn_order.append_array(enemies)
+
+func _start_next_turn() -> void:
+	if turn_order.is_empty():
+		return
+
+	active_battler = turn_order[current_turn_index]
+
+	if active_battler.current_hp <= 0:
+		_advance_turn()
+		return
+
+	if active_battler in party:
+		awaiting_player_action = true
+		print(\"%s's turn - choose an action\" % active_battler.battler_name)
+	else:
+		awaiting_player_action = false
+		_enemy_take_turn(active_battler)
+
+func _advance_turn() -> void:
+	current_turn_index = (current_turn_index + 1) % turn_order.size()
+	_start_next_turn()
+
+func _on_attack_button_pressed() -> void:
+	if not awaiting_player_action:
+		return
+
+	var target = _get_first_alive(enemies)
+	if target == null:
+		return
+
+	_perform_attack(active_battler, target)
+	awaiting_player_action = false
+	_advance_turn()
+
+func _enemy_take_turn(enemy: Battler) -> void:
+	var target = _get_first_alive(party)
+	if target == null:
+		return
+
+	await get_tree().create_timer(0.6).timeout
+	_perform_attack(enemy, target)
+	_advance_turn()
+
+func _perform_attack(attacker: Battler, target: Battler) -> void:
+	var damage = _calculate_damage(attacker)
+	print(\"%s attacks %s for %d damage\" % [attacker.battler_name, target.battler_name, damage])
+	target.take_damage(damage)
+	_check_battle_end()
+
+func _calculate_damage(_attacker: Battler) -> int:
+	return randi_range(15, 25)
+
+func _get_first_alive(battlers: Array[Battler]) -> Battler:
+	for b in battlers:
+		if b.current_hp > 0:
+			return b
+	return null
+
+func _on_battler_died(battler: Battler) -> void:
+	print(\"%s has been defeated!\" % battler.battler_name)
+	_check_battle_end()
+
+func _check_battle_end() -> void:
+	if _get_first_alive(enemies) == null:
+		print(\"Victory!\")
+	elif _get_first_alive(party) == null:
+		print(\"Defeat...\")
 "
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vd41i"]
@@ -510,6 +609,12 @@ grow_horizontal = 2
 grow_vertical = 2
 script = SubResource("GDScript_1ruyk")
 
+[node name="BattleManager" type="Node" parent="." unique_id=632994060 node_paths=PackedStringArray("party", "enemies", "sword_button")]
+script = SubResource("GDScript_u4qsn")
+party = [NodePath("../playerstats"), NodePath("../allystats")]
+enemies = [NodePath("../enemystats")]
+sword_button = NodePath("../Container/buttons/SwordButton")
+
 [node name="TextureRect" type="TextureRect" parent="." unique_id=1943058516]
 layout_mode = 1
 anchors_preset = 15
@@ -538,361 +643,6 @@ animation = &"idle"
 autoplay = "idle"
 frame_progress = 0.56320804
 
-[node name="playerstats" type="Control" parent="." unique_id=1983756296]
-layout_mode = 1
-anchor_left = 0.01171875
-anchor_top = 0.019444454
-anchor_right = 0.38536534
-anchor_bottom = 0.22361112
-grow_horizontal = 0
-grow_vertical = 0
-metadata/_edit_use_anchors_ = true
-
-[node name="cont" type="NinePatchRect" parent="playerstats" unique_id=2031046735]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.22510822
-anchor_right = 1.0
-anchor_bottom = 1.0
-size_flags_horizontal = 3
-texture = ExtResource("13_heh15")
-region_rect = Rect2(66, 0, 596, 192)
-patch_margin_top = 42
-patch_margin_right = 74
-patch_margin_bottom = 33
-axis_stretch_horizontal = 1
-axis_stretch_vertical = 1
-metadata/_edit_use_anchors_ = true
-
-[node name="portrait" type="NinePatchRect" parent="playerstats" unique_id=1167735927]
-layout_mode = 1
-anchors_preset = -1
-anchor_right = 0.33267123
-anchor_bottom = 1.0
-offset_right = 1.5258789e-05
-size_flags_horizontal = 3
-texture = ExtResource("13_heh15")
-region_rect = Rect2(0, 0, 662, 192)
-patch_margin_left = 66
-patch_margin_top = 42
-patch_margin_right = 74
-patch_margin_bottom = 33
-axis_stretch_horizontal = 1
-axis_stretch_vertical = 1
-metadata/_edit_use_anchors_ = true
-
-[node name="playerbar" type="Control" parent="playerstats" unique_id=268151552]
-layout_mode = 1
-anchor_left = 0.03751804
-anchor_top = 0.112676054
-anchor_right = 0.94949496
-anchor_bottom = 0.9061033
-grow_horizontal = 2
-grow_vertical = 2
-metadata/_edit_use_anchors_ = true
-
-[node name="healthbar_player" type="TextureProgressBar" parent="playerstats/playerbar" unique_id=1915131044]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.37658226
-anchor_top = 0.388664
-anchor_right = 0.84774035
-anchor_bottom = 0.65625113
-offset_left = 1.5258789e-05
-grow_horizontal = 2
-grow_vertical = 2
-value = 100.0
-rounded = true
-nine_patch_stretch = true
-stretch_margin_left = 35
-stretch_margin_right = 35
-texture_under = ExtResource("8_rssjf")
-texture_progress = ExtResource("9_heh15")
-metadata/_edit_use_anchors_ = true
-
-[node name="manabar_player" type="TextureProgressBar" parent="playerstats/playerbar" unique_id=456433282]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.40189874
-anchor_top = 0.6253503
-anchor_right = 0.7176604
-anchor_bottom = 0.8028651
-value = 100.0
-rounded = true
-nine_patch_stretch = true
-stretch_margin_left = 35
-stretch_margin_right = 35
-texture_under = ExtResource("11_vd41i")
-texture_progress = ExtResource("12_nne6o")
-metadata/_edit_use_anchors_ = true
-
-[node name="char_name" type="Label" parent="playerstats/playerbar" unique_id=1640434528]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.32436714
-anchor_top = 0.13235117
-anchor_right = 0.53267896
-anchor_bottom = 0.39862332
-offset_right = -23.859161
-offset_bottom = -8.056337
-size_flags_horizontal = 0
-text = "Aerys"
-label_settings = SubResource("LabelSettings_emx8f")
-vertical_alignment = 1
-uppercase = true
-metadata/_edit_use_anchors_ = true
-
-[node name="hp" type="Label" parent="playerstats/playerbar" unique_id=1411522345]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.32436708
-anchor_top = 0.45966992
-anchor_right = 0.37758166
-anchor_bottom = 0.6365619
-offset_left = 1.5258789e-05
-offset_top = -4.0
-offset_right = -1.5258789e-05
-offset_bottom = -4.0
-size_flags_horizontal = 0
-text = "HP"
-label_settings = SubResource("LabelSettings_kcxpu")
-vertical_alignment = 1
-uppercase = true
-metadata/_edit_use_anchors_ = true
-
-[node name="mp" type="Label" parent="playerstats/playerbar" unique_id=1200462218]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.32436708
-anchor_top = 0.6608533
-anchor_right = 0.38349438
-anchor_bottom = 0.83774525
-offset_left = 1.5258789e-05
-offset_top = -4.0
-offset_right = -1.5258789e-05
-offset_bottom = -3.9999924
-size_flags_horizontal = 0
-text = "mp"
-label_settings = SubResource("LabelSettings_kcxpu")
-vertical_alignment = 1
-uppercase = true
-metadata/_edit_use_anchors_ = true
-
-[node name="lvl" type="Label" parent="playerstats/playerbar" unique_id=688958417]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.8140338
-anchor_top = 0.13235117
-anchor_right = 0.9607659
-anchor_bottom = 0.32954958
-size_flags_horizontal = 0
-text = "Lv. 70"
-label_settings = SubResource("LabelSettings_hgaye")
-uppercase = true
-metadata/_edit_use_anchors_ = true
-
-[node name="TextureRect" type="TextureRect" parent="playerstats/playerbar" unique_id=87252043]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.011341105
-anchor_top = 0.042250622
-anchor_right = 0.2555051
-anchor_bottom = 0.9443254
-texture = ExtResource("13_xkp4y")
-expand_mode = 1
-metadata/_edit_use_anchors_ = true
-
-[node name="Sprite2D" type="TextureRect" parent="playerstats/playerbar" unique_id=1761268480]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.8761554
-anchor_top = 0.56961715
-anchor_right = 0.96800005
-anchor_bottom = 0.90800005
-offset_right = 100.49484
-offset_bottom = 98.45336
-scale = Vector2(0.28605753, 0.2860576)
-texture = ExtResource("14_nne6o")
-expand_mode = 1
-metadata/_edit_use_anchors_ = true
-
-[node name="allystats" type="Control" parent="." unique_id=966017534]
-layout_mode = 1
-anchor_left = 0.01171875
-anchor_top = 0.23472223
-anchor_right = 0.3091109
-anchor_bottom = 0.39722222
-grow_horizontal = 0
-grow_vertical = 0
-metadata/_edit_use_anchors_ = true
-
-[node name="cont" type="NinePatchRect" parent="allystats" unique_id=1391937642]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.22510822
-anchor_right = 1.0
-anchor_bottom = 1.0
-size_flags_horizontal = 3
-texture = ExtResource("13_heh15")
-region_rect = Rect2(66, 0, 596, 192)
-patch_margin_top = 42
-patch_margin_right = 74
-patch_margin_bottom = 33
-axis_stretch_horizontal = 1
-axis_stretch_vertical = 1
-metadata/_edit_use_anchors_ = true
-
-[node name="portrait" type="NinePatchRect" parent="allystats" unique_id=1300693687]
-layout_mode = 1
-anchors_preset = -1
-anchor_right = 0.33267123
-anchor_bottom = 1.0
-offset_right = 1.5258789e-05
-size_flags_horizontal = 3
-texture = ExtResource("13_heh15")
-region_rect = Rect2(0, 0, 662, 192)
-patch_margin_left = 66
-patch_margin_top = 42
-patch_margin_right = 74
-patch_margin_bottom = 33
-axis_stretch_horizontal = 1
-axis_stretch_vertical = 1
-metadata/_edit_use_anchors_ = true
-
-[node name="playerbar" type="Control" parent="allystats" unique_id=241387686]
-layout_mode = 1
-anchor_left = 0.03751804
-anchor_top = 0.112676054
-anchor_right = 0.94949496
-anchor_bottom = 0.9061033
-grow_horizontal = 2
-grow_vertical = 2
-metadata/_edit_use_anchors_ = true
-
-[node name="healthbar_player" type="TextureProgressBar" parent="allystats/playerbar" unique_id=1640815868]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.37658226
-anchor_top = 0.388664
-anchor_right = 0.844532
-anchor_bottom = 0.65625113
-offset_left = 1.5258789e-05
-grow_horizontal = 2
-grow_vertical = 2
-value = 100.0
-rounded = true
-nine_patch_stretch = true
-stretch_margin_left = 35
-stretch_margin_right = 35
-texture_under = ExtResource("8_rssjf")
-texture_progress = ExtResource("9_heh15")
-metadata/_edit_use_anchors_ = true
-
-[node name="manabar_player" type="TextureProgressBar" parent="allystats/playerbar" unique_id=1684227547]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.40189877
-anchor_top = 0.6253503
-anchor_right = 0.71912724
-anchor_bottom = 0.8028651
-value = 100.0
-rounded = true
-nine_patch_stretch = true
-stretch_margin_left = 35
-stretch_margin_right = 35
-texture_under = ExtResource("11_vd41i")
-texture_progress = ExtResource("12_nne6o")
-metadata/_edit_use_anchors_ = true
-
-[node name="char_name" type="Label" parent="allystats/playerbar" unique_id=792364109]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.32436708
-anchor_top = 0.16086411
-anchor_right = 0.46022227
-anchor_bottom = 0.3367276
-offset_left = 1.5258789e-05
-size_flags_horizontal = 0
-text = "John"
-label_settings = SubResource("LabelSettings_486ce")
-vertical_alignment = 1
-uppercase = true
-metadata/_edit_use_anchors_ = true
-
-[node name="hp" type="Label" parent="allystats/playerbar" unique_id=657899453]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.32436708
-anchor_top = 0.45966992
-anchor_right = 0.37758166
-anchor_bottom = 0.6365619
-offset_left = 1.5258789e-05
-offset_top = -4.0
-offset_right = -1.5258789e-05
-offset_bottom = -4.0
-size_flags_horizontal = 0
-text = "HP"
-label_settings = SubResource("LabelSettings_387br")
-vertical_alignment = 1
-uppercase = true
-metadata/_edit_use_anchors_ = true
-
-[node name="mp" type="Label" parent="allystats/playerbar" unique_id=375223539]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.32436708
-anchor_top = 0.6608533
-anchor_right = 0.38349438
-anchor_bottom = 0.83774525
-offset_left = 1.5258789e-05
-offset_top = -4.0
-offset_right = -1.5258789e-05
-offset_bottom = -3.9999924
-size_flags_horizontal = 0
-text = "mp"
-label_settings = SubResource("LabelSettings_387br")
-vertical_alignment = 1
-uppercase = true
-metadata/_edit_use_anchors_ = true
-
-[node name="lvl" type="Label" parent="allystats/playerbar" unique_id=56154159]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.8143866
-anchor_top = 0.16086411
-anchor_right = 0.9411311
-anchor_bottom = 0.3524971
-size_flags_horizontal = 0
-text = "Lv. 65"
-label_settings = SubResource("LabelSettings_486ce")
-uppercase = true
-metadata/_edit_use_anchors_ = true
-
-[node name="TextureRect" type="TextureRect" parent="allystats/playerbar" unique_id=1443996594]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.046498075
-anchor_top = 0.11652245
-anchor_right = 0.25826082
-anchor_bottom = 0.89888936
-texture = ExtResource("15_fonr4")
-expand_mode = 1
-metadata/_edit_use_anchors_ = true
-
-[node name="Sprite2D" type="TextureRect" parent="allystats/playerbar" unique_id=2042856104]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.8549823
-anchor_top = 0.5366408
-anchor_right = 0.9363257
-anchor_bottom = 0.835085
-offset_right = 77.793304
-offset_bottom = 76.351395
-scale = Vector2(0.28605753, 0.2860576)
-texture = ExtResource("16_7vlph")
-expand_mode = 1
-metadata/_edit_use_anchors_ = true
-
 [node name="enemystats" type="Control" parent="." unique_id=729516401]
 layout_mode = 1
 anchor_left = 0.6070312
@@ -901,6 +651,15 @@ anchor_right = 0.9806778
 anchor_bottom = 0.22361112
 grow_horizontal = 0
 grow_vertical = 0
+script = ExtResource("2_u4qsn")
+level = 61
+is_enemy = true
+name_label_path = NodePath("enemybar/enemy_name")
+level_label_path = NodePath("enemybar/enemylvl")
+hp_bar_path = NodePath("enemybar/healthbar_enemy")
+mp_bar_path = NodePath("enemybar/manabar_enemy")
+hp_label_path = NodePath("enemybar/enemyhp")
+mp_label_path = NodePath("enemybar/enemymp")
 metadata/_edit_use_anchors_ = true
 
 [node name="cont" type="NinePatchRect" parent="enemystats" unique_id=739272894]
@@ -953,7 +712,8 @@ anchor_left = 0.15832463
 anchor_top = 0.388664
 anchor_right = 0.6294827
 anchor_bottom = 0.65625113
-offset_left = 1.5258789e-05
+offset_left = 4.5776367e-05
+offset_right = 3.0517578e-05
 grow_horizontal = 2
 grow_vertical = 2
 value = 100.0
@@ -968,10 +728,11 @@ metadata/_edit_use_anchors_ = true
 [node name="manabar_enemy" type="TextureProgressBar" parent="enemystats/enemybar" unique_id=1679440929]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.29411006
-anchor_top = 0.6253503
-anchor_right = 0.6098717
-anchor_bottom = 0.8028651
+anchor_left = 0.28442264
+anchor_top = 0.6210602
+anchor_right = 0.6001843
+anchor_bottom = 0.7985749
+offset_right = 5.109558
 value = 100.0
 rounded = true
 nine_patch_stretch = true
@@ -981,7 +742,7 @@ texture_under = ExtResource("11_vd41i")
 texture_progress = ExtResource("12_nne6o")
 metadata/_edit_use_anchors_ = true
 
-[node name="enemyname" type="Label" parent="enemystats/enemybar" unique_id=1840110431]
+[node name="enemy_name" type="Label" parent="enemystats/enemybar" unique_id=1840110431]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.54808193
@@ -997,7 +758,7 @@ vertical_alignment = 1
 uppercase = true
 metadata/_edit_use_anchors_ = true
 
-[node name="hp" type="Label" parent="enemystats/enemybar" unique_id=505228218]
+[node name="enemyhp" type="Label" parent="enemystats/enemybar" unique_id=505228218]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.644375
@@ -1012,7 +773,7 @@ vertical_alignment = 1
 uppercase = true
 metadata/_edit_use_anchors_ = true
 
-[node name="mp" type="Label" parent="enemystats/enemybar" unique_id=1964032221]
+[node name="enemymp" type="Label" parent="enemystats/enemybar" unique_id=1964032221]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.63900006
@@ -1031,7 +792,7 @@ vertical_alignment = 1
 uppercase = true
 metadata/_edit_use_anchors_ = true
 
-[node name="lvl" type="Label" parent="enemystats/enemybar" unique_id=1782214994]
+[node name="enemylvl" type="Label" parent="enemystats/enemybar" unique_id=1782214994]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.05744643
@@ -1069,6 +830,370 @@ texture = ExtResource("18_486ce")
 expand_mode = 1
 metadata/_edit_use_anchors_ = true
 
+[node name="playerstats" type="Control" parent="." unique_id=1983756296]
+layout_mode = 1
+anchor_left = 0.01171875
+anchor_top = 0.019444454
+anchor_right = 0.41953126
+anchor_bottom = 0.22777778
+grow_horizontal = 0
+grow_vertical = 0
+script = ExtResource("2_u4qsn")
+level = 70
+name_label_path = NodePath("playerbar/char_name")
+level_label_path = NodePath("playerbar/playerlvl")
+hp_bar_path = NodePath("playerbar/healthbar_player")
+mp_bar_path = NodePath("playerbar/manabar_player")
+hp_label_path = NodePath("playerbar/playerhp")
+mp_label_path = NodePath("playerbar/playermp")
+metadata/_edit_use_anchors_ = true
+
+[node name="cont" type="NinePatchRect" parent="playerstats" unique_id=2031046735]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.22510822
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+texture = ExtResource("13_heh15")
+region_rect = Rect2(66, 0, 596, 192)
+patch_margin_top = 42
+patch_margin_right = 74
+patch_margin_bottom = 33
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="portrait" type="NinePatchRect" parent="playerstats" unique_id=1167735927]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.33267123
+anchor_bottom = 1.0
+offset_right = 1.5258789e-05
+size_flags_horizontal = 3
+texture = ExtResource("13_heh15")
+region_rect = Rect2(0, 0, 662, 192)
+patch_margin_left = 66
+patch_margin_top = 42
+patch_margin_right = 74
+patch_margin_bottom = 33
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="playerbar" type="Control" parent="playerstats" unique_id=1445190406]
+layout_mode = 1
+anchor_left = 0.03751804
+anchor_top = 0.112676054
+anchor_right = 0.94949496
+anchor_bottom = 0.9061033
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="healthbar_player" type="TextureProgressBar" parent="playerstats/playerbar" unique_id=1915131044]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.3660926
+anchor_top = 0.30320713
+anchor_right = 0.9335443
+anchor_bottom = 0.588994
+offset_left = 0.13648987
+offset_top = 0.012664795
+value = 100.0
+rounded = true
+nine_patch_stretch = true
+stretch_margin_left = 35
+stretch_margin_right = 35
+texture_under = ExtResource("8_rssjf")
+texture_progress = ExtResource("9_heh15")
+metadata/_edit_use_anchors_ = true
+
+[node name="manabar_player" type="TextureProgressBar" parent="playerstats/playerbar" unique_id=456433282]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.39578784
+anchor_top = 0.54698217
+anchor_right = 0.805407
+anchor_bottom = 0.7527544
+value = 96.0
+rounded = true
+nine_patch_stretch = true
+stretch_margin_left = 35
+stretch_margin_right = 35
+texture_under = ExtResource("11_vd41i")
+texture_progress = ExtResource("12_nne6o")
+metadata/_edit_use_anchors_ = true
+
+[node name="char_name" type="Label" parent="playerstats/playerbar" unique_id=1640434528]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.3117634
+anchor_top = -0.29325446
+anchor_right = 0.3117634
+anchor_bottom = -0.29325446
+offset_top = 46.0
+offset_right = 67.0
+offset_bottom = 69.0
+size_flags_horizontal = 0
+text = "Aerys"
+label_settings = SubResource("LabelSettings_emx8f")
+vertical_alignment = 1
+uppercase = true
+metadata/_edit_use_anchors_ = true
+
+[node name="playerhp" type="Label" parent="playerstats/playerbar" unique_id=1411522345]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.3117634
+anchor_top = 0.37893486
+anchor_right = 0.35377562
+anchor_bottom = 0.5301775
+size_flags_horizontal = 0
+text = "HP"
+label_settings = SubResource("LabelSettings_kcxpu")
+vertical_alignment = 1
+uppercase = true
+metadata/_edit_use_anchors_ = true
+
+[node name="playermp" type="Label" parent="playerstats/playerbar" unique_id=1200462218]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.3117634
+anchor_top = 0.5805916
+anchor_right = 0.35797685
+anchor_bottom = 0.73183423
+size_flags_horizontal = 0
+text = "mp"
+label_settings = SubResource("LabelSettings_kcxpu")
+vertical_alignment = 1
+uppercase = true
+metadata/_edit_use_anchors_ = true
+
+[node name="playerlvl" type="Label" parent="playerstats/playerbar" unique_id=688958417]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.8327149
+anchor_top = 0.093254395
+anchor_right = 0.967154
+anchor_bottom = 0.28650883
+size_flags_horizontal = 0
+text = "Lv. 70"
+label_settings = SubResource("LabelSettings_hgaye")
+uppercase = true
+metadata/_edit_use_anchors_ = true
+
+[node name="TextureRect" type="TextureRect" parent="playerstats/playerbar" unique_id=87252043]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.026080305
+anchor_top = 0.05964491
+anchor_right = 0.2483952
+anchor_bottom = 0.92185956
+texture = ExtResource("14_rwop7")
+expand_mode = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Sprite2D" type="TextureRect" parent="playerstats/playerbar" unique_id=1761268480]
+clip_contents = true
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.8999258
+anchor_top = 0.66803104
+anchor_right = 0.9717354
+anchor_bottom = 0.9332968
+offset_left = 0.004119873
+offset_top = -2.6106033
+texture = ExtResource("14_nne6o")
+expand_mode = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="allystats" type="Control" parent="." unique_id=966017534]
+layout_mode = 1
+anchor_left = 0.01171875
+anchor_top = 0.23472223
+anchor_right = 0.3091109
+anchor_bottom = 0.39722222
+grow_horizontal = 0
+grow_vertical = 0
+script = ExtResource("2_u4qsn")
+level = 70
+name_label_path = NodePath("allybar/ally_name")
+level_label_path = NodePath("allybar/allylvl")
+hp_bar_path = NodePath("allybar/healthbar_ally")
+mp_bar_path = NodePath("allybar/manabar_ally")
+hp_label_path = NodePath("allybar/allyhp")
+mp_label_path = NodePath("allybar/allymp")
+metadata/_edit_use_anchors_ = true
+
+[node name="cont" type="NinePatchRect" parent="allystats" unique_id=1391937642]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.22510822
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+texture = ExtResource("13_heh15")
+region_rect = Rect2(66, 0, 596, 192)
+patch_margin_top = 42
+patch_margin_right = 74
+patch_margin_bottom = 33
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="portrait" type="NinePatchRect" parent="allystats" unique_id=1300693687]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.33267123
+anchor_bottom = 1.0
+offset_right = 1.5258789e-05
+size_flags_horizontal = 3
+texture = ExtResource("13_heh15")
+region_rect = Rect2(0, 0, 662, 192)
+patch_margin_left = 66
+patch_margin_top = 42
+patch_margin_right = 74
+patch_margin_bottom = 33
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="allybar" type="Control" parent="allystats" unique_id=241387686]
+layout_mode = 1
+anchor_left = 0.03751804
+anchor_top = 0.112676054
+anchor_right = 0.94949496
+anchor_bottom = 0.9061033
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="healthbar_ally" type="TextureProgressBar" parent="allystats/allybar" unique_id=1640815868]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.37658226
+anchor_top = 0.388664
+anchor_right = 0.844532
+anchor_bottom = 0.65625113
+offset_left = 1.5258789e-05
+grow_horizontal = 2
+grow_vertical = 2
+value = 100.0
+rounded = true
+nine_patch_stretch = true
+stretch_margin_left = 35
+stretch_margin_right = 35
+texture_under = ExtResource("8_rssjf")
+texture_progress = ExtResource("9_heh15")
+metadata/_edit_use_anchors_ = true
+
+[node name="manabar_ally" type="TextureProgressBar" parent="allystats/allybar" unique_id=1684227547]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.40189877
+anchor_top = 0.6253503
+anchor_right = 0.71912724
+anchor_bottom = 0.8028651
+value = 100.0
+rounded = true
+nine_patch_stretch = true
+stretch_margin_left = 35
+stretch_margin_right = 35
+texture_under = ExtResource("11_vd41i")
+texture_progress = ExtResource("12_nne6o")
+metadata/_edit_use_anchors_ = true
+
+[node name="ally_name" type="Label" parent="allystats/allybar" unique_id=792364109]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.32436708
+anchor_top = 0.16086411
+anchor_right = 0.46022227
+anchor_bottom = 0.3367276
+offset_left = 1.5258789e-05
+size_flags_horizontal = 0
+text = "John"
+label_settings = SubResource("LabelSettings_486ce")
+vertical_alignment = 1
+uppercase = true
+metadata/_edit_use_anchors_ = true
+
+[node name="allyhp" type="Label" parent="allystats/allybar" unique_id=657899453]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.32436708
+anchor_top = 0.45966992
+anchor_right = 0.37758166
+anchor_bottom = 0.6365619
+offset_left = 1.5258789e-05
+offset_top = -4.0
+offset_right = -1.5258789e-05
+offset_bottom = -4.0
+size_flags_horizontal = 0
+text = "HP"
+label_settings = SubResource("LabelSettings_387br")
+vertical_alignment = 1
+uppercase = true
+metadata/_edit_use_anchors_ = true
+
+[node name="allymp" type="Label" parent="allystats/allybar" unique_id=375223539]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.32436708
+anchor_top = 0.6608533
+anchor_right = 0.38349438
+anchor_bottom = 0.83774525
+offset_left = 1.5258789e-05
+offset_top = -4.0
+offset_right = -1.5258789e-05
+offset_bottom = -3.9999924
+size_flags_horizontal = 0
+text = "mp"
+label_settings = SubResource("LabelSettings_387br")
+vertical_alignment = 1
+uppercase = true
+metadata/_edit_use_anchors_ = true
+
+[node name="allylvl" type="Label" parent="allystats/allybar" unique_id=56154159]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.8143866
+anchor_top = 0.16086411
+anchor_right = 0.9411311
+anchor_bottom = 0.3524971
+size_flags_horizontal = 0
+text = "Lv. 65"
+label_settings = SubResource("LabelSettings_486ce")
+uppercase = true
+metadata/_edit_use_anchors_ = true
+
+[node name="TextureRect" type="TextureRect" parent="allystats/allybar" unique_id=1443996594]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.046498075
+anchor_top = 0.11652245
+anchor_right = 0.25826082
+anchor_bottom = 0.89888936
+texture = ExtResource("15_fonr4")
+expand_mode = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Sprite2D" type="TextureRect" parent="allystats/allybar" unique_id=2042856104]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.8549823
+anchor_top = 0.5366408
+anchor_right = 0.9363257
+anchor_bottom = 0.835085
+offset_right = 77.793304
+offset_bottom = 76.351395
+scale = Vector2(0.28605753, 0.2860576)
+texture = ExtResource("16_7vlph")
+expand_mode = 1
+metadata/_edit_use_anchors_ = true
+
 [node name="ui" type="PanelContainer" parent="." unique_id=2088756822]
 layout_mode = 1
 anchors_preset = -1
@@ -1100,7 +1225,7 @@ grow_vertical = 2
 size_flags_horizontal = 0
 size_flags_vertical = 10
 
-[node name="attack" type="TextureButton" parent="Container/buttons" unique_id=1769333268]
+[node name="SwordButton" type="TextureButton" parent="Container/buttons" unique_id=1769333268]
 layout_mode = 2
 size_flags_horizontal = 0
 texture_normal = ExtResource("19_rwop7")
@@ -1169,4 +1294,5 @@ texture_normal = ExtResource("33_heee7")
 texture_pressed = ExtResource("34_pgdia")
 texture_hover = ExtResource("33_heee7")
 
+[connection signal="pressed" from="Container/buttons/SwordButton" to="BattleManager" method="_on_sword_button_pressed"]
 [connection signal="pressed" from="Container/buttons/flee" to="." method="_on_flee_pressed"]
