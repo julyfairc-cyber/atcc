@@ -2,6 +2,8 @@
 extends Node
 class_name Battler
 
+@export var sprite: AnimatedSprite2D
+@export var data: CharacterData
 @export var battler_name: String = "Battler"
 @export var level: int = 1
 @export var max_hp: int = 100
@@ -31,29 +33,45 @@ signal mp_changed(current: int, max: int)
 signal died
 
 func _ready() -> void:
-	current_hp = max_hp
-	current_mp = max_mp
+	name_label = get_node(name_label_path)
+	level_label = get_node(level_label_path)
+	hp_bar = get_node(hp_bar_path)
+	mp_bar = get_node(mp_bar_path)
+	hp_label = get_node(hp_label_path)
+	mp_label = get_node(mp_label_path)
+
+	current_hp = data.max_hp
+	current_mp = data.max_mp
 	_update_ui()
 
-func _update_ui() -> void:
-	name_label.text = battler_name
-	level_label.text = "LV. %d" % level
-	hp_bar.max_value = max_hp
-	hp_bar.value = current_hp
-	mp_bar.max_value = max_mp
-	mp_bar.value = current_mp
-	hp_label.text = "%d/%d" % [current_hp, max_hp]
-	mp_label.text = "%d/%d" % [current_mp, max_mp]
+	if sprite:
+		sprite.animation_finished.connect(_on_animation_finished)
 
+func _on_animation_finished() -> void:
+	if sprite.animation != "die":  
+		sprite.play("idle")
+		
+func _update_ui() -> void:
+	name_label.text = data.character_name
+	level_label.text = "LV. %d" % data.level
+	hp_bar.max_value = data.max_hp
+	hp_bar.value = current_hp
+	mp_bar.max_value = data.max_mp
+	mp_bar.value = current_mp
 func take_damage(amount: int) -> void:
 	current_hp = clamp(current_hp - amount, 0, max_hp)
 	hp_changed.emit(current_hp, max_hp)
 	_animate_hp()
+
 	if current_hp <= 0:
+		play_die_animation()
 		died.emit()
 		if is_enemy:
+			await get_tree().create_timer(0.8).timeout  # let the die animation play before removing
 			_on_defeated()
-
+	else:
+		play_hurt_animation()
+		
 func heal(amount: int) -> void:
 	current_hp = clamp(current_hp + amount, 0, max_hp)
 	hp_changed.emit(current_hp, max_hp)
@@ -78,9 +96,19 @@ func _on_defeated() -> void:
 func _animate_hp() -> void:
 	var tween = create_tween()
 	tween.tween_property(hp_bar, "value", current_hp, 0.4).set_trans(Tween.TRANS_SINE)
-	hp_label.text = "%d/%d" % [current_hp, max_hp]
 
 func _animate_mp() -> void:
 	var tween = create_tween()
 	tween.tween_property(mp_bar, "value", current_mp, 0.4).set_trans(Tween.TRANS_SINE)
-	mp_label.text = "%d/%d" % [current_mp, max_mp]
+
+func play_attack_animation() -> void:
+	if sprite:
+		sprite.play("attack")
+
+func play_hurt_animation() -> void:
+	if sprite:
+		sprite.play("hurt")
+
+func play_die_animation() -> void:
+	if sprite:
+		sprite.play("die")

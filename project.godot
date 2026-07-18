@@ -22,6 +22,8 @@ boot_splash/version=""
 [autoload]
 
 SceneManager="*uid://6nac8k6dg53"
+GameState="*uid://hl2707ffnpw8"
+PauseMenu="*uid://1sfs1gfm35rf"
 
 [display]
 

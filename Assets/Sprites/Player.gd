@@ -4,8 +4,12 @@ extends CharacterBody2D
 
 const SPEED = 220.0
 const JUMP_VELOCITY = -400.0
+const GRAVITY = 9.8
 
-
+func _ready() -> void:
+	if GameState.last_player_position != Vector2.ZERO:
+		global_position = GameState.last_player_position
+		
 func _physics_process(_delta: float) -> void:
 	#Add animation
 	if velocity.x > 1 or velocity.x <-1:
@@ -13,8 +17,6 @@ func _physics_process(_delta: float) -> void:
 	else :
 		animated_sprite_2d.animation= "idle"
 		
-	# Get the input direction and handle the movement/deceleration.
-	# As good practice, you should replace UI actions with custom gameplay actions.
 	var direction := Input.get_axis("ui_left", "ui_right")
 	if direction:
 		velocity.x = direction * SPEED

@@ -29,7 +29,9 @@ func _on_settings_pressed() -> void:
 	GameState.skip_next_fade_in = true
 	SceneManager.go_to_scene(\"res://Scenes/settings.tscn\")
 
-func _on_pause_button_pressed() -> void:
+
+
+func _on_pause_pressed() -> void:
 	_toggle_pause_menu()
 "
 
@@ -272,4 +274,5 @@ visible = false
 offset_right = 1278.0
 offset_bottom = 716.0
 
+[connection signal="pressed" from="player/CanvasLayer/pause" to="." method="_on_pause_pressed"]
 [connection signal="pressed" from="player/CanvasLayer/settings" to="." method="_on_settings_pressed"]

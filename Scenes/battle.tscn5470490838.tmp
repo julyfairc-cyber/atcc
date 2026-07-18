@@ -4,7 +4,6 @@
 [ext_resource type="Texture2D" uid="uid://biyx2pfiq8ttp" path="res://Assets/Sprites/Water Slime Idle.png" id="2_1ruyk"]
 [ext_resource type="Script" uid="uid://b57vit64e5bsj" path="res://Scripts/battler.gd" id="2_u4qsn"]
 [ext_resource type="Texture2D" uid="uid://d14ng8wd5dbnr" path="res://Assets/Sprites/Water Slime Attack.png" id="2_ww2ai"]
-[ext_resource type="Resource" uid="uid://by76a3bnle1s" path="res://Scenes/data/slime1_data.tres" id="3_5gfn5"]
 [ext_resource type="Texture2D" uid="uid://c8pok02bnswll" path="res://Assets/Sprites/Water Slime death sprite.png" id="3_lrv64"]
 [ext_resource type="Texture2D" uid="uid://cf8v7b3etk7jn" path="res://Assets/Sprites/Water Slime damaged.png" id="4_qeyqd"]
 [ext_resource type="Texture2D" uid="uid://m8hdy531ch5j" path="res://Assets/Sprites/idle blink.png" id="6_k7mbx"]
@@ -16,13 +15,11 @@
 [ext_resource type="Texture2D" uid="uid://dfcvohk7a4lef" path="res://Assets/Sprites/Physical.png" id="14_nne6o"]
 [ext_resource type="Texture2D" uid="uid://cvbgxqwhjb7be" path="res://Assets/characters/Aerys portrait.png" id="14_rwop7"]
 [ext_resource type="FontFile" uid="uid://b6eiyoqdxmwbn" path="res://Assets/Sprites/Pixellari.ttf" id="14_xkp4y"]
-[ext_resource type="Resource" uid="uid://cpg3o040qe1qn" path="res://Scenes/data/aerys_data.tres" id="15_b73yr"]
 [ext_resource type="Texture2D" uid="uid://3r74y7ia47of" path="res://Assets/Sprites/John Facecard.png" id="15_fonr4"]
 [ext_resource type="Texture2D" uid="uid://cqd4jwu5r6hlm" path="res://Assets/Sprites/Fire.png" id="16_7vlph"]
 [ext_resource type="Texture2D" uid="uid://05xrcmd0jd0d" path="res://Assets/characters/waterslimeportrait.png" id="17_7vlph"]
 [ext_resource type="Texture2D" uid="uid://cl1amxsxm0xbt" path="res://Assets/Sprites/Water.png" id="18_486ce"]
 [ext_resource type="Texture2D" uid="uid://d11ed5tcynh8a" path="res://Assets/Buttons/Button atk.png" id="19_rwop7"]
-[ext_resource type="Resource" uid="uid://be4vpsqr851hs" path="res://Scenes/data/john_data.tres" id="19_s1dsa"]
 [ext_resource type="Texture2D" uid="uid://dt7p0lwceqak4" path="res://Assets/Buttons/Button atk pressed.png" id="20_u4qsn"]
 [ext_resource type="Texture2D" uid="uid://ctr7kkbsjl1u5" path="res://Assets/Buttons/Button Skill.png" id="21_b73yr"]
 [ext_resource type="Texture2D" uid="uid://lpwg03gt600i" path="res://Assets/Buttons/Button skil pressedl.png" id="22_s1dsa"]
@@ -47,6 +44,11 @@ script/source = "extends Control
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass # Replace with function body.
+
+
+
+func _on_flee_pressed() -> void:
+	get_tree().change_scene_to_file(\"res://Scenes/game.tscn\")
 "
 
 [sub_resource type="GDScript" id="GDScript_u4qsn"]
@@ -59,11 +61,10 @@ class_name BattleManager
 @export var party: Array[Battler] = []
 @export var enemies: Array[Battler] = []
 @export var sword_button: TextureButton
-@export var flee_button: TextureButton
 
 signal battle_ended(victory: bool)
-var current_party_index: int = 0
-var current_enemy_index: int = 0
+var turn_order: Array[Battler] = []
+var current_turn_index: int = 0
 var active_battler: Battler = null
 var awaiting_player_action: bool = false
 var battle_over: bool = false
@@ -73,83 +74,60 @@ func _ready() -> void:
 		battler.died.connect(_on_battler_died.bind(battler))
 
 	sword_button.pressed.connect(_on_attack_button_pressed)
-	flee_button.pressed.connect(_on_flee_button_pressed)
 
-	call_deferred(\"_start_next_player_turn\")
+	_build_turn_order()
+	call_deferred(\"_start_next_turn\")
 
-func _start_next_player_turn() -> void:
+func _build_turn_order() -> void:
+	turn_order.clear()
+	turn_order.append_array(party)
+	turn_order.append_array(enemies)
+
+func _start_next_turn() -> void:
 	if battle_over:
 		return
+	if turn_order.is_empty():
+		return
 
-	active_battler = _get_next_alive_party_member()
-	if active_battler == null:
-		return  # shouldn't happen if battle-end check works
+	active_battler = turn_order[current_turn_index]
 
-	awaiting_player_action = true
-	print(\"%s's turn - choose an action\" % active_battler.battler_name)
+	if active_battler.current_hp <= 0:
+		_advance_turn()
+		return
 
-func _get_next_alive_party_member() -> Battler:
-	var attempts = 0
-	while attempts < party.size():
-		var candidate = party[current_party_index]
-		current_party_index = (current_party_index + 1) % party.size()
-		attempts += 1
-		if candidate.current_hp > 0:
-			return candidate
-	return null
+	if active_battler in party:
+		awaiting_player_action = true
+		print(\"%s's turn - choose an action\" % active_battler.battler_name)
+	else:
+		awaiting_player_action = false
+		_enemy_take_turn(active_battler)
 
-func _get_next_alive_enemy() -> Battler:
-	var attempts = 0
-	while attempts < enemies.size():
-		var candidate = enemies[current_enemy_index]
-		current_enemy_index = (current_enemy_index + 1) % enemies.size()
-		attempts += 1
-		if candidate.current_hp > 0:
-			return candidate
-	return null
+func _advance_turn() -> void:
+	current_turn_index = (current_turn_index + 1) % turn_order.size()
+	_start_next_turn()
 
 func _on_attack_button_pressed() -> void:
-	if not awaiting_player_action or battle_over:
+	if not awaiting_player_action:
 		return
 
 	var target = _get_first_alive(enemies)
 	if target == null:
 		return
 
+	_perform_attack(active_battler, target)
 	awaiting_player_action = false
-	await _perform_attack(active_battler, target)
+	_advance_turn()
 
-	if battle_over:
+func _enemy_take_turn(enemy: Battler) -> void:
+	var target = _get_first_alive(party)
+	if target == null:
 		return
 
-	# Immediately counterattack with one enemy
-	var enemy = _get_next_alive_enemy()
-	if enemy != null:
-		await get_tree().create_timer(0.4).timeout
-		var counter_target = _get_first_alive(party)
-		if counter_target != null:
-			await _perform_attack(enemy, counter_target)
+	await get_tree().create_timer(0.6).timeout
+	_perform_attack(enemy, target)
+	_advance_turn()
 
-	if battle_over:
-		return
-
-	_start_next_player_turn()
-
-func _on_flee_button_pressed() -> void:
-	if battle_over or not awaiting_player_action:
-		return
-
-	battle_over = true  # stop any further turns/attacks
-	awaiting_player_action = false
-	sword_button.disabled = true
-
-	GameState.set_flee_cooldown(GameState.pending_enemy_id, 3.0)  # 5 seconds of safe passage
-	SceneManager.go_back()
-	
 func _perform_attack(attacker: Battler, target: Battler) -> void:
-	attacker.play_attack_animation()
-	await get_tree().create_timer(0.4).timeout
-
 	var damage = _calculate_damage(attacker)
 	print(\"%s attacks %s for %d damage\" % [attacker.battler_name, target.battler_name, damage])
 	target.take_damage(damage)
@@ -185,13 +163,17 @@ func _end_battle(victory: bool) -> void:
 	awaiting_player_action = false
 	sword_button.disabled = true
 	if victory:
-		GameState.mark_defeated(GameState.pending_enemy_id)
+		GameState.mark_defeated(GameState.pending_enemy_id)   # ← this line is critical
 	await get_tree().create_timer(1.5).timeout
 	if victory:
 		SceneManager.go_back()
 	else:
 		get_tree().change_scene_to_file(\"res://Scenes/game_over.tscn\")
 "
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vd41i"]
+atlas = ExtResource("2_ww2ai")
+region = Rect2(0, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_nne6o"]
 atlas = ExtResource("2_ww2ai")
@@ -233,6 +215,26 @@ region = Rect2(288, 0, 32, 32)
 atlas = ExtResource("2_ww2ai")
 region = Rect2(320, 0, 32, 32)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_gpeip"]
+atlas = ExtResource("3_lrv64")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fg6fv"]
+atlas = ExtResource("3_lrv64")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f1sv4"]
+atlas = ExtResource("3_lrv64")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cxwla"]
+atlas = ExtResource("3_lrv64")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_knlfb"]
+atlas = ExtResource("3_lrv64")
+region = Rect2(128, 0, 32, 32)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_gvg88"]
 atlas = ExtResource("3_lrv64")
 region = Rect2(160, 0, 32, 32)
@@ -256,6 +258,26 @@ region = Rect2(288, 0, 32, 32)
 [sub_resource type="AtlasTexture" id="AtlasTexture_b73yr"]
 atlas = ExtResource("3_lrv64")
 region = Rect2(320, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s1dsa"]
+atlas = ExtResource("4_qeyqd")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5gfn5"]
+atlas = ExtResource("4_qeyqd")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hatvd"]
+atlas = ExtResource("4_qeyqd")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dndgb"]
+atlas = ExtResource("4_qeyqd")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sk0lo"]
+atlas = ExtResource("4_qeyqd")
+region = Rect2(128, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xldyr"]
 atlas = ExtResource("4_qeyqd")
@@ -329,6 +351,9 @@ region = Rect2(320, 0, 32, 32)
 animations = [{
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_vd41i")
+}, {
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_nne6o")
 }, {
 "duration": 1.0,
@@ -358,11 +383,26 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_ljaiu")
 }],
-"loop": false,
+"loop": true,
 "name": &"attack",
-"speed": 12.0
+"speed": 10.0
 }, {
 "frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gpeip")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fg6fv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f1sv4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cxwla")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_knlfb")
+}, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_gvg88")
 }, {
@@ -381,11 +421,26 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_b73yr")
 }],
-"loop": false,
+"loop": true,
 "name": &"die",
 "speed": 9.0
 }, {
 "frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s1dsa")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5gfn5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hatvd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dndgb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sk0lo")
+}, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_xldyr")
 }, {
@@ -404,7 +459,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_pgdia")
 }],
-"loop": false,
+"loop": true,
 "name": &"hurt",
 "speed": 9.0
 }, {
@@ -446,18 +501,6 @@ animations = [{
 "name": &"idle",
 "speed": 9.0
 }]
-
-[sub_resource type="LabelSettings" id="LabelSettings_emx8f"]
-font = ExtResource("14_xkp4y")
-font_size = 22
-
-[sub_resource type="LabelSettings" id="LabelSettings_kcxpu"]
-font = ExtResource("14_xkp4y")
-font_size = 17
-
-[sub_resource type="LabelSettings" id="LabelSettings_hgaye"]
-font = ExtResource("14_xkp4y")
-font_size = 22
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5v2fc"]
 atlas = ExtResource("6_k7mbx")
@@ -551,6 +594,18 @@ animations = [{
 "speed": 9.0
 }]
 
+[sub_resource type="LabelSettings" id="LabelSettings_emx8f"]
+font = ExtResource("14_xkp4y")
+font_size = 22
+
+[sub_resource type="LabelSettings" id="LabelSettings_kcxpu"]
+font = ExtResource("14_xkp4y")
+font_size = 17
+
+[sub_resource type="LabelSettings" id="LabelSettings_hgaye"]
+font = ExtResource("14_xkp4y")
+font_size = 22
+
 [sub_resource type="LabelSettings" id="LabelSettings_486ce"]
 font = ExtResource("14_xkp4y")
 font_size = 15
@@ -576,12 +631,11 @@ grow_horizontal = 2
 grow_vertical = 2
 script = SubResource("GDScript_1ruyk")
 
-[node name="BattleManager" type="Node" parent="." unique_id=632994060 node_paths=PackedStringArray("party", "enemies", "sword_button", "flee_button")]
+[node name="BattleManager" type="Node" parent="." unique_id=632994060 node_paths=PackedStringArray("party", "enemies", "sword_button")]
 script = SubResource("GDScript_u4qsn")
 party = [NodePath("../playerstats"), NodePath("../allystats")]
 enemies = [NodePath("../enemystats")]
-sword_button = NodePath("../ui/Container/buttons/SwordButton")
-flee_button = NodePath("../ui/Container/buttons/FleeButton")
+sword_button = NodePath("../Container/buttons/SwordButton")
 
 [node name="TextureRect" type="TextureRect" parent="." unique_id=1943058516]
 layout_mode = 1
@@ -595,7 +649,23 @@ grow_vertical = 2
 texture = ExtResource("1_oxf17")
 expand_mode = 1
 
-[node name="enemystats" type="Control" parent="." unique_id=729516401 node_paths=PackedStringArray("sprite")]
+[node name="Slime" type="AnimatedSprite2D" parent="." unique_id=1667462938]
+position = Vector2(1026, 432.99997)
+scale = Vector2(6.312498, 6.312498)
+sprite_frames = SubResource("SpriteFrames_vd41i")
+animation = &"die"
+autoplay = "idle"
+flip_h = true
+
+[node name="Char" type="AnimatedSprite2D" parent="." unique_id=1349048093]
+position = Vector2(233.99998, 441)
+scale = Vector2(1.7343751, 1.7343751)
+sprite_frames = SubResource("SpriteFrames_64d33")
+animation = &"idle"
+autoplay = "idle"
+frame_progress = 0.56320804
+
+[node name="enemystats" type="Control" parent="." unique_id=729516401 node_paths=PackedStringArray("slime")]
 layout_mode = 1
 anchor_left = 0.6070312
 anchor_top = 0.019444454
@@ -604,9 +674,7 @@ anchor_bottom = 0.22361112
 grow_horizontal = 0
 grow_vertical = 0
 script = ExtResource("2_u4qsn")
-sprite = NodePath("Slime")
-data = ExtResource("3_5gfn5")
-battler_name = "Slime"
+slime = NodePath("../Slime")
 level = 61
 is_enemy = true
 name_label_path = NodePath("enemybar/name_label")
@@ -616,14 +684,6 @@ mp_bar_path = NodePath("enemybar/mp_bar")
 hp_label_path = NodePath("enemybar/hp_label")
 mp_label_path = NodePath("enemybar/mp_label")
 metadata/_edit_use_anchors_ = true
-
-[node name="Slime" type="AnimatedSprite2D" parent="enemystats" unique_id=1667462938]
-position = Vector2(249, 418.99997)
-scale = Vector2(6.312498, 6.312498)
-sprite_frames = SubResource("SpriteFrames_vd41i")
-animation = &"attack"
-autoplay = "idle"
-flip_h = true
 
 [node name="cont" type="NinePatchRect" parent="enemystats" unique_id=739272894]
 layout_mode = 1
@@ -772,7 +832,7 @@ metadata/_edit_use_anchors_ = true
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.7779869
-anchor_top = 0.063760355
+anchor_top = -0.07316596
 anchor_right = 1.0066197
 anchor_bottom = 0.9440702
 texture = ExtResource("17_7vlph")
@@ -793,7 +853,7 @@ texture = ExtResource("18_486ce")
 expand_mode = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="playerstats" type="Control" parent="." unique_id=1983756296 node_paths=PackedStringArray("sprite")]
+[node name="playerstats" type="Control" parent="." unique_id=1983756296]
 layout_mode = 1
 anchor_left = 0.01171875
 anchor_top = 0.019444454
@@ -802,9 +862,6 @@ anchor_bottom = 0.22777778
 grow_horizontal = 0
 grow_vertical = 0
 script = ExtResource("2_u4qsn")
-sprite = NodePath("Char")
-data = ExtResource("15_b73yr")
-battler_name = "Aerys"
 level = 70
 name_label_path = NodePath("playerbar/name_label")
 level_label_path = NodePath("playerbar/lvl_label")
@@ -813,14 +870,6 @@ mp_bar_path = NodePath("playerbar/mp_bar")
 hp_label_path = NodePath("playerbar/hp_label")
 mp_label_path = NodePath("playerbar/mp_label")
 metadata/_edit_use_anchors_ = true
-
-[node name="Char" type="AnimatedSprite2D" parent="playerstats" unique_id=1349048093]
-position = Vector2(218.99998, 427)
-scale = Vector2(1.7343751, 1.7343751)
-sprite_frames = SubResource("SpriteFrames_64d33")
-animation = &"idle"
-autoplay = "idle"
-frame_progress = 0.56320804
 
 [node name="cont" type="NinePatchRect" parent="playerstats" unique_id=2031046735]
 layout_mode = 1
@@ -983,7 +1032,7 @@ texture = ExtResource("14_nne6o")
 expand_mode = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="allystats" type="Control" parent="." unique_id=966017534 node_paths=PackedStringArray("sprite")]
+[node name="allystats" type="Control" parent="." unique_id=966017534]
 layout_mode = 1
 anchor_left = 0.01171875
 anchor_top = 0.23472223
@@ -992,9 +1041,6 @@ anchor_bottom = 0.39722222
 grow_horizontal = 0
 grow_vertical = 0
 script = ExtResource("2_u4qsn")
-sprite = NodePath("../playerstats/Char")
-data = ExtResource("19_s1dsa")
-battler_name = "John"
 level = 70
 name_label_path = NodePath("allybar/name_label")
 level_label_path = NodePath("allybar/lvl_label")
@@ -1183,10 +1229,14 @@ grow_horizontal = 2
 grow_vertical = 0
 theme_override_styles/panel = SubResource("StyleBoxTexture_xkp4y")
 
-[node name="Container" type="Control" parent="ui" unique_id=1816489214]
-layout_mode = 2
+[node name="Container" type="Control" parent="." unique_id=1816489214]
+anchors_preset = 0
+offset_left = 25.0
+offset_top = 585.0
+offset_right = 1255.0
+offset_bottom = 713.0
 
-[node name="buttons" type="HBoxContainer" parent="ui/Container" unique_id=1764834171]
+[node name="buttons" type="HBoxContainer" parent="Container" unique_id=1764834171]
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
@@ -1198,35 +1248,35 @@ grow_vertical = 2
 size_flags_horizontal = 0
 size_flags_vertical = 10
 
-[node name="SwordButton" type="TextureButton" parent="ui/Container/buttons" unique_id=1769333268]
+[node name="SwordButton" type="TextureButton" parent="Container/buttons" unique_id=1769333268]
 layout_mode = 2
 size_flags_horizontal = 0
 texture_normal = ExtResource("19_rwop7")
 texture_pressed = ExtResource("20_u4qsn")
 texture_hover = ExtResource("19_rwop7")
 
-[node name="sp" type="TextureButton" parent="ui/Container/buttons" unique_id=1330101927]
+[node name="sp" type="TextureButton" parent="Container/buttons" unique_id=1330101927]
 layout_mode = 2
 size_flags_horizontal = 0
 texture_normal = ExtResource("21_b73yr")
 texture_pressed = ExtResource("22_s1dsa")
 texture_hover = ExtResource("21_b73yr")
 
-[node name="inv" type="TextureButton" parent="ui/Container/buttons" unique_id=1937567179]
+[node name="inv" type="TextureButton" parent="Container/buttons" unique_id=1937567179]
 layout_mode = 2
 size_flags_horizontal = 0
 texture_normal = ExtResource("23_5gfn5")
 texture_pressed = ExtResource("24_hatvd")
 texture_hover = ExtResource("23_5gfn5")
 
-[node name="FleeButton" type="TextureButton" parent="ui/Container/buttons" unique_id=955688172]
+[node name="flee" type="TextureButton" parent="Container/buttons" unique_id=955688172]
 layout_mode = 2
 size_flags_horizontal = 0
 texture_normal = ExtResource("25_dndgb")
 texture_pressed = ExtResource("26_sk0lo")
 texture_hover = ExtResource("25_dndgb")
 
-[node name="buttons2" type="HBoxContainer" parent="ui/Container" unique_id=259036114]
+[node name="buttons2" type="HBoxContainer" parent="Container" unique_id=259036114]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.6910569
@@ -1239,33 +1289,33 @@ size_flags_horizontal = 8
 size_flags_vertical = 10
 metadata/_edit_use_anchors_ = true
 
-[node name="skip" type="TextureButton" parent="ui/Container/buttons2" unique_id=1337501844]
+[node name="skip" type="TextureButton" parent="Container/buttons2" unique_id=1337501844]
 layout_mode = 2
 size_flags_horizontal = 0
 texture_normal = ExtResource("27_xldyr")
 texture_pressed = ExtResource("28_kmsla")
 texture_hover = ExtResource("27_xldyr")
 
-[node name="ff" type="TextureButton" parent="ui/Container/buttons2" unique_id=733395704]
+[node name="ff" type="TextureButton" parent="Container/buttons2" unique_id=733395704]
 layout_mode = 2
 size_flags_horizontal = 0
 texture_normal = ExtResource("29_3mu0q")
 texture_pressed = ExtResource("30_2knb8")
 texture_hover = ExtResource("29_3mu0q")
 
-[node name="settings" type="TextureButton" parent="ui/Container/buttons2" unique_id=90053467]
+[node name="settings" type="TextureButton" parent="Container/buttons2" unique_id=90053467]
 layout_mode = 2
 size_flags_horizontal = 0
 texture_normal = ExtResource("31_5gfn5")
 texture_pressed = ExtResource("32_rwop7")
 texture_hover = ExtResource("31_5gfn5")
 
-[node name="pause" type="TextureButton" parent="ui/Container/buttons2" unique_id=988107254]
+[node name="pause" type="TextureButton" parent="Container/buttons2" unique_id=988107254]
 layout_mode = 2
 size_flags_horizontal = 0
 texture_normal = ExtResource("33_heee7")
 texture_pressed = ExtResource("34_pgdia")
 texture_hover = ExtResource("33_heee7")
 
-[connection signal="pressed" from="ui/Container/buttons/SwordButton" to="BattleManager" method="_on_sword_button_pressed"]
-[connection signal="pressed" from="ui/Container/buttons/FleeButton" to="BattleManager" method="_on_flee_button_pressed"]
+[connection signal="pressed" from="Container/buttons/SwordButton" to="BattleManager" method="_on_sword_button_pressed"]
+[connection signal="pressed" from="Container/buttons/flee" to="." method="_on_flee_pressed"]

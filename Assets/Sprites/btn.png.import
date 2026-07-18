@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cyl8a0i1kueod"
-path="res://.godot/imported/Navbar.png-7745790f78571a0a0e1283c88508aa2b.ctex"
+uid="uid://cuo8v7iqmbdyl"
+path="res://.godot/imported/btn.png-8e92a174d9d062f63ba2866d9958b9d1.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Sprites/Navbar.png"
-dest_files=["res://.godot/imported/Navbar.png-7745790f78571a0a0e1283c88508aa2b.ctex"]
+source_file="res://Assets/Sprites/btn.png"
+dest_files=["res://.godot/imported/btn.png-8e92a174d9d062f63ba2866d9958b9d1.ctex"]
 
 [params]
 

@@ -12,9 +12,12 @@ script/source = "extends Area2D
 const SPEED = 95.0
 var direction = 1.0
 	
-# Called when the node enters the scene tree for the first time.
+@export var enemy_id: String = \"slime_forest_01\" 
+	
 func _ready() -> void:
-	pass # Replace with function body.
+	if GameState.is_defeated(enemy_id):
+		queue_free()
+		return
 
 func _process(delta: float) -> void:
 	position.x += direction * SPEED * delta
@@ -23,10 +26,17 @@ func _on_timer_timeout() -> void:
 	direction *= -1
 	animated_sprite_2d.flip_h = !animated_sprite_2d.flip_h 
 
+func _on_body_entered(body: Node) -> void:
+	if body.name == \"player\":
+		print(\"Checking cooldown for: \", enemy_id, \" -> \", GameState.is_on_flee_cooldown(enemy_id))
+		if GameState.is_on_flee_cooldown(enemy_id):
+			return
 
-func _on_body_entered(body: Node2D) -> void:
-	if (body.name == \"player\"):
-		get_tree().change_scene_to_file(\"res://Scenes/battle.tscn\")
+		GameState.pending_enemy_id = enemy_id
+		GameState.last_player_position = body.global_position
+		GameState.skip_next_fade_in = true
+		SceneManager.go_to_scene(\"res://Scenes/battle.tscn\")
+	
 "
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8nltr"]
@@ -361,10 +371,10 @@ animations = [{
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_uaeru"]
-radius = 16.0
+radius = 18.181816
 height = 50.90909
 
-[node name="Area2D" type="Area2D" unique_id=1709489676]
+[node name="Area2D" type="Area2D" unique_id=1593814265]
 scale = Vector2(1.375, 1.375)
 script = SubResource("GDScript_vot1v")
 
@@ -377,7 +387,7 @@ autoplay = "idle"
 frame_progress = 0.03429497
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=739480599]
-position = Vector2(31.272728, 36.363636)
+position = Vector2(30.545456, 38.545456)
 rotation = 1.5707964
 shape = SubResource("CapsuleShape2D_uaeru")
 
