@@ -1,5 +1,5 @@
 # pause_menu.gd
-extends Control
+extends CanvasLayer
 
 @export var return_button: TextureButton
 @export var quit_button: TextureButton
@@ -16,4 +16,6 @@ func _on_return_pressed() -> void:
 
 func _on_quit_pressed() -> void:
 	get_tree().paused = false
+	closed.emit()
 	SceneManager.go_to_scene("res://Scenes/menu.tscn")
+	queue_free()

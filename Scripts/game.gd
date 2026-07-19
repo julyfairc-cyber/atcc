@@ -1,6 +1,6 @@
 extends Node2D
 const PAUSE_MENU_SCENE = preload("res://Scenes/pause_menu.tscn")
-var pause_menu_instance: Control = null
+var pause_menu_instance: CanvasLayer = null
 
 func _ready() -> void:
 	%pause.pressed.connect(_on_pause_button_pressed)

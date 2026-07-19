@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="SkillData" format=3 uid="uid://cpjg1sq62xms2"]
+
+[ext_resource type="Script" uid="uid://vtalusqlgqhk" path="res://Scenes/data/skill_data.gd" id="1_23whu"]
+
+[resource]
+script = ExtResource("1_23whu")
+skill_name = "Fireball+"
+description = "Sends a big fireball towards the enemy."
+mp_cost = 15
+damage_multiplier = 1.7
+element = 2
+metadata/_custom_type_script = "uid://cim15u1q5i1qr"

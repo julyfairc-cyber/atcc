@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="SkillData" format=3 uid="uid://dvjdl1ifvxljf"]
+
+[ext_resource type="Script" uid="uid://vtalusqlgqhk" path="res://Scenes/data/skill_data.gd" id="1_5330y"]
+
+[resource]
+script = ExtResource("1_5330y")
+skill_name = "Vinewrap"
+description = "Wraps the enemy in vines, absorbing the liquid in their body."
+element = 3
+metadata/_custom_type_script = "uid://cim15u1q5i1qr"

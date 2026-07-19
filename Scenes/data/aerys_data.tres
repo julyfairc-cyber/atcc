@@ -1,10 +1,10 @@
 [gd_resource type="Resource" script_class="CharacterData" format=3 uid="uid://cpg3o040qe1qn"]
 
 [ext_resource type="Texture2D" uid="uid://cvbgxqwhjb7be" path="res://Assets/characters/Aerys portrait.png" id="1_hy8s5"]
-[ext_resource type="Script" uid="uid://cim15u1q5i1qr" path="res://Scenes/character_data.gd" id="1_vta2u"]
+[ext_resource type="Script" uid="uid://cim15u1q5i1qr" path="res://Scenes/data/character_data.gd" id="2_hy8s5"]
 
 [resource]
-script = ExtResource("1_vta2u")
+script = ExtResource("2_hy8s5")
 character_name = "Aerys"
 attack = 14
 defense = 8

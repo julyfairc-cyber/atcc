@@ -16,7 +16,7 @@ var awaiting_player_action: bool = false
 var battle_over: bool = false
 
 const PAUSE_MENU_SCENE = preload("res://Scenes/pause_menu.tscn")  # adjust path if different
-var pause_menu_instance: Control = null
+var pause_menu_instance: CanvasLayer = null
 
 func _ready() -> void:
 	%pause.pressed.connect(_on_pause_button_pressed)
@@ -107,8 +107,55 @@ func _perform_attack(attacker: Battler, target: Battler) -> void:
 	_check_battle_end()
 
 func _calculate_damage(_attacker: Battler) -> int:
-	return randi_range(15, 25)
+	# Base physical attack - no elemental multiplier applied, but a flat -X for balance
+	var base = randi_range(15, 25)
+	return int(base * 0.85)  # slightly weaker than elemental skills, per your fairness rule
 
+func _on_skill_used(skill: SkillData) -> void:
+	if not active_battler.use_mp(skill.mp_cost):
+		return
+
+	var target = _get_first_alive(enemies)
+	if target == null:
+		return
+
+	active_battler.play_attack_animation()
+	await get_tree().create_timer(0.4).timeout
+
+	var base_damage = randi_range(15, 25)
+	var type_multiplier = ElementTypes.get_multiplier(skill.element, target.data.element)
+	var damage = int(base_damage * skill.damage_multiplier * type_multiplier)
+
+	print("%s uses %s (%s) on %s (%s) for %d damage [x%.2f type]" % [
+		active_battler.battler_name, skill.skill_name,
+		ElementTypes.Element.keys()[skill.element],
+		target.battler_name,
+		ElementTypes.Element.keys()[target.data.element],
+		damage, type_multiplier
+	])
+
+	target.take_damage(damage)
+	_check_battle_end()
+	
+	if type_multiplier > 1.0:
+		print("It's super effective!")
+	elif type_multiplier < 1.0:
+		print("It's not very effective...")
+
+	awaiting_player_action = false
+	if battle_over:
+		return
+
+	var enemy = _get_next_alive_enemy()
+	if enemy != null:
+		await get_tree().create_timer(0.4).timeout
+		var counter_target = _get_first_alive(party)
+		if counter_target != null:
+			await _perform_attack(enemy, counter_target)
+
+	if not battle_over:
+		_start_next_player_turn()
+		
 func _get_first_alive(battlers: Array[Battler]) -> Battler:
 	for b in battlers:
 		if b.current_hp > 0:

@@ -9,7 +9,12 @@
 [ext_resource type="Texture2D" uid="uid://ce7wrgtvh0k54" path="res://Assets/Buttons/Button Flee pressed.png" id="7_uscpe"]
 [ext_resource type="Texture2D" uid="uid://b87a1dgjqsnuy" path="res://Assets/Buttons/Header.png" id="8_ix48p"]
 
-[node name="PauseMenu" type="Control" unique_id=861254847 node_paths=PackedStringArray("return_button", "quit_button")]
+[node name="PauseMenuLayer" type="CanvasLayer" unique_id=229911228 node_paths=PackedStringArray("return_button", "quit_button")]
+script = ExtResource("1_u8tnp")
+return_button = NodePath("PauseMenu/CenterContainer/Box/unpausecont/Return/unpause")
+quit_button = NodePath("PauseMenu/CenterContainer/Box/unpausecont/quitcont/quit")
+
+[node name="PauseMenu" type="Control" parent="." unique_id=861254847]
 process_mode = 2
 layout_mode = 3
 anchors_preset = 15
@@ -17,11 +22,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_u8tnp")
-return_button = NodePath("CenterContainer/Box/unpausecont/Return/unpause")
-quit_button = NodePath("CenterContainer/Box/unpausecont/quitcont/quit")
 
-[node name="ColorRect" type="ColorRect" parent="." unique_id=1676307215]
+[node name="ColorRect" type="ColorRect" parent="PauseMenu" unique_id=1676307215]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -30,7 +32,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.27450982)
 
-[node name="CenterContainer" type="CenterContainer" parent="." unique_id=963058239]
+[node name="CenterContainer" type="CenterContainer" parent="PauseMenu" unique_id=963058239]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -39,7 +41,7 @@ grow_horizontal = 2
 grow_vertical = 2
 metadata/_edit_use_anchors_ = true
 
-[node name="Box" type="NinePatchRect" parent="CenterContainer" unique_id=1564041273]
+[node name="Box" type="NinePatchRect" parent="PauseMenu/CenterContainer" unique_id=1564041273]
 custom_minimum_size = Vector2(537.235, 404.97)
 layout_mode = 2
 texture = ExtResource("1_sjs17")
@@ -49,7 +51,7 @@ patch_margin_top = 135
 patch_margin_right = 126
 patch_margin_bottom = 132
 
-[node name="Title" type="NinePatchRect" parent="CenterContainer/Box" unique_id=567259347]
+[node name="Title" type="NinePatchRect" parent="PauseMenu/CenterContainer/Box" unique_id=567259347]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.22180337
@@ -64,7 +66,7 @@ patch_margin_right = 87
 patch_margin_bottom = 22
 metadata/_edit_use_anchors_ = true
 
-[node name="Paused" type="Label" parent="CenterContainer/Box/Title" unique_id=1535894244]
+[node name="Paused" type="Label" parent="PauseMenu/CenterContainer/Box/Title" unique_id=1535894244]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -76,7 +78,7 @@ label_settings = ExtResource("5_stj27")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="unpausecont" type="HBoxContainer" parent="CenterContainer/Box" unique_id=1122496044]
+[node name="unpausecont" type="HBoxContainer" parent="PauseMenu/CenterContainer/Box" unique_id=1122496044]
 process_mode = 3
 layout_mode = 1
 anchors_preset = 8
@@ -94,40 +96,39 @@ size_flags_vertical = 4
 theme_override_constants/separation = 57
 alignment = 1
 
-[node name="Return" type="VBoxContainer" parent="CenterContainer/Box/unpausecont" unique_id=686041761]
+[node name="Return" type="VBoxContainer" parent="PauseMenu/CenterContainer/Box/unpausecont" unique_id=686041761]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_constants/separation = 10
 
-[node name="unpause" type="TextureButton" parent="CenterContainer/Box/unpausecont/Return" unique_id=2004564865]
+[node name="unpause" type="TextureButton" parent="PauseMenu/CenterContainer/Box/unpausecont/Return" unique_id=2004564865]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-tooltip_text = "Pause"
 texture_normal = ExtResource("5_u8tnp")
 texture_pressed = ExtResource("6_stj27")
 
-[node name="Label" type="Label" parent="CenterContainer/Box/unpausecont/Return" unique_id=2130438450]
+[node name="Label" type="Label" parent="PauseMenu/CenterContainer/Box/unpausecont/Return" unique_id=2130438450]
 layout_mode = 2
 text = "Return"
 label_settings = ExtResource("5_stj27")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="quitcont" type="VBoxContainer" parent="CenterContainer/Box/unpausecont" unique_id=603185116]
+[node name="quitcont" type="VBoxContainer" parent="PauseMenu/CenterContainer/Box/unpausecont" unique_id=603185116]
 layout_mode = 2
 size_flags_vertical = 4
 theme_override_constants/separation = 10
 
-[node name="quit" type="TextureButton" parent="CenterContainer/Box/unpausecont/quitcont" unique_id=690143598]
+[node name="quit" type="TextureButton" parent="PauseMenu/CenterContainer/Box/unpausecont/quitcont" unique_id=690143598]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 texture_normal = ExtResource("6_0fi7f")
 texture_pressed = ExtResource("7_uscpe")
 
-[node name="Label3" type="Label" parent="CenterContainer/Box/unpausecont/quitcont" unique_id=1656090820]
+[node name="Label3" type="Label" parent="PauseMenu/CenterContainer/Box/unpausecont/quitcont" unique_id=1656090820]
 layout_mode = 2
 text = "Quit"
 label_settings = ExtResource("5_stj27")
