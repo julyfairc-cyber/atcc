@@ -32,6 +32,9 @@ signal hp_changed(current: int, max: int)
 signal mp_changed(current: int, max: int)
 signal died
 
+const PAUSE_MENU_SCENE = preload("res://Scenes/pause_menu.tscn")
+var pause_menu_instance: Control = null
+
 func _ready() -> void:
 	name_label = get_node(name_label_path)
 	level_label = get_node(level_label_path)
@@ -112,3 +115,11 @@ func play_hurt_animation() -> void:
 func play_die_animation() -> void:
 	if sprite:
 		sprite.play("die")
+
+func _on_pause_button_pressed() -> void:
+	if pause_menu_instance != null:
+		return  # already open, don't double-instantiate
+
+	pause_menu_instance = PAUSE_MENU_SCENE.instantiate()
+	get_tree().root.add_child(pause_menu_instance)
+	get_tree().paused = true

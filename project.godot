@@ -29,6 +29,7 @@ PauseMenu="*uid://1sfs1gfm35rf"
 
 window/size/viewport_width=1280
 window/size/viewport_height=720
+window/size/borderless=true
 window/stretch/mode="viewport"
 
 [global_group]

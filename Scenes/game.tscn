@@ -2,6 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://ba0xwhfuxhhqp" path="res://Assets/Terrain/ground.png" id="1_i6g32"]
 [ext_resource type="Texture2D" uid="uid://csfq2jitqskl7" path="res://Assets/Sprites/Aerys sprite.png" id="1_qxrlw"]
+[ext_resource type="Script" uid="uid://b4mv2unmk3biu" path="res://Scripts/game.gd" id="1_rfjv2"]
 [ext_resource type="PackedScene" uid="uid://c6iaqeabvtpdu" path="res://Scenes/water_slime.tscn" id="2_qxrlw"]
 [ext_resource type="Script" uid="uid://y21846mqrpxo" path="res://Assets/Sprites/Player.gd" id="2_wowpa"]
 [ext_resource type="Texture2D" uid="uid://bwjyu4gt3nlm4" path="res://Assets/Sprites/Aerys walk.png" id="2_wrm1d"]
@@ -12,26 +13,6 @@
 [ext_resource type="Texture2D" uid="uid://lbi306efp6vj" path="res://Assets/Buttons/Button Stop.png" id="7_1phco"]
 [ext_resource type="Texture2D" uid="uid://dcay3eu42tnmg" path="res://Assets/Buttons/Button stop pressed.png" id="8_nb51f"]
 [ext_resource type="PackedScene" uid="uid://xocsi0yba52t" path="res://Scenes/Fade_transition.tscn" id="8_v158k"]
-
-[sub_resource type="GDScript" id="GDScript_h4fw4"]
-script/source = "extends Node2D
-
-func _ready() -> void:
-	if GameState.skip_next_fade_in:
-		GameState.skip_next_fade_in = false  
-		$Fade_Transition.hide() 
-	else:
-		$Fade_Transition.show()
-		$Fade_Transition/AnimationPlayer.play(\"fade_out\")
-
-func _on_settings_pressed() -> void:
-	GameState.last_player_position = $player.global_position
-	GameState.skip_next_fade_in = true
-	SceneManager.go_to_scene(\"res://Scenes/settings.tscn\")
-
-func _on_pause_button_pressed() -> void:
-	_toggle_pause_menu()
-"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_h4fw4"]
 size = Vector2(336.26178, 6.722658)
@@ -147,22 +128,8 @@ animations = [{
 radius = 34.0
 height = 96.75
 
-[sub_resource type="GDScript" id="GDScript_rku1e"]
-script/source = "extends CanvasLayer
-
-
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta: float) -> void:
-	pass
-"
-
 [node name="Character" type="Node2D" unique_id=2002347884]
-script = SubResource("GDScript_h4fw4")
+script = ExtResource("1_rfjv2")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1719132711]
 position = Vector2(-4, -6)
@@ -211,9 +178,9 @@ position = Vector2(162, 426)
 shape = SubResource("CapsuleShape2D_i6g32")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="player" unique_id=1701687215]
-script = SubResource("GDScript_rku1e")
 
 [node name="pause" type="TextureButton" parent="player/CanvasLayer" unique_id=1907505828]
+unique_name_in_owner = true
 anchors_preset = -1
 anchor_left = 0.01015625
 anchor_top = 0.015277778

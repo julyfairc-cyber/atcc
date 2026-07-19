@@ -39,14 +39,18 @@
 [ext_resource type="Texture2D" uid="uid://lbi306efp6vj" path="res://Assets/Buttons/Button Stop.png" id="33_heee7"]
 [ext_resource type="Texture2D" uid="uid://dcay3eu42tnmg" path="res://Assets/Buttons/Button stop pressed.png" id="34_pgdia"]
 
-[sub_resource type="GDScript" id="GDScript_1ruyk"]
-resource_name = "battle"
-script/source = "extends Control
+[sub_resource type="GDScript" id="GDScript_5gfn5"]
+script/source = "extends \"res://Scripts/battler.gd\"
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	pass
 "
 
 [sub_resource type="GDScript" id="GDScript_u4qsn"]
@@ -68,7 +72,11 @@ var active_battler: Battler = null
 var awaiting_player_action: bool = false
 var battle_over: bool = false
 
+const PAUSE_MENU_SCENE = preload(\"res://Scenes/pause_menu.tscn\")  # adjust path if different
+var pause_menu_instance: Control = null
+
 func _ready() -> void:
+	%pause.pressed.connect(_on_pause_button_pressed)
 	for battler in party + enemies:
 		battler.died.connect(_on_battler_died.bind(battler))
 
@@ -180,6 +188,14 @@ func _check_battle_end() -> void:
 		battle_over = true
 		battle_ended.emit(false)
 		_end_battle(false)
+
+func _on_pause_button_pressed() -> void:
+	if pause_menu_instance != null:
+		return  # already open, don't double-instantiate
+
+	pause_menu_instance = PAUSE_MENU_SCENE.instantiate()
+	get_tree().root.add_child(pause_menu_instance)
+	get_tree().paused = true
 
 func _end_battle(victory: bool) -> void:
 	awaiting_player_action = false
@@ -574,7 +590,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = SubResource("GDScript_1ruyk")
+script = SubResource("GDScript_5gfn5")
 
 [node name="BattleManager" type="Node" parent="." unique_id=632994060 node_paths=PackedStringArray("party", "enemies", "sword_button", "flee_button")]
 script = SubResource("GDScript_u4qsn")
