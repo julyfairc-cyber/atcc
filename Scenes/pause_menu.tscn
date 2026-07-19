@@ -32,9 +32,9 @@ color = Color(0, 0, 0, 0.27450982)
 
 [node name="CenterContainer" type="CenterContainer" parent="." unique_id=963058239]
 layout_mode = 1
-anchors_preset = -1
-anchor_right = 0.7453125
-anchor_bottom = 0.84305555
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 metadata/_edit_use_anchors_ = true
