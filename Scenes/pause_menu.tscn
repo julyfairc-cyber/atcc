@@ -2,10 +2,10 @@
 
 [ext_resource type="Texture2D" uid="uid://bfyvbd2vstpft" path="res://Assets/Sprites/BG-2.png" id="1_sjs17"]
 [ext_resource type="Script" uid="uid://1sfs1gfm35rf" path="res://Scripts/pause_menu.gd" id="1_u8tnp"]
-[ext_resource type="Texture2D" uid="uid://lbi306efp6vj" path="res://Assets/Buttons/Button Stop.png" id="2_u8tnp"]
-[ext_resource type="Texture2D" uid="uid://dcay3eu42tnmg" path="res://Assets/Buttons/Button stop pressed.png" id="3_stj27"]
 [ext_resource type="LabelSettings" uid="uid://5eri71gam4g2" path="res://Scenes/label.tres" id="5_stj27"]
+[ext_resource type="Texture2D" uid="uid://dweir05uiwwr4" path="res://Assets/Buttons/Button Skip.png" id="5_u8tnp"]
 [ext_resource type="Texture2D" uid="uid://cqsy0xhodmua0" path="res://Assets/Buttons/Button Flee.png" id="6_0fi7f"]
+[ext_resource type="Texture2D" uid="uid://cb1q3yo2d3vpi" path="res://Assets/Buttons/Button Skip Pressed.png" id="6_stj27"]
 [ext_resource type="Texture2D" uid="uid://ce7wrgtvh0k54" path="res://Assets/Buttons/Button Flee pressed.png" id="7_uscpe"]
 [ext_resource type="Texture2D" uid="uid://b87a1dgjqsnuy" path="res://Assets/Buttons/Header.png" id="8_ix48p"]
 
@@ -32,9 +32,9 @@ color = Color(0, 0, 0, 0.27450982)
 
 [node name="CenterContainer" type="CenterContainer" parent="." unique_id=963058239]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchors_preset = -1
+anchor_right = 0.7453125
+anchor_bottom = 0.84305555
 grow_horizontal = 2
 grow_vertical = 2
 metadata/_edit_use_anchors_ = true
@@ -105,8 +105,8 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 tooltip_text = "Pause"
-texture_normal = ExtResource("2_u8tnp")
-texture_pressed = ExtResource("3_stj27")
+texture_normal = ExtResource("5_u8tnp")
+texture_pressed = ExtResource("6_stj27")
 
 [node name="Label" type="Label" parent="CenterContainer/Box/unpausecont/Return" unique_id=2130438450]
 layout_mode = 2
