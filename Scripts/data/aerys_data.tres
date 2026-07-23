@@ -3,6 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://cvbgxqwhjb7be" path="res://Assets/characters/Aerys portrait.png" id="1_hy8s5"]
 [ext_resource type="Script" uid="uid://cim15u1q5i1qr" path="res://Scripts/data/character_data.gd" id="2_hy8s5"]
 [ext_resource type="Script" uid="uid://vtalusqlgqhk" path="res://Scripts/data/skill_data.gd" id="3_ksoah"]
+[ext_resource type="Resource" uid="uid://bcuajs1fydx70" path="res://Scripts/data/Sword Might.tres" id="4_do3vo"]
 
 [resource]
 script = ExtResource("2_hy8s5")
@@ -11,5 +12,5 @@ level = 15
 attack = 14
 defense = 8
 portrait = ExtResource("1_hy8s5")
-skills = Array[ExtResource("3_ksoah")]([null])
+skills = Array[ExtResource("3_ksoah")]([ExtResource("4_do3vo")])
 metadata/_custom_type_script = "uid://cim15u1q5i1qr"

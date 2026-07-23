@@ -6,6 +6,6 @@
 script = ExtResource("1_6v0xb")
 skill_name = "Sword's Might"
 description = "Slashes the enemy with Aerys' sword"
-mp_cost = 5
+mp_cost = 15
 damage_multiplier = 1.7
 metadata/_custom_type_script = "uid://cim15u1q5i1qr"

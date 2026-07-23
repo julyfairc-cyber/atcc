@@ -6,7 +6,7 @@
 script = ExtResource("1_23whu")
 skill_name = "Fireball+"
 description = "Sends a big fireball towards the enemy."
-mp_cost = 15
+mp_cost = 25
 damage_multiplier = 1.7
 element = 2
 metadata/_custom_type_script = "uid://cim15u1q5i1qr"

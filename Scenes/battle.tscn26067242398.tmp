@@ -1147,6 +1147,4 @@ layout_mode = 2
 
 [node name="RichTextLabel" type="RichTextLabel" parent="PanelContainer/MarginContainer" unique_id=169794437]
 layout_mode = 2
-theme_override_fonts/normal_font = ExtResource("14_xkp4y")
-theme_override_fonts/bold_font = ExtResource("14_xkp4y")
 bbcode_enabled = true

@@ -6,5 +6,6 @@
 script = ExtResource("1_5330y")
 skill_name = "Vinewrap"
 description = "Wraps the enemy in vines, absorbing the liquid in their body."
+mp_cost = 15
 element = 3
 metadata/_custom_type_script = "uid://cim15u1q5i1qr"

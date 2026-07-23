@@ -2,6 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://c1xm5j8xjuamg" path="res://Assets/Sprites/Portrait Box.png" id="1_5j1s5"]
 [ext_resource type="Script" uid="uid://bwm4wpek1idua" path="res://Scripts/skill_menu.gd" id="1_kjc4w"]
+[ext_resource type="FontFile" uid="uid://b6eiyoqdxmwbn" path="res://Assets/Sprites/Pixellari.ttf" id="3_napan"]
 
 [sub_resource type="Theme" id="Theme_kjc4w"]
 
@@ -16,25 +17,42 @@ texture_margin_top = 40.0
 texture_margin_right = 60.0
 texture_margin_bottom = 40.0
 
-[node name="skill_menu" type="CanvasLayer" unique_id=420854896 node_paths=PackedStringArray("skill_list_container")]
+[sub_resource type="Theme" id="Theme_a0uc5"]
+default_font = ExtResource("3_napan")
+
+[node name="skill_menu" type="CanvasLayer" unique_id=420854896 node_paths=PackedStringArray("skill_list_container", "backdrop")]
 process_mode = 3
 script = ExtResource("1_kjc4w")
-skill_list_container = NodePath("CenterContainer/PanelContainer/MarginContainer/VBoxContainer")
+skill_list_container = NodePath("PanelContainer/MarginContainer/VBoxContainer")
+backdrop = NodePath("Backdrop")
 
-[node name="CenterContainer" type="CenterContainer" parent="." unique_id=1921913314]
+[node name="Backdrop" type="Button" parent="." unique_id=1068138185]
+modulate = Color(1, 1, 1, 0)
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="PanelContainer" type="PanelContainer" parent="CenterContainer" unique_id=1036478228]
-layout_mode = 2
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=1794047727]
+custom_minimum_size = Vector2(365, 150)
+anchors_preset = -1
+anchor_left = 0.35742188
+anchor_top = 0.59444445
+anchor_right = 0.6425781
+anchor_bottom = 0.80277777
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_vertical = 8
 theme = SubResource("Theme_kjc4w")
 theme_override_styles/panel = SubResource("StyleBoxTexture_napan")
+metadata/_edit_use_anchors_ = true
 
-[node name="MarginContainer" type="MarginContainer" parent="CenterContainer/PanelContainer" unique_id=1825485917]
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer" unique_id=1161499342]
+custom_minimum_size = Vector2(0.48, 0)
 layout_mode = 2
+size_flags_stretch_ratio = 0.0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/PanelContainer/MarginContainer" unique_id=1091649205]
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer" unique_id=178033114]
 layout_mode = 2
+theme = SubResource("Theme_a0uc5")

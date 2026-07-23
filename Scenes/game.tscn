@@ -6,13 +6,13 @@
 [ext_resource type="PackedScene" uid="uid://c6iaqeabvtpdu" path="res://Scenes/water_slime.tscn" id="2_qxrlw"]
 [ext_resource type="Script" uid="uid://y21846mqrpxo" path="res://Assets/Sprites/Player.gd" id="2_wowpa"]
 [ext_resource type="Texture2D" uid="uid://bwjyu4gt3nlm4" path="res://Assets/Sprites/Aerys walk.png" id="2_wrm1d"]
-[ext_resource type="Texture2D" uid="uid://c086xrgsnueo8" path="res://Assets/Buttons/Button Settings.png" id="5_rku1e"]
 [ext_resource type="Texture2D" uid="uid://c6xusew7fff1c" path="res://Assets/Parallax/Forest/semak.png" id="6_1l0tm"]
 [ext_resource type="Texture2D" uid="uid://bmul63s748048" path="res://Assets/Parallax/Forest/Parallax bg.png" id="6_i6g32"]
-[ext_resource type="Texture2D" uid="uid://c3inlpqsjvkt0" path="res://Assets/Buttons/Button Settings Pressed.png" id="6_rfjv2"]
 [ext_resource type="Texture2D" uid="uid://lbi306efp6vj" path="res://Assets/Buttons/Button Stop.png" id="7_1phco"]
 [ext_resource type="Texture2D" uid="uid://dcay3eu42tnmg" path="res://Assets/Buttons/Button stop pressed.png" id="8_nb51f"]
+[ext_resource type="Texture2D" uid="uid://cur5ry2n616fg" path="res://Assets/Buttons/button options.png" id="8_rfjv2"]
 [ext_resource type="PackedScene" uid="uid://xocsi0yba52t" path="res://Scenes/Fade_transition.tscn" id="8_v158k"]
+[ext_resource type="Texture2D" uid="uid://cm6oqsl0gw3yp" path="res://Assets/Buttons/button options pressed.png" id="9_1phco"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_h4fw4"]
 size = Vector2(336.26178, 6.722658)
@@ -202,9 +202,9 @@ offset_top = 11.0
 offset_right = 1267.5454
 offset_bottom = 89.0
 size_flags_horizontal = 0
-texture_normal = ExtResource("5_rku1e")
-texture_pressed = ExtResource("6_rfjv2")
-texture_hover = ExtResource("5_rku1e")
+texture_normal = ExtResource("8_rfjv2")
+texture_pressed = ExtResource("9_1phco")
+texture_hover = ExtResource("8_rfjv2")
 ignore_texture_size = true
 stretch_mode = 5
 metadata/_edit_use_anchors_ = true
