@@ -125,7 +125,7 @@ animations = [{
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_i6g32"]
-radius = 34.0
+radius = 37.0
 height = 96.75
 
 [node name="Character" type="Node2D" unique_id=2002347884]
@@ -174,7 +174,7 @@ animation = &"walk"
 autoplay = "idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="player" unique_id=907902065]
-position = Vector2(162, 426)
+position = Vector2(158, 426)
 shape = SubResource("CapsuleShape2D_i6g32")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="player" unique_id=1701687215]
@@ -186,6 +186,8 @@ anchor_left = 0.01015625
 anchor_top = 0.015277778
 anchor_right = 0.07386364
 anchor_bottom = 0.12361111
+offset_left = 1081.0
+offset_right = 1081.0
 size_flags_horizontal = 0
 texture_normal = ExtResource("7_1phco")
 texture_pressed = ExtResource("8_nb51f")
@@ -195,9 +197,9 @@ stretch_mode = 4
 metadata/_edit_use_anchors_ = true
 
 [node name="settings" type="TextureButton" parent="player/CanvasLayer" unique_id=584713414]
-offset_left = 109.0
+offset_left = 1186.0
 offset_top = 11.0
-offset_right = 190.54546
+offset_right = 1267.5454
 offset_bottom = 89.0
 size_flags_horizontal = 0
 texture_normal = ExtResource("5_rku1e")
@@ -205,6 +207,7 @@ texture_pressed = ExtResource("6_rfjv2")
 texture_hover = ExtResource("5_rku1e")
 ignore_texture_size = true
 stretch_mode = 5
+metadata/_edit_use_anchors_ = true
 
 [node name="Area2D" parent="." unique_id=1709489676 instance=ExtResource("2_qxrlw")]
 position = Vector2(617, 416)

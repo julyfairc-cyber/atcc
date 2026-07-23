@@ -2,8 +2,12 @@ extends Control
 
 var button_type = null
 
+func _ready() -> void:
+	Engine.time_scale = 1.0
+
 func _on_play_pressed() :
 	button_type = "play"
+	GameState.reset_for_new_game()
 	$Fade_Transition.show()
 	$Fade_Transition/Fade_timer.start()
 	$Fade_Transition/AnimationPlayer.play("fade_in")

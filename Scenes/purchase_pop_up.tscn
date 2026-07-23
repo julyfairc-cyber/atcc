@@ -1,0 +1,99 @@
+[gd_scene format=3 uid="uid://b638scbj1i0ya"]
+
+[ext_resource type="Script" path="res://Scripts/purchase_pop_up.gd" id="1_4r2ac"]
+[ext_resource type="Texture2D" uid="uid://o5dx05udd6ij" path="res://Assets/Store/text box pop up.png" id="2_r1pki"]
+[ext_resource type="FontFile" uid="uid://b8lbphkr7l51t" path="res://Assets/Pixellari.ttf" id="3_7yqln"]
+[ext_resource type="Texture2D" uid="uid://lariyf5wgibj" path="res://Assets/Store/great icon.png" id="3_r1pki"]
+[ext_resource type="Texture2D" uid="uid://dpfgp3ebmsvac" path="res://Assets/Buttons/back prssd.png" id="5_7yqln"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_ilsnw"]
+font = ExtResource("3_7yqln")
+font_size = 38
+font_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_jjdw6"]
+font = ExtResource("3_7yqln")
+font_size = 32
+font_color = Color(0.25882354, 0.2784314, 0.73333335, 1)
+
+[node name="PurchasePopUp" type="Control" unique_id=1190264440]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -105.0
+offset_top = -147.0
+offset_right = -105.0
+offset_bottom = -147.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.7167285, 0.7167285)
+script = ExtResource("1_4r2ac")
+
+[node name="Popupbox" type="TextureRect" parent="." unique_id=191353242]
+custom_minimum_size = Vector2(1000, 1000)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 125.0
+offset_top = 181.00006
+offset_right = 1397.0
+offset_bottom = 1631.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.32461944, 0.30437458)
+texture = ExtResource("2_r1pki")
+
+[node name="status_icon" type="TextureRect" parent="Popupbox" unique_id=1252101287]
+layout_mode = 0
+offset_left = 982.68915
+offset_top = 400.04825
+offset_right = 1762.6892
+offset_bottom = 1180.0482
+scale = Vector2(0.7185205, 0.7185205)
+texture = ExtResource("3_r1pki")
+
+[node name="great_and_failed" type="Label" parent="Popupbox" unique_id=1234761362]
+custom_minimum_size = Vector2(1, 0)
+custom_maximum_size = Vector2(300, 100)
+layout_mode = 0
+offset_left = 822.68396
+offset_top = 928.78735
+offset_right = 981.68396
+offset_bottom = 980.78735
+scale = Vector2(5.4892216, 5.4892216)
+text = "GREAT"
+label_settings = SubResource("LabelSettings_ilsnw")
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="message_label" type="Label" parent="Popupbox" unique_id=1572959192]
+custom_minimum_size = Vector2(1, 0)
+custom_maximum_size = Vector2(300, 100)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.283632
+anchor_top = 0.6206938
+anchor_right = 0.30504376
+anchor_bottom = 3.894336
+offset_top = -184.3385
+offset_right = 245.35718
+offset_bottom = -7221.142
+grow_vertical = 2
+scale = Vector2(3.6369011, 3.6369011)
+text = "Thanks, for your purchase is Success!"
+label_settings = SubResource("LabelSettings_jjdw6")
+horizontal_alignment = 1
+autowrap_mode = 3
+metadata/_edit_use_anchors_ = true
+
+[node name="back_button" type="TextureButton" parent="Popupbox" unique_id=1593718465]
+layout_mode = 0
+offset_left = 1089.1626
+offset_top = 1440.5979
+offset_right = 1185.1626
+offset_bottom = 1536.5979
+scale = Vector2(3.2618005, 3.2618005)
+texture_normal = ExtResource("5_7yqln")

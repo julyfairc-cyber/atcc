@@ -1,4 +1,3 @@
-# battler.gd
 extends Node
 class_name Battler
 
@@ -8,9 +7,8 @@ class_name Battler
 @export var level: int = 1
 @export var max_hp: int = 100
 @export var max_mp: int = 50
-@export var is_enemy: bool = false  # controls death behavior
+@export var is_enemy: bool = false
 
-# Drag the correct nodes into these slots in the Inspector for each scene instance
 @export var name_label_path: NodePath
 @export var level_label_path: NodePath
 @export var hp_bar_path: NodePath
@@ -32,9 +30,6 @@ signal hp_changed(current: int, max: int)
 signal mp_changed(current: int, max: int)
 signal died
 
-const PAUSE_MENU_SCENE = preload("res://Scenes/pause_menu.tscn")
-var pause_menu_instance: Control = null
-
 func _ready() -> void:
 	name_label = get_node(name_label_path)
 	level_label = get_node(level_label_path)
@@ -50,6 +45,18 @@ func _ready() -> void:
 	if sprite:
 		sprite.animation_finished.connect(_on_animation_finished)
 
+func scale_enemy_level(reference_level: int) -> void:
+	if not is_enemy:
+		return
+
+	var level_offset = randi_range(1, 5)
+	data.level = reference_level + level_offset
+
+	var level_multiplier = 1.0 + (level_offset * 0.08) 
+	data.max_hp = int(data.max_hp * level_multiplier)
+	data.attack = int(data.attack * level_multiplier)
+	data.defense = int(data.defense * level_multiplier)
+	
 func _on_animation_finished() -> void:
 	if sprite.animation != "die":  
 		sprite.play("idle")
@@ -70,7 +77,7 @@ func take_damage(amount: int) -> void:
 		play_die_animation()
 		died.emit()
 		if is_enemy:
-			await get_tree().create_timer(0.8).timeout  # let the die animation play before removing
+			await get_tree().create_timer(0.8).timeout 
 			_on_defeated()
 	else:
 		play_hurt_animation()
@@ -115,11 +122,3 @@ func play_hurt_animation() -> void:
 func play_die_animation() -> void:
 	if sprite:
 		sprite.play("die")
-
-func _on_pause_button_pressed() -> void:
-	if pause_menu_instance != null:
-		return  # already open, don't double-instantiate
-
-	pause_menu_instance = PAUSE_MENU_SCENE.instantiate()
-	get_tree().root.add_child(pause_menu_instance)
-	get_tree().paused = true

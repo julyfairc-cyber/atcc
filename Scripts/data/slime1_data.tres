@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="CharacterData" format=3 uid="uid://by76a3bnle1s"]
+
+[ext_resource type="Texture2D" uid="uid://05xrcmd0jd0d" path="res://Assets/characters/waterslimeportrait.png" id="1_jmt7t"]
+[ext_resource type="Script" uid="uid://cim15u1q5i1qr" path="res://Scripts/data/character_data.gd" id="2_xv0ur"]
+[ext_resource type="Script" uid="uid://vtalusqlgqhk" path="res://Scripts/data/skill_data.gd" id="3_wgjrr"]
+
+[resource]
+script = ExtResource("2_xv0ur")
+character_name = "Slime"
+level = 5
+max_hp = 50
+max_mp = 20
+attack = 5
+defense = 2
+speed = 2
+portrait = ExtResource("1_jmt7t")
+element = 1
+metadata/_custom_type_script = "uid://cim15u1q5i1qr"

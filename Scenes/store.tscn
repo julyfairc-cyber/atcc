@@ -1,0 +1,780 @@
+[gd_scene format=3 uid="uid://cpg5374xp6vxm"]
+
+[ext_resource type="Script" path="res://Scripts/store.gd" id="1_45y36"]
+[ext_resource type="Texture2D" uid="uid://dx8ohbdu22myn" path="res://Assets/Store/background landscape.png" id="2_45y36"]
+[ext_resource type="Texture2D" uid="uid://bdbwqwskg2ckv" path="res://Assets/Store/back.png" id="2_w6sp3"]
+[ext_resource type="Texture2D" uid="uid://bgrvsu80frglu" path="res://Assets/Store/header box.png" id="3_m7h4d"]
+[ext_resource type="FontFile" uid="uid://b8lbphkr7l51t" path="res://Assets/Pixellari.ttf" id="4_a54sg"]
+[ext_resource type="Texture2D" uid="uid://5md8v2xj55eq" path="res://Assets/Store/settings.png" id="5_mcup1"]
+[ext_resource type="Texture2D" uid="uid://m38ycd80rdfy" path="res://Assets/Store/user coins box.png" id="6_r6ftr"]
+[ext_resource type="Texture2D" uid="uid://p265304omeuo" path="res://Assets/Store/COIN1 1.png" id="7_wj7yv"]
+[ext_resource type="Texture2D" uid="uid://cp4l8tiobrwih" path="res://Assets/Store/text box.png" id="8_05nov"]
+[ext_resource type="Texture2D" uid="uid://cqniwqtkt1j80" path="res://Assets/Store/COIN1 2.png" id="9_2btsy"]
+[ext_resource type="Texture2D" uid="uid://dcgs2hfbsukyk" path="res://Assets/Store/Buttons 1.png" id="10_vyvqu"]
+[ext_resource type="Texture2D" uid="uid://dbvrushqstm37" path="res://Assets/Store/coinstack sparkle  1.png" id="11_gj2aw"]
+[ext_resource type="Texture2D" uid="uid://bvukts4515idg" path="res://Assets/Store/sack sparkle(1)  (1) 1.png" id="12_dw41r"]
+[ext_resource type="Texture2D" uid="uid://0p4oosbcypq" path="res://Assets/Store/Bag.png" id="13_45y36"]
+[ext_resource type="Texture2D" uid="uid://dokyj2y11rdlp" path="res://Assets/Store/sword8 1.png" id="14_gj2aw"]
+[ext_resource type="Script" path="res://Scripts/sword_bundle_click_area.gd" id="14_xo55w"]
+[ext_resource type="Texture2D" uid="uid://cnidjhg17fu2b" path="res://Assets/Store/sword chest.png" id="15_dw41r"]
+[ext_resource type="Texture2D" uid="uid://diqe618n6iyof" path="res://Assets/Store/1 character.png" id="16_45y36"]
+[ext_resource type="Texture2D" uid="uid://be6y652v4dsqx" path="res://Assets/Store/character bundle.png" id="17_xo55w"]
+[ext_resource type="Texture2D" uid="uid://cfaulq7nstr00" path="res://Assets/Store/flower.png" id="18_5k5wn"]
+[ext_resource type="Texture2D" uid="uid://bguqnmy3cv52x" path="res://Assets/Store/item bundle.png" id="19_usxef"]
+[ext_resource type="Script" path="res://Scripts/sword_bundle_click_area_2.gd" id="20_5k5wn"]
+[ext_resource type="PackedScene" uid="uid://b638scbj1i0ya" path="res://Scenes/purchase_pop_up.tscn" id="21_xo55w"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_vse7m"]
+font = ExtResource("4_a54sg")
+font_size = 40
+
+[sub_resource type="LabelSettings" id="LabelSettings_ilsnw"]
+font = ExtResource("4_a54sg")
+font_size = 24
+
+[sub_resource type="LabelSettings" id="LabelSettings_jjdw6"]
+font = ExtResource("4_a54sg")
+font_size = 33
+
+[sub_resource type="LabelSettings" id="LabelSettings_ls246"]
+font = ExtResource("4_a54sg")
+font_size = 42
+
+[sub_resource type="LabelSettings" id="LabelSettings_cefva"]
+font = ExtResource("4_a54sg")
+
+[sub_resource type="LabelSettings" id="LabelSettings_2yure"]
+font = ExtResource("4_a54sg")
+
+[sub_resource type="LabelSettings" id="LabelSettings_cnpjy"]
+font = ExtResource("4_a54sg")
+font_size = 26
+
+[node name="Store" type="Control" unique_id=498159494]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_45y36")
+
+[node name="Background" type="TextureRect" parent="." unique_id=1951444978]
+layout_mode = 1
+offset_right = 1280.0
+offset_bottom = 720.0
+texture = ExtResource("2_45y36")
+expand_mode = 1
+
+[node name="scroll" type="ScrollContainer" parent="." unique_id=234451144]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 150.0
+offset_bottom = -50.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="content wrapper" type="Control" parent="scroll" unique_id=1567703292]
+custom_minimum_size = Vector2(0, 2455)
+layout_mode = 2
+
+[node name="topbar" type="Control" parent="scroll/content wrapper" unique_id=1000441961]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 1.0
+offset_top = -5.0
+offset_right = 1.0
+offset_bottom = -5.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="back" type="TextureButton" parent="scroll/content wrapper/topbar" unique_id=1699700979]
+layout_mode = 0
+offset_left = 132.0
+offset_top = 117.0
+offset_right = 603.0
+offset_bottom = 588.0
+scale = Vector2(0.29123756, 0.29123756)
+texture_normal = ExtResource("2_w6sp3")
+
+[node name="title_textbox" type="TextureRect" parent="scroll/content wrapper/topbar" unique_id=1906919731]
+layout_mode = 0
+offset_left = 415.00003
+offset_top = 153.00002
+offset_right = 2132.0
+offset_bottom = 517.0
+scale = Vector2(0.26954144, 0.26954144)
+texture = ExtResource("3_m7h4d")
+
+[node name="store_title" type="Label" parent="scroll/content wrapper/topbar" unique_id=569918774]
+layout_mode = 0
+offset_left = 584.0
+offset_top = 182.0
+offset_right = 709.0
+offset_bottom = 222.0
+theme_override_fonts/font = ExtResource("4_a54sg")
+theme_override_font_sizes/font_size = 50
+text = "STORE"
+label_settings = SubResource("LabelSettings_vse7m")
+
+[node name="settings_btn" type="TextureButton" parent="scroll/content wrapper/topbar" unique_id=1558549401]
+layout_mode = 0
+offset_left = 1021.0
+offset_top = 152.0
+offset_right = 1371.0
+offset_bottom = 486.0
+scale = Vector2(0.3107512, 0.3107512)
+texture_normal = ExtResource("5_mcup1")
+
+[node name="coins display" type="Control" parent="scroll/content wrapper" unique_id=2140344422]
+anchors_preset = 0
+offset_left = -14.0
+offset_top = -3.0
+offset_right = 26.0
+offset_bottom = 37.0
+
+[node name="coins bg" type="TextureRect" parent="scroll/content wrapper/coins display" unique_id=660560530]
+layout_mode = 0
+offset_left = 939.99994
+offset_top = 346.0
+offset_right = 1792.0
+offset_bottom = 632.0
+scale = Vector2(0.23999777, 0.23999777)
+texture = ExtResource("6_r6ftr")
+
+[node name="coins_amounts" type="Label" parent="scroll/content wrapper/coins display" unique_id=1911247212]
+layout_mode = 0
+offset_left = 1058.0
+offset_top = 369.0
+offset_right = 1111.0
+offset_bottom = 393.0
+text = "2000"
+label_settings = SubResource("LabelSettings_ilsnw")
+
+[node name="coins_icon" type="TextureRect" parent="scroll/content wrapper/coins display" unique_id=1707957162]
+layout_mode = 0
+offset_left = 974.00006
+offset_top = 364.00003
+offset_right = 1126.0
+offset_bottom = 516.0
+scale = Vector2(0.20810248, 0.20810248)
+texture = ExtResource("7_wj7yv")
+
+[node name="Add more coins" type="Control" parent="scroll/content wrapper" unique_id=1988755260]
+anchors_preset = 0
+offset_left = -1.0
+offset_top = -44.0
+offset_right = 39.0
+offset_bottom = -4.0
+
+[node name="textbox1" type="TextureRect" parent="scroll/content wrapper/Add more coins" unique_id=645772774]
+layout_mode = 0
+offset_left = 159.0
+offset_top = 479.0
+offset_right = 4271.0
+offset_bottom = 1046.0
+scale = Vector2(0.23760554, 0.23760554)
+texture = ExtResource("8_05nov")
+
+[node name="textbox2" type="TextureRect" parent="scroll/content wrapper/Add more coins" unique_id=991727855]
+layout_mode = 0
+offset_left = 160.0
+offset_top = 651.00006
+offset_right = 4272.0
+offset_bottom = 1218.0
+scale = Vector2(0.23760556, 0.23760556)
+texture = ExtResource("8_05nov")
+
+[node name="textbox3" type="TextureRect" parent="scroll/content wrapper/Add more coins" unique_id=913065101]
+layout_mode = 0
+offset_left = 161.00002
+offset_top = 829.0
+offset_right = 4273.0
+offset_bottom = 1396.0
+scale = Vector2(0.23760556, 0.23760556)
+texture = ExtResource("8_05nov")
+
+[node name="more_coins" type="Label" parent="scroll/content wrapper/Add more coins" unique_id=1588416775]
+layout_mode = 0
+offset_left = 165.0
+offset_top = 429.0
+offset_right = 437.0
+offset_bottom = 500.0
+text = "ADD MORE COINS
+"
+label_settings = SubResource("LabelSettings_jjdw6")
+
+[node name="coins_icon2" type="TextureRect" parent="scroll/content wrapper/Add more coins" unique_id=171353217]
+layout_mode = 0
+offset_left = 213.99997
+offset_top = 491.99997
+offset_right = 701.0
+offset_bottom = 979.0
+scale = Vector2(0.22693163, 0.22693163)
+texture = ExtResource("9_2btsy")
+
+[node name="coins_small_pack" type="Label" parent="scroll/content wrapper/Add more coins" unique_id=1494588143]
+layout_mode = 0
+offset_left = 332.0
+offset_top = 519.0
+offset_right = 712.0
+offset_bottom = 565.0
+text = "COIN SMALL PACK"
+label_settings = SubResource("LabelSettings_ls246")
+
+[node name="cost_small" type="Label" parent="scroll/content wrapper/Add more coins" unique_id=1321410638]
+layout_mode = 0
+offset_left = 338.0
+offset_top = 562.0
+offset_right = 417.0
+offset_bottom = 585.0
+text = "500 COINS"
+label_settings = SubResource("LabelSettings_cefva")
+
+[node name="Textbox_price1" type="Button" parent="scroll/content wrapper/Add more coins" unique_id=2121247566]
+layout_mode = 0
+offset_left = 911.99994
+offset_top = 510.0
+offset_right = 1612.0
+offset_bottom = 841.0
+scale = Vector2(0.22845636, 0.22845636)
+theme_override_colors/font_color = Color(0.5372549, 0.3764706, 0.25490198, 1)
+theme_override_fonts/font = ExtResource("4_a54sg")
+theme_override_font_sizes/font_size = 160
+text = "$0.50"
+icon = ExtResource("10_vyvqu")
+flat = true
+icon_alignment = 1
+
+[node name="Textbox_price2" type="Button" parent="scroll/content wrapper/Add more coins" unique_id=1653479515]
+layout_mode = 0
+offset_left = 914.0
+offset_top = 680.0
+offset_right = 1614.0
+offset_bottom = 1011.0
+scale = Vector2(0.22845636, 0.22845636)
+theme_override_colors/font_color = Color(0.5372549, 0.3764706, 0.25490198, 1)
+theme_override_fonts/font = ExtResource("4_a54sg")
+theme_override_font_sizes/font_size = 160
+text = "$2.50"
+icon = ExtResource("10_vyvqu")
+flat = true
+icon_alignment = 1
+
+[node name="Textbox_price3" type="Button" parent="scroll/content wrapper/Add more coins" unique_id=1808130751]
+layout_mode = 0
+offset_left = 914.99994
+offset_top = 861.99994
+offset_right = 1615.0
+offset_bottom = 1193.0
+scale = Vector2(0.22845636, 0.22845636)
+theme_override_colors/font_color = Color(0.5372549, 0.3764706, 0.25490198, 1)
+theme_override_fonts/font = ExtResource("4_a54sg")
+theme_override_font_sizes/font_size = 160
+text = "$6.50"
+icon = ExtResource("10_vyvqu")
+flat = true
+icon_alignment = 1
+
+[node name="STACK_PACK" type="Label" parent="scroll/content wrapper/Add more coins" unique_id=961544466]
+layout_mode = 0
+offset_left = 329.0
+offset_top = 688.0
+offset_right = 709.0
+offset_bottom = 734.0
+text = "COIN STACK PACK"
+label_settings = SubResource("LabelSettings_ls246")
+
+[node name="cost_stack" type="Label" parent="scroll/content wrapper/Add more coins" unique_id=1368825019]
+layout_mode = 0
+offset_left = 335.0
+offset_top = 731.0
+offset_right = 414.0
+offset_bottom = 754.0
+text = "2.500 COINS + 3.000 COINS"
+label_settings = SubResource("LabelSettings_cefva")
+
+[node name="MEGA_PACK" type="Label" parent="scroll/content wrapper/Add more coins" unique_id=1028566102]
+layout_mode = 0
+offset_left = 328.0
+offset_top = 870.0
+offset_right = 708.0
+offset_bottom = 916.0
+text = "COIN MEGA PACK"
+label_settings = SubResource("LabelSettings_ls246")
+
+[node name="cost_mega" type="Label" parent="scroll/content wrapper/Add more coins" unique_id=179049301]
+layout_mode = 0
+offset_left = 334.0
+offset_top = 913.0
+offset_right = 413.0
+offset_bottom = 936.0
+text = "10.000 COINS + 5.000"
+label_settings = SubResource("LabelSettings_cefva")
+
+[node name="coins_stack_sparkle" type="TextureRect" parent="scroll/content wrapper/Add more coins" unique_id=741649899]
+layout_mode = 0
+offset_left = 221.0
+offset_top = 670.00006
+offset_right = 633.0
+offset_bottom = 1082.0
+scale = Vector2(0.23609865, 0.23609865)
+texture = ExtResource("11_gj2aw")
+
+[node name="coins_sacks" type="TextureRect" parent="scroll/content wrapper/Add more coins" unique_id=1499039213]
+layout_mode = 0
+offset_left = 224.0
+offset_top = 844.0
+offset_right = 623.0
+offset_bottom = 1243.0
+scale = Vector2(0.25519425, 0.25519425)
+texture = ExtResource("12_dw41r")
+
+[node name="weapon-bundle" type="Control" parent="scroll/content wrapper" unique_id=2141962270]
+anchors_preset = 0
+offset_left = -14.0
+offset_top = -50.0
+offset_right = 26.0
+offset_bottom = -10.0
+
+[node name="weaponbundle" type="Label" parent="scroll/content wrapper/weapon-bundle" unique_id=786718911]
+layout_mode = 0
+offset_left = 175.0
+offset_top = 1021.0
+offset_right = 447.0
+offset_bottom = 1092.0
+text = "WEAPON BUNDLE"
+label_settings = SubResource("LabelSettings_jjdw6")
+
+[node name="textbox4" type="TextureRect" parent="scroll/content wrapper/weapon-bundle" unique_id=1448189457]
+layout_mode = 0
+offset_left = 165.0
+offset_top = 1088.0
+offset_right = 4277.0
+offset_bottom = 1655.0
+scale = Vector2(0.23760554, 0.23760554)
+texture = ExtResource("8_05nov")
+
+[node name="SwordBundleClickArea" type="TextureButton" parent="scroll/content wrapper/weapon-bundle" unique_id=1001119507]
+layout_mode = 0
+offset_left = 165.0
+offset_top = 1088.0
+offset_right = 4277.0
+offset_bottom = 1655.0
+scale = Vector2(0.238, 0.238)
+script = ExtResource("14_xo55w")
+
+[node name="textbox5" type="TextureRect" parent="scroll/content wrapper/weapon-bundle" unique_id=2091739750]
+layout_mode = 0
+offset_left = 166.0
+offset_top = 1260.0
+offset_right = 4278.0
+offset_bottom = 1827.0
+scale = Vector2(0.23760556, 0.23760556)
+texture = ExtResource("8_05nov")
+
+[node name="Textbox_price4" type="Button" parent="scroll/content wrapper/weapon-bundle" unique_id=2048688426]
+layout_mode = 0
+offset_left = 926.00006
+offset_top = 1119.9999
+offset_right = 1626.0
+offset_bottom = 1450.9999
+scale = Vector2(0.22845636, 0.22845636)
+theme_override_colors/font_color = Color(0.5372549, 0.3764706, 0.25490198, 1)
+theme_override_fonts/font = ExtResource("4_a54sg")
+theme_override_font_sizes/font_size = 160
+text = "$1.50"
+icon = ExtResource("10_vyvqu")
+flat = true
+icon_alignment = 1
+
+[node name="Textbox_price5" type="Button" parent="scroll/content wrapper/weapon-bundle" unique_id=551447735]
+layout_mode = 0
+offset_left = 925.99994
+offset_top = 1292.0
+offset_right = 1625.9998
+offset_bottom = 1623.0
+scale = Vector2(0.22845636, 0.22845636)
+theme_override_colors/font_color = Color(0.5372549, 0.3764706, 0.25490198, 1)
+theme_override_fonts/font = ExtResource("4_a54sg")
+theme_override_font_sizes/font_size = 160
+text = "$7.50"
+icon = ExtResource("10_vyvqu")
+flat = true
+icon_alignment = 1
+
+[node name="bag1" type="TextureRect" parent="scroll/content wrapper/weapon-bundle" unique_id=1719437663]
+layout_mode = 0
+offset_left = 1036.0
+offset_top = 981.0
+offset_right = 1391.0
+offset_bottom = 1320.0
+scale = Vector2(0.26069492, 0.26069492)
+texture = ExtResource("13_45y36")
+
+[node name="SWORD AT" type="Label" parent="scroll/content wrapper/weapon-bundle" unique_id=822903624]
+layout_mode = 0
+offset_left = 334.0
+offset_top = 1130.0
+offset_right = 714.0
+offset_bottom = 1176.0
+text = "SWORD AT ONLINE"
+label_settings = SubResource("LabelSettings_ls246")
+
+[node name="pick" type="Label" parent="scroll/content wrapper/weapon-bundle" unique_id=591762302]
+layout_mode = 0
+offset_left = 340.0
+offset_top = 1173.0
+offset_right = 419.0
+offset_bottom = 1196.0
+text = "PICK SINGULAR WEAPON"
+label_settings = SubResource("LabelSettings_cefva")
+
+[node name="SWORD bundle" type="Label" parent="scroll/content wrapper/weapon-bundle" unique_id=67622815]
+layout_mode = 0
+offset_left = 335.0
+offset_top = 1301.0
+offset_right = 715.0
+offset_bottom = 1347.0
+text = "SWORD BUNDLE"
+label_settings = SubResource("LabelSettings_ls246")
+
+[node name="GET ALL" type="Label" parent="scroll/content wrapper/weapon-bundle" unique_id=860156258]
+layout_mode = 0
+offset_left = 341.0
+offset_top = 1344.0
+offset_right = 524.0
+offset_bottom = 1367.0
+text = "GET ALL SWORD IN ONE PURCASE"
+label_settings = SubResource("LabelSettings_cefva")
+
+[node name="Sword_icon" type="TextureRect" parent="scroll/content wrapper/weapon-bundle" unique_id=909962992]
+layout_mode = 0
+offset_left = 185.0
+offset_top = 1091.0
+offset_right = 673.0
+offset_bottom = 1579.0
+scale = Vector2(0.26775122, 0.26775122)
+texture = ExtResource("14_gj2aw")
+
+[node name="swordbundle_icon" type="TextureRect" parent="scroll/content wrapper/weapon-bundle" unique_id=1090486601]
+layout_mode = 0
+offset_left = 176.99998
+offset_top = 1281.0
+offset_right = 724.0
+offset_bottom = 1709.0
+scale = Vector2(0.23898615, 0.23898615)
+texture = ExtResource("15_dw41r")
+
+[node name="character bundle" type="Control" parent="scroll/content wrapper" unique_id=1333602775]
+anchors_preset = 0
+offset_left = -12.0
+offset_top = 379.0
+offset_right = 28.0
+offset_bottom = 419.0
+
+[node name="Character_bundle" type="Label" parent="scroll/content wrapper/character bundle" unique_id=1929031344]
+layout_mode = 0
+offset_left = 175.0
+offset_top = 1021.0
+offset_right = 447.0
+offset_bottom = 1092.0
+text = "CHARACTER BUNDLE"
+label_settings = SubResource("LabelSettings_jjdw6")
+
+[node name="textbox6" type="TextureRect" parent="scroll/content wrapper/character bundle" unique_id=601647939]
+layout_mode = 0
+offset_left = 165.0
+offset_top = 1088.0
+offset_right = 4277.0
+offset_bottom = 1655.0
+scale = Vector2(0.23760554, 0.23760554)
+texture = ExtResource("8_05nov")
+
+[node name="textbox7" type="TextureRect" parent="scroll/content wrapper/character bundle" unique_id=1006889601]
+layout_mode = 0
+offset_left = 166.0
+offset_top = 1260.0
+offset_right = 4278.0
+offset_bottom = 1827.0
+scale = Vector2(0.23760556, 0.23760556)
+texture = ExtResource("8_05nov")
+
+[node name="bag1" type="TextureRect" parent="scroll/content wrapper/character bundle" unique_id=1067845837]
+layout_mode = 0
+offset_left = 1036.0
+offset_top = 981.0
+offset_right = 1391.0
+offset_bottom = 1320.0
+scale = Vector2(0.26069492, 0.26069492)
+texture = ExtResource("13_45y36")
+
+[node name="whos_join" type="Label" parent="scroll/content wrapper/character bundle" unique_id=1569510858]
+layout_mode = 0
+offset_left = 323.0
+offset_top = 1130.0
+offset_right = 703.0
+offset_bottom = 1176.0
+text = "WHO'S JOINNING?"
+label_settings = SubResource("LabelSettings_ls246")
+
+[node name="choose1" type="Label" parent="scroll/content wrapper/character bundle" unique_id=45183237]
+layout_mode = 0
+offset_left = 329.0
+offset_top = 1173.0
+offset_right = 580.0
+offset_bottom = 1196.0
+text = "CHOOSE 1 CHARACTER"
+label_settings = SubResource("LabelSettings_cefva")
+
+[node name="CHARACTER BUNDLE2" type="Label" parent="scroll/content wrapper/character bundle" unique_id=1796645706]
+layout_mode = 0
+offset_left = 328.0
+offset_top = 1296.0
+offset_right = 708.0
+offset_bottom = 1342.0
+text = "CHARACTER BUNDLE"
+label_settings = SubResource("LabelSettings_ls246")
+
+[node name="get_all_chr" type="Label" parent="scroll/content wrapper/character bundle" unique_id=551552519]
+layout_mode = 0
+offset_left = 334.0
+offset_top = 1339.0
+offset_right = 585.0
+offset_bottom = 1362.0
+text = "GET ALL CHARATER IN ONE PURCASE"
+label_settings = SubResource("LabelSettings_cefva")
+
+[node name="whosjoin_icon" type="TextureRect" parent="scroll/content wrapper/character bundle" unique_id=1361834797]
+layout_mode = 0
+offset_left = 216.00002
+offset_top = 1113.0
+offset_right = 584.0
+offset_bottom = 1453.0
+scale = Vector2(0.2517039, 0.2517039)
+texture = ExtResource("16_45y36")
+
+[node name="chrbundle_icon" type="TextureRect" parent="scroll/content wrapper/character bundle" unique_id=1649133691]
+layout_mode = 0
+offset_left = 205.0
+offset_top = 1278.0001
+offset_right = 614.0
+offset_bottom = 1658.0001
+scale = Vector2(0.2554009, 0.2554009)
+texture = ExtResource("17_xo55w")
+
+[node name="Textbox_price6" type="Button" parent="scroll/content wrapper/character bundle" unique_id=1596252768]
+layout_mode = 0
+offset_left = 926.00006
+offset_top = 1119.9999
+offset_right = 1626.0
+offset_bottom = 1450.9999
+scale = Vector2(0.22845636, 0.22845636)
+theme_override_colors/font_color = Color(0.5372549, 0.3764706, 0.25490198, 1)
+theme_override_fonts/font = ExtResource("4_a54sg")
+theme_override_font_sizes/font_size = 160
+text = "$1.50"
+icon = ExtResource("10_vyvqu")
+flat = true
+icon_alignment = 1
+
+[node name="Textbox_price7" type="Button" parent="scroll/content wrapper/character bundle" unique_id=1315357467]
+layout_mode = 0
+offset_left = 925.99994
+offset_top = 1292.0
+offset_right = 1625.9998
+offset_bottom = 1623.0
+scale = Vector2(0.22845636, 0.22845636)
+theme_override_colors/font_color = Color(0.5372549, 0.3764706, 0.25490198, 1)
+theme_override_fonts/font = ExtResource("4_a54sg")
+theme_override_font_sizes/font_size = 160
+text = "$7.50"
+icon = ExtResource("10_vyvqu")
+flat = true
+icon_alignment = 1
+
+[node name="item bundle" type="Control" parent="scroll/content wrapper" unique_id=1065918399]
+anchors_preset = 0
+offset_left = -10.0
+offset_top = 811.0
+offset_right = 30.0
+offset_bottom = 851.0
+
+[node name="item_bundle" type="Label" parent="scroll/content wrapper/item bundle" unique_id=1946413698]
+layout_mode = 0
+offset_left = 175.0
+offset_top = 1021.0
+offset_right = 447.0
+offset_bottom = 1092.0
+text = "ITEM BUNDLE"
+label_settings = SubResource("LabelSettings_jjdw6")
+
+[node name="textbox8" type="TextureRect" parent="scroll/content wrapper/item bundle" unique_id=72478460]
+layout_mode = 0
+offset_left = 165.0
+offset_top = 1088.0
+offset_right = 4277.0
+offset_bottom = 1655.0
+scale = Vector2(0.23760554, 0.23760554)
+texture = ExtResource("8_05nov")
+
+[node name="SwordBundleClickArea2" type="TextureButton" parent="scroll/content wrapper/item bundle" unique_id=1594444982]
+layout_mode = 0
+offset_left = 165.0
+offset_top = 1088.0
+offset_right = 4277.0
+offset_bottom = 1655.0
+scale = Vector2(0.238, 0.238)
+script = ExtResource("20_5k5wn")
+
+[node name="textbox9" type="TextureRect" parent="scroll/content wrapper/item bundle" unique_id=1346222153]
+layout_mode = 0
+offset_left = 166.0
+offset_top = 1260.0
+offset_right = 4278.0
+offset_bottom = 1827.0
+scale = Vector2(0.23760556, 0.23760556)
+texture = ExtResource("8_05nov")
+
+[node name="bag1" type="TextureRect" parent="scroll/content wrapper/item bundle" unique_id=1394645018]
+layout_mode = 0
+offset_left = 1036.0
+offset_top = 981.0
+offset_right = 1391.0
+offset_bottom = 1320.0
+scale = Vector2(0.26069492, 0.26069492)
+texture = ExtResource("13_45y36")
+
+[node name="EYtEM" type="Label" parent="scroll/content wrapper/item bundle" unique_id=904998595]
+layout_mode = 0
+offset_left = 327.0
+offset_top = 1130.0
+offset_right = 707.0
+offset_bottom = 1176.0
+text = "EYE-TEM"
+label_settings = SubResource("LabelSettings_ls246")
+
+[node name="choose1with200" type="Label" parent="scroll/content wrapper/item bundle" unique_id=488575682]
+layout_mode = 0
+offset_left = 333.0
+offset_top = 1173.0
+offset_right = 584.0
+offset_bottom = 1196.0
+text = "CHOOSE 1 ITEM WITH 200 PCS"
+label_settings = SubResource("LabelSettings_cefva")
+
+[node name="itembundle2" type="Label" parent="scroll/content wrapper/item bundle" unique_id=507401546]
+layout_mode = 0
+offset_left = 334.0
+offset_top = 1299.0
+offset_right = 714.0
+offset_bottom = 1345.0
+text = "ITEM BUNDLE"
+label_settings = SubResource("LabelSettings_ls246")
+
+[node name="get_all_item" type="Label" parent="scroll/content wrapper/item bundle" unique_id=1053305632]
+layout_mode = 0
+offset_left = 340.0
+offset_top = 1342.0
+offset_right = 591.0
+offset_bottom = 1365.0
+text = "GET ALL ITEM (200 PCS) IN ONE PURCASE"
+label_settings = SubResource("LabelSettings_cefva")
+
+[node name="eyeteam_icon" type="TextureRect" parent="scroll/content wrapper/item bundle" unique_id=1602123672]
+layout_mode = 0
+offset_left = 211.0
+offset_top = 1109.0
+offset_right = 557.0
+offset_bottom = 1508.0
+scale = Vector2(0.26502243, 0.26502243)
+texture = ExtResource("18_5k5wn")
+
+[node name="itembudle_icon" type="TextureRect" parent="scroll/content wrapper/item bundle" unique_id=165891384]
+layout_mode = 0
+offset_left = 210.00002
+offset_top = 1278.0
+offset_right = 591.0
+offset_bottom = 1641.0
+scale = Vector2(0.2566127, 0.2566127)
+texture = ExtResource("19_usxef")
+
+[node name="200" type="Label" parent="scroll/content wrapper/item bundle" unique_id=1557458962]
+layout_mode = 0
+offset_left = 272.0
+offset_top = 1119.0
+offset_right = 312.0
+offset_bottom = 1142.0
+text = "200"
+label_settings = SubResource("LabelSettings_2yure")
+
+[node name="201" type="Label" parent="scroll/content wrapper/item bundle" unique_id=444278262]
+layout_mode = 0
+offset_left = 299.0
+offset_top = 1284.0
+offset_right = 339.0
+offset_bottom = 1307.0
+scale = Vector2(0.36497217, 0.36497217)
+text = "200"
+label_settings = SubResource("LabelSettings_2yure")
+
+[node name="202" type="Label" parent="scroll/content wrapper/item bundle" unique_id=1391286561]
+layout_mode = 0
+offset_left = 235.00002
+offset_top = 1331.0
+offset_right = 275.0
+offset_bottom = 1354.0
+scale = Vector2(0.36497217, 0.36497217)
+text = "200"
+label_settings = SubResource("LabelSettings_2yure")
+
+[node name="Textbox_price8" type="Button" parent="scroll/content wrapper/item bundle" unique_id=774546793]
+layout_mode = 0
+offset_left = 926.00006
+offset_top = 1119.9999
+offset_right = 1626.0
+offset_bottom = 1450.9999
+scale = Vector2(0.22845636, 0.22845636)
+theme_override_colors/font_color = Color(0.5372549, 0.3764706, 0.25490198, 1)
+theme_override_fonts/font = ExtResource("4_a54sg")
+theme_override_font_sizes/font_size = 160
+text = "$1.50"
+icon = ExtResource("10_vyvqu")
+flat = true
+icon_alignment = 1
+
+[node name="Textbox_price9" type="Button" parent="scroll/content wrapper/item bundle" unique_id=1905746628]
+layout_mode = 0
+offset_left = 925.99994
+offset_top = 1292.0
+offset_right = 1625.9998
+offset_bottom = 1623.0
+scale = Vector2(0.22845636, 0.22845636)
+theme_override_colors/font_color = Color(0.5372549, 0.3764706, 0.25490198, 1)
+theme_override_fonts/font = ExtResource("4_a54sg")
+theme_override_font_sizes/font_size = 160
+text = "$7.50"
+icon = ExtResource("10_vyvqu")
+flat = true
+icon_alignment = 1
+
+[node name="etc" type="Label" parent="scroll/content wrapper/item bundle" unique_id=195494822]
+layout_mode = 0
+offset_left = 216.0
+offset_top = 1469.0
+offset_right = 1099.0
+offset_bottom = 1496.0
+text = "TIPS :YOU CAN GET ALL THINGS WITHOUT PAYS , JUST PLAY AND RELAX"
+label_settings = SubResource("LabelSettings_cnpjy")
+
+[node name="PurchasePopUp" parent="." unique_id=1190264440 instance=ExtResource("21_xo55w")]
+layout_mode = 1
+offset_left = 242.00002
+offset_top = 60.000015
+offset_right = 242.0
+offset_bottom = 60.0
+scale = Vector2(0.76768374, 0.76768374)

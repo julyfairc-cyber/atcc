@@ -1,0 +1,34 @@
+[gd_scene format=3 uid="uid://cnrxl8apy8l5s"]
+
+[ext_resource type="Texture2D" uid="uid://c1xm5j8xjuamg" path="res://Assets/Sprites/Portrait Box.png" id="1_5j1s5"]
+[ext_resource type="Script" uid="uid://bwm4wpek1idua" path="res://Scripts/skill_menu.gd" id="1_kjc4w"]
+
+[node name="skill_menu" type="CanvasLayer" unique_id=420854896]
+script = ExtResource("1_kjc4w")
+
+[node name="cont" type="NinePatchRect" parent="." unique_id=949025032]
+anchors_preset = -1
+anchor_right = 0.23828125
+anchor_bottom = 0.31388888
+offset_right = 1.5258789e-05
+size_flags_horizontal = 3
+texture = ExtResource("1_5j1s5")
+region_rect = Rect2(0, 0, 662, 192)
+patch_margin_left = 66
+patch_margin_top = 42
+patch_margin_right = 74
+patch_margin_bottom = 33
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="MarginContainer" type="MarginContainer" parent="cont" unique_id=5842615]
+layout_mode = 0
+anchor_left = 0.12693499
+anchor_top = 0.13235295
+anchor_right = 0.85139316
+anchor_bottom = 0.86764705
+metadata/_edit_use_anchors_ = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="cont/MarginContainer" unique_id=2037073853]
+layout_mode = 2

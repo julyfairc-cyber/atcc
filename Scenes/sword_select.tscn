@@ -1,0 +1,408 @@
+[gd_scene format=3 uid="uid://bkll0gowtvpqh"]
+
+[ext_resource type="Texture2D" uid="uid://bt7cluw4vygdf" path="res://Assets/Store/frame base and pick.png" id="1_bg8dp"]
+[ext_resource type="Script" uid="uid://uk3gnexqkiuq" path="res://Scripts/sword_select.gd" id="1_mglna"]
+[ext_resource type="Texture2D" uid="uid://dd2lsqe37g2lj" path="res://Assets/Store/multi frame.png" id="1_npu3v"]
+[ext_resource type="Texture2D" uid="uid://b5nn3gswabatf" path="res://Assets/Store/picked frame.png" id="2_ideoh"]
+[ext_resource type="FontFile" uid="uid://b8lbphkr7l51t" path="res://Assets/Pixellari.ttf" id="2_mglna"]
+[ext_resource type="Texture2D" uid="uid://dy3uca7na0vwb" path="res://Assets/Store/Buttons 4.png" id="3_npu3v"]
+[ext_resource type="Texture2D" uid="uid://ndehl41past4" path="res://Assets/Store/hold item frame.png" id="3_vcub7"]
+[ext_resource type="Texture2D" uid="uid://c8e73axyhikkc" path="res://Assets/Store/textbox name item.png" id="5_dtbf4"]
+[ext_resource type="Texture2D" uid="uid://bcw1f1fcrcf64" path="res://Assets/Store/sword1.png" id="6_dtbf4"]
+[ext_resource type="Texture2D" uid="uid://b2tirf61p6607" path="res://Assets/Store/sword2.png" id="7_jq8ff"]
+[ext_resource type="Texture2D" uid="uid://cp6ir365om0i2" path="res://Assets/Store/sword3.png" id="8_7bkht"]
+[ext_resource type="Texture2D" uid="uid://6k6vkswk3c3r" path="res://Assets/Store/sword4.png" id="10_esqs6"]
+[ext_resource type="Texture2D" uid="uid://dbhtbuccrt62p" path="res://Assets/Store/sword5.png" id="11_te671"]
+[ext_resource type="Texture2D" uid="uid://b5h4v2osaclwl" path="res://Assets/Store/sword6.png" id="12_2e7m5"]
+[ext_resource type="Texture2D" uid="uid://bq6es445ln5km" path="res://Assets/Store/sword7.png" id="13_ples0"]
+[ext_resource type="Texture2D" uid="uid://b1rcaxqnwxvya" path="res://Assets/Store/sword8.png" id="14_uvn3d"]
+[ext_resource type="Texture2D" uid="uid://dua7oloa4u27q" path="res://Assets/Store/sword9.png" id="15_tspp4"]
+[ext_resource type="Texture2D" uid="uid://dbq6nbllkxedg" path="res://Assets/Store/sword10.png" id="16_xlu7g"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_ilsnw"]
+font = ExtResource("2_mglna")
+
+[sub_resource type="LabelSettings" id="LabelSettings_vse7m"]
+font = ExtResource("2_mglna")
+
+[sub_resource type="LabelSettings" id="LabelSettings_mvifi"]
+font = ExtResource("2_mglna")
+font_size = 93
+
+[sub_resource type="LabelSettings" id="LabelSettings_jjdw6"]
+font = ExtResource("2_mglna")
+font_size = 24
+
+[sub_resource type="LabelSettings" id="LabelSettings_ls246"]
+font = ExtResource("2_mglna")
+font_size = 150
+font_color = Color(0.5372549, 0.3764706, 0.25490198, 1)
+
+[node name="swordselect" type="Control" unique_id=1485616734]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_mglna")
+
+[node name="PanelBG" type="TextureRect" parent="." unique_id=82772371]
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -640.0
+offset_top = -360.0
+offset_right = 640.0
+offset_bottom = 360.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_bg8dp")
+expand_mode = 1
+
+[node name="Content" type="Control" parent="PanelBG" unique_id=1924818850]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="TitleLabel" type="Label" parent="PanelBG/Content" unique_id=1677126218]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 10.4875
+anchor_top = 4.475
+anchor_right = 22.614735
+anchor_bottom = 7.1990385
+offset_left = 36.50009
+offset_top = -56.0
+offset_right = -307.58923
+offset_bottom = -124.96153
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(2.7240384, 2.7240384)
+text = "PICK YOUR SWORD"
+label_settings = SubResource("LabelSettings_ilsnw")
+horizontal_alignment = 1
+
+[node name="SubtitleLabel" type="Label" parent="PanelBG/Content" unique_id=1116795045]
+layout_mode = 0
+offset_left = -667.0
+offset_top = 174.0
+offset_right = 613.0
+offset_bottom = 190.0
+scale = Vector2(2.0606453, 2.0606453)
+text = "PICK 1 ITEM"
+label_settings = SubResource("LabelSettings_vse7m")
+horizontal_alignment = 1
+
+[node name="Slot1" type="TextureButton" parent="PanelBG/Content" unique_id=2102917359]
+layout_mode = 0
+offset_left = 320.0
+offset_top = 233.00003
+offset_right = 929.0
+offset_bottom = 842.0
+scale = Vector2(0.20412263, 0.20412263)
+toggle_mode = true
+texture_normal = ExtResource("1_npu3v")
+texture_pressed = ExtResource("2_ideoh")
+texture_hover = ExtResource("3_vcub7")
+
+[node name="Icon1" type="TextureRect" parent="PanelBG/Content/Slot1" unique_id=964654857]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -93.08127
+offset_top = -78.38422
+offset_right = 56.9187
+offset_bottom = 71.61578
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("6_dtbf4")
+stretch_mode = 5
+
+[node name="Slot2" type="TextureButton" parent="PanelBG/Content" unique_id=1785808336]
+layout_mode = 0
+offset_left = 445.0
+offset_top = 233.00003
+offset_right = 1054.0
+offset_bottom = 842.0
+scale = Vector2(0.20412263, 0.20412263)
+toggle_mode = true
+texture_normal = ExtResource("1_npu3v")
+texture_pressed = ExtResource("2_ideoh")
+texture_hover = ExtResource("3_vcub7")
+
+[node name="Icon2" type="TextureRect" parent="PanelBG/Content/Slot2" unique_id=50946587]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -93.08127
+offset_top = -78.38422
+offset_right = 56.9187
+offset_bottom = 71.61578
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("7_jq8ff")
+stretch_mode = 5
+
+[node name="Slot3" type="TextureButton" parent="PanelBG/Content" unique_id=544498528]
+layout_mode = 0
+offset_left = 570.0
+offset_top = 233.00003
+offset_right = 1179.0
+offset_bottom = 842.0
+scale = Vector2(0.20412263, 0.20412263)
+toggle_mode = true
+texture_normal = ExtResource("1_npu3v")
+texture_pressed = ExtResource("2_ideoh")
+texture_hover = ExtResource("3_vcub7")
+
+[node name="Icon3" type="TextureRect" parent="PanelBG/Content/Slot3" unique_id=1982837023]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -93.08127
+offset_top = -78.38422
+offset_right = 56.9187
+offset_bottom = 71.61578
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("8_7bkht")
+stretch_mode = 5
+
+[node name="Slot4" type="TextureButton" parent="PanelBG/Content" unique_id=593067607]
+layout_mode = 0
+offset_left = 695.00006
+offset_top = 233.0
+offset_right = 1304.0
+offset_bottom = 842.0
+scale = Vector2(0.20412263, 0.20412263)
+toggle_mode = true
+texture_normal = ExtResource("1_npu3v")
+texture_pressed = ExtResource("2_ideoh")
+texture_hover = ExtResource("3_vcub7")
+
+[node name="Icon4" type="TextureRect" parent="PanelBG/Content/Slot4" unique_id=316476671]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -93.08127
+offset_top = -78.38422
+offset_right = 56.9187
+offset_bottom = 71.61578
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("10_esqs6")
+stretch_mode = 5
+
+[node name="Slot5" type="TextureButton" parent="PanelBG/Content" unique_id=918846335]
+layout_mode = 0
+offset_left = 820.00006
+offset_top = 233.0
+offset_right = 1429.0
+offset_bottom = 842.0
+scale = Vector2(0.20412263, 0.20412263)
+toggle_mode = true
+texture_normal = ExtResource("1_npu3v")
+texture_pressed = ExtResource("2_ideoh")
+texture_hover = ExtResource("3_vcub7")
+
+[node name="Icon5" type="TextureRect" parent="PanelBG/Content/Slot5" unique_id=2086578225]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -39.19211
+offset_top = -78.38422
+offset_right = 110.80786
+offset_bottom = 71.61578
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("11_te671")
+stretch_mode = 5
+
+[node name="Slot6" type="TextureButton" parent="PanelBG/Content" unique_id=40444433]
+layout_mode = 0
+offset_left = 320.0
+offset_top = 358.00003
+offset_right = 929.0
+offset_bottom = 967.0
+scale = Vector2(0.20412263, 0.20412263)
+toggle_mode = true
+texture_normal = ExtResource("1_npu3v")
+texture_pressed = ExtResource("2_ideoh")
+texture_hover = ExtResource("3_vcub7")
+
+[node name="Icon6" type="TextureRect" parent="PanelBG/Content/Slot6" unique_id=1260307013]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -93.08127
+offset_top = -78.38422
+offset_right = 56.9187
+offset_bottom = 71.61578
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("12_2e7m5")
+stretch_mode = 5
+
+[node name="Slot7" type="TextureButton" parent="PanelBG/Content" unique_id=1507734519]
+layout_mode = 0
+offset_left = 445.0
+offset_top = 358.0
+offset_right = 1054.0
+offset_bottom = 967.0
+scale = Vector2(0.20412263, 0.20412263)
+toggle_mode = true
+texture_normal = ExtResource("1_npu3v")
+texture_pressed = ExtResource("2_ideoh")
+texture_hover = ExtResource("3_vcub7")
+
+[node name="Icon7" type="TextureRect" parent="PanelBG/Content/Slot7" unique_id=266447943]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -93.08127
+offset_top = -78.38422
+offset_right = 56.9187
+offset_bottom = 71.61578
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("13_ples0")
+stretch_mode = 5
+
+[node name="Slot8" type="TextureButton" parent="PanelBG/Content" unique_id=2089649928]
+layout_mode = 0
+offset_left = 569.99994
+offset_top = 358.00003
+offset_right = 1179.0
+offset_bottom = 967.0
+scale = Vector2(0.20412263, 0.20412263)
+toggle_mode = true
+texture_normal = ExtResource("1_npu3v")
+texture_pressed = ExtResource("2_ideoh")
+texture_hover = ExtResource("3_vcub7")
+
+[node name="Icon8" type="TextureRect" parent="PanelBG/Content/Slot8" unique_id=1720475185]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -93.08127
+offset_top = -78.38422
+offset_right = 56.9187
+offset_bottom = 71.61578
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("14_uvn3d")
+stretch_mode = 5
+
+[node name="Slot9" type="TextureButton" parent="PanelBG/Content" unique_id=768201718]
+layout_mode = 0
+offset_left = 695.0
+offset_top = 358.00003
+offset_right = 1304.0
+offset_bottom = 967.0
+scale = Vector2(0.20412263, 0.20412263)
+toggle_mode = true
+texture_normal = ExtResource("1_npu3v")
+texture_pressed = ExtResource("2_ideoh")
+texture_hover = ExtResource("3_vcub7")
+
+[node name="Icon9" type="TextureRect" parent="PanelBG/Content/Slot9" unique_id=766950511]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -93.08127
+offset_top = -78.38422
+offset_right = 56.9187
+offset_bottom = 71.61578
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("15_tspp4")
+stretch_mode = 5
+
+[node name="Slot10" type="TextureButton" parent="PanelBG/Content" unique_id=250239460]
+layout_mode = 0
+offset_left = 820.0
+offset_top = 358.00003
+offset_right = 1429.0
+offset_bottom = 967.0
+scale = Vector2(0.20412263, 0.20412263)
+toggle_mode = true
+texture_normal = ExtResource("1_npu3v")
+texture_pressed = ExtResource("2_ideoh")
+texture_hover = ExtResource("3_vcub7")
+
+[node name="Icon10" type="TextureRect" parent="PanelBG/Content/Slot10" unique_id=1813725337]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -93.08127
+offset_top = -78.38422
+offset_right = 56.9187
+offset_bottom = 71.61578
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("16_xlu7g")
+stretch_mode = 5
+
+[node name="TooltipBox" type="TextureRect" parent="PanelBG/Content" unique_id=2007845949]
+layout_mode = 1
+offset_right = 1224.0
+offset_bottom = 277.0
+scale = Vector2(0.1349672, 0.1349672)
+texture = ExtResource("5_dtbf4")
+
+[node name="TooltipLabel" type="Label" parent="PanelBG/Content/TooltipBox" unique_id=1971759784]
+layout_mode = 0
+offset_left = 74.09186
+offset_top = 88.91027
+offset_right = 1168.0918
+offset_bottom = 188.91028
+text = "EMERLAD ELITE SWORD"
+label_settings = SubResource("LabelSettings_mvifi")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TipsLabel" type="Label" parent="PanelBG/Content" unique_id=1775454816]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 512.0
+offset_right = 1286.0
+offset_bottom = 536.0
+text = "TIPS: PICK YOUR ITEM WISELY, CANNOT SWITCH OR REFUND AFTER COLLECT"
+label_settings = SubResource("LabelSettings_jjdw6")
+horizontal_alignment = 1
+
+[node name="CollectButton" type="TextureButton" parent="PanelBG/Content" unique_id=2023313169]
+layout_mode = 0
+offset_left = 546.00006
+offset_top = 548.00006
+offset_right = 1481.0
+offset_bottom = 1015.00006
+scale = Vector2(0.23671222, 0.23671222)
+texture_normal = ExtResource("3_npu3v")
+
+[node name="CollectLabel" type="Label" parent="PanelBG/Content/CollectButton" unique_id=909801337]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "COLLECT"
+label_settings = SubResource("LabelSettings_ls246")
+horizontal_alignment = 1
+vertical_alignment = 1

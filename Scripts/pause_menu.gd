@@ -1,4 +1,3 @@
-# pause_menu.gd
 extends CanvasLayer
 
 @export var return_button: TextureButton
@@ -6,6 +5,11 @@ extends CanvasLayer
 signal closed
 
 func _ready() -> void:
+	if return_button == null or quit_button == null:
+		push_warning("Pause menu instance missing button references — self-destructing.")
+		queue_free()
+		return
+
 	return_button.pressed.connect(_on_return_pressed)
 	quit_button.pressed.connect(_on_quit_pressed)
 

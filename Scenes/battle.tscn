@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://biyx2pfiq8ttp" path="res://Assets/Sprites/Water Slime Idle.png" id="2_1ruyk"]
 [ext_resource type="Script" uid="uid://b57vit64e5bsj" path="res://Scripts/battler.gd" id="2_u4qsn"]
 [ext_resource type="Texture2D" uid="uid://d14ng8wd5dbnr" path="res://Assets/Sprites/Water Slime Attack.png" id="2_ww2ai"]
-[ext_resource type="Resource" uid="uid://by76a3bnle1s" path="res://Scenes/data/slime1_data.tres" id="3_5gfn5"]
+[ext_resource type="Resource" uid="uid://by76a3bnle1s" path="res://Scripts/data/slime1_data.tres" id="3_5gfn5"]
 [ext_resource type="Texture2D" uid="uid://c8pok02bnswll" path="res://Assets/Sprites/Water Slime death sprite.png" id="3_lrv64"]
 [ext_resource type="Texture2D" uid="uid://cf8v7b3etk7jn" path="res://Assets/Sprites/Water Slime damaged.png" id="4_qeyqd"]
 [ext_resource type="Texture2D" uid="uid://m8hdy531ch5j" path="res://Assets/Sprites/idle blink.png" id="6_k7mbx"]
@@ -17,13 +17,13 @@
 [ext_resource type="Texture2D" uid="uid://dfcvohk7a4lef" path="res://Assets/Sprites/Physical.png" id="14_nne6o"]
 [ext_resource type="Texture2D" uid="uid://cvbgxqwhjb7be" path="res://Assets/characters/Aerys portrait.png" id="14_rwop7"]
 [ext_resource type="FontFile" uid="uid://b6eiyoqdxmwbn" path="res://Assets/Sprites/Pixellari.ttf" id="14_xkp4y"]
-[ext_resource type="Resource" uid="uid://cpg3o040qe1qn" path="res://Scenes/data/aerys_data.tres" id="15_b73yr"]
+[ext_resource type="Resource" uid="uid://cpg3o040qe1qn" path="res://Scripts/data/aerys_data.tres" id="15_b73yr"]
 [ext_resource type="Texture2D" uid="uid://3r74y7ia47of" path="res://Assets/Sprites/John Facecard.png" id="15_fonr4"]
 [ext_resource type="Texture2D" uid="uid://cqd4jwu5r6hlm" path="res://Assets/Sprites/Fire.png" id="16_7vlph"]
 [ext_resource type="Texture2D" uid="uid://05xrcmd0jd0d" path="res://Assets/characters/waterslimeportrait.png" id="17_7vlph"]
 [ext_resource type="Texture2D" uid="uid://cl1amxsxm0xbt" path="res://Assets/Sprites/Water.png" id="18_486ce"]
 [ext_resource type="Texture2D" uid="uid://d11ed5tcynh8a" path="res://Assets/Buttons/Button atk.png" id="19_rwop7"]
-[ext_resource type="Resource" uid="uid://be4vpsqr851hs" path="res://Scenes/data/john_data.tres" id="19_s1dsa"]
+[ext_resource type="Resource" uid="uid://be4vpsqr851hs" path="res://Scripts/data/john_data.tres" id="19_s1dsa"]
 [ext_resource type="Texture2D" uid="uid://dt7p0lwceqak4" path="res://Assets/Buttons/Button atk pressed.png" id="20_u4qsn"]
 [ext_resource type="Texture2D" uid="uid://ctr7kkbsjl1u5" path="res://Assets/Buttons/Button Skill.png" id="21_b73yr"]
 [ext_resource type="Texture2D" uid="uid://lpwg03gt600i" path="res://Assets/Buttons/Button skil pressedl.png" id="22_s1dsa"]
@@ -422,20 +422,25 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="battle_manager" type="Node" parent="." unique_id=235624735 node_paths=PackedStringArray("party", "enemies", "sword_button", "flee_button")]
+[node name="battle_manager" type="Node" parent="." unique_id=235624735 node_paths=PackedStringArray("party", "enemies", "sword_button", "flee_button", "skill_button", "inventory", "skip_button", "fast_forward_button", "settings_button", "pause_button")]
 script = ExtResource("1_hatvd")
 party = [NodePath("../playerstats"), NodePath("../allystats")]
 enemies = [NodePath("../enemystats")]
 sword_button = NodePath("../ui/Container/buttons/SwordButton")
 flee_button = NodePath("../ui/Container/buttons/FleeButton")
+skill_button = NodePath("../ui/Container/buttons/SkillButton")
+inventory = NodePath("../ui/Container/buttons/InventoryButton")
+skip_button = NodePath("../ui/Container/buttons2/SkipButton")
+fast_forward_button = NodePath("../ui/Container/buttons2/FastForwardButton")
+settings_button = NodePath("../ui/Container/buttons2/SettingsButton")
+pause_button = NodePath("../ui/Container/buttons2/PauseButton")
 
 [node name="TextureRect" type="TextureRect" parent="." unique_id=1943058516]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -46.0
-offset_bottom = -46.0
+offset_bottom = -53.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("1_oxf17")
@@ -453,7 +458,6 @@ script = ExtResource("2_u4qsn")
 sprite = NodePath("Slime")
 data = ExtResource("3_5gfn5")
 battler_name = "Slime"
-level = 61
 is_enemy = true
 name_label_path = NodePath("enemybar/name_label")
 level_label_path = NodePath("enemybar/lvl_label")
@@ -651,7 +655,7 @@ script = ExtResource("2_u4qsn")
 sprite = NodePath("Char")
 data = ExtResource("15_b73yr")
 battler_name = "Aerys"
-level = 70
+level = 15
 name_label_path = NodePath("playerbar/name_label")
 level_label_path = NodePath("playerbar/lvl_label")
 hp_bar_path = NodePath("playerbar/hp_bar")
@@ -841,7 +845,7 @@ script = ExtResource("2_u4qsn")
 sprite = NodePath("../playerstats/Char")
 data = ExtResource("19_s1dsa")
 battler_name = "John"
-level = 70
+level = 15
 name_label_path = NodePath("allybar/name_label")
 level_label_path = NodePath("allybar/lvl_label")
 hp_bar_path = NodePath("allybar/hp_bar")
@@ -1024,7 +1028,7 @@ anchor_top = 0.71800005
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_top = 35.039978
-offset_bottom = 35.0
+offset_bottom = 38.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_styles/panel = SubResource("StyleBoxTexture_xkp4y")
@@ -1037,12 +1041,14 @@ layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
+offset_left = 43.0
 offset_top = -44.0
-offset_right = 380.0
+offset_right = 429.0
 offset_bottom = 44.0
 grow_vertical = 2
 size_flags_horizontal = 0
 size_flags_vertical = 10
+theme_override_constants/separation = 6
 
 [node name="SwordButton" type="TextureButton" parent="ui/Container/buttons" unique_id=1769333268]
 layout_mode = 2
@@ -1051,14 +1057,14 @@ texture_normal = ExtResource("19_rwop7")
 texture_pressed = ExtResource("20_u4qsn")
 texture_hover = ExtResource("19_rwop7")
 
-[node name="sp" type="TextureButton" parent="ui/Container/buttons" unique_id=1330101927]
+[node name="SkillButton" type="TextureButton" parent="ui/Container/buttons" unique_id=1330101927]
 layout_mode = 2
 size_flags_horizontal = 0
 texture_normal = ExtResource("21_b73yr")
 texture_pressed = ExtResource("22_s1dsa")
 texture_hover = ExtResource("21_b73yr")
 
-[node name="inv" type="TextureButton" parent="ui/Container/buttons" unique_id=1937567179]
+[node name="InventoryButton" type="TextureButton" parent="ui/Container/buttons" unique_id=1937567179]
 layout_mode = 2
 size_flags_horizontal = 0
 texture_normal = ExtResource("23_5gfn5")
@@ -1075,38 +1081,38 @@ texture_hover = ExtResource("25_dndgb")
 [node name="buttons2" type="HBoxContainer" parent="ui/Container" unique_id=259036114]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.6910569
+anchor_left = 0.671875
 anchor_top = 0.15625
-anchor_right = 1.0
+anchor_right = 0.9808181
 anchor_bottom = 0.84375
 grow_horizontal = 0
 grow_vertical = 2
 size_flags_horizontal = 8
 size_flags_vertical = 10
-metadata/_edit_use_anchors_ = true
+theme_override_constants/separation = 6
 
-[node name="skip" type="TextureButton" parent="ui/Container/buttons2" unique_id=1337501844]
+[node name="SkipButton" type="TextureButton" parent="ui/Container/buttons2" unique_id=1337501844]
 layout_mode = 2
 size_flags_horizontal = 0
 texture_normal = ExtResource("27_xldyr")
 texture_pressed = ExtResource("28_kmsla")
 texture_hover = ExtResource("27_xldyr")
 
-[node name="ff" type="TextureButton" parent="ui/Container/buttons2" unique_id=733395704]
+[node name="FastForwardButton" type="TextureButton" parent="ui/Container/buttons2" unique_id=733395704]
 layout_mode = 2
 size_flags_horizontal = 0
 texture_normal = ExtResource("29_3mu0q")
 texture_pressed = ExtResource("30_2knb8")
 texture_hover = ExtResource("29_3mu0q")
 
-[node name="settings" type="TextureButton" parent="ui/Container/buttons2" unique_id=90053467]
+[node name="SettingsButton" type="TextureButton" parent="ui/Container/buttons2" unique_id=90053467]
 layout_mode = 2
 size_flags_horizontal = 0
 texture_normal = ExtResource("31_5gfn5")
 texture_pressed = ExtResource("32_rwop7")
 texture_hover = ExtResource("31_5gfn5")
 
-[node name="pause" type="TextureButton" parent="ui/Container/buttons2" unique_id=988107254]
+[node name="PauseButton" type="TextureButton" parent="ui/Container/buttons2" unique_id=988107254]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 0

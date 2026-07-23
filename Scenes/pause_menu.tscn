@@ -10,12 +10,12 @@
 [ext_resource type="Texture2D" uid="uid://b87a1dgjqsnuy" path="res://Assets/Buttons/Header.png" id="8_ix48p"]
 
 [node name="PauseMenuLayer" type="CanvasLayer" unique_id=229911228 node_paths=PackedStringArray("return_button", "quit_button")]
+process_mode = 2
 script = ExtResource("1_u8tnp")
-return_button = NodePath("PauseMenu/CenterContainer/Box/unpausecont/Return/unpause")
+return_button = NodePath("PauseMenu/CenterContainer/Box/unpausecont/Return/return_button")
 quit_button = NodePath("PauseMenu/CenterContainer/Box/unpausecont/quitcont/quit")
 
 [node name="PauseMenu" type="Control" parent="." unique_id=861254847]
-process_mode = 2
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -79,7 +79,6 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="unpausecont" type="HBoxContainer" parent="PauseMenu/CenterContainer/Box" unique_id=1122496044]
-process_mode = 3
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -102,7 +101,7 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_constants/separation = 10
 
-[node name="unpause" type="TextureButton" parent="PauseMenu/CenterContainer/Box/unpausecont/Return" unique_id=2004564865]
+[node name="return_button" type="TextureButton" parent="PauseMenu/CenterContainer/Box/unpausecont/Return" unique_id=2004564865]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4

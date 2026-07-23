@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="CharacterData" format=3 uid="uid://be4vpsqr851hs"]
+
+[ext_resource type="Texture2D" uid="uid://3r74y7ia47of" path="res://Assets/Sprites/John Facecard.png" id="1_72shf"]
+[ext_resource type="Script" uid="uid://cim15u1q5i1qr" path="res://Scripts/data/character_data.gd" id="2_v6gtp"]
+[ext_resource type="Script" uid="uid://vtalusqlgqhk" path="res://Scripts/data/skill_data.gd" id="3_54yl4"]
+
+[resource]
+script = ExtResource("2_v6gtp")
+character_name = "John"
+level = 12
+max_hp = 120
+max_mp = 60
+attack = 16
+defense = 6
+speed = 6
+portrait = ExtResource("1_72shf")
+element = 2
+skills = Array[ExtResource("3_54yl4")]([null])
+metadata/_custom_type_script = "uid://cim15u1q5i1qr"

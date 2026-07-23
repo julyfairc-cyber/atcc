@@ -6,7 +6,14 @@ var skip_next_fade_in: bool = false
 var defeated_enemies: Array[String] = []
 var pending_enemy_id: String = ""
 
-var flee_cooldowns: Dictionary = {}  # enemy_id -> time (in ms) when cooldown ends
+var flee_cooldowns: Dictionary = {} 
+
+func reset_for_new_game() -> void:
+	last_player_position = Vector2.ZERO
+	skip_next_fade_in = false
+	defeated_enemies.clear()
+	pending_enemy_id = ""
+	flee_cooldowns.clear()
 
 func mark_defeated(enemy_id: String) -> void:
 	if enemy_id != "" and not defeated_enemies.has(enemy_id):
