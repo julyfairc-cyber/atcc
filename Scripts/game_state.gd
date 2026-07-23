@@ -1,11 +1,11 @@
 # game_state.gd
 extends Node
 
+var current_stage_path: String = "res://Scenes/Stage1.tscn"
 var last_player_position: Vector2 = Vector2.ZERO
 var skip_next_fade_in: bool = false
 var defeated_enemies: Array[String] = []
 var pending_enemy_id: String = ""
-
 var flee_cooldowns: Dictionary = {} 
 
 func reset_for_new_game() -> void:

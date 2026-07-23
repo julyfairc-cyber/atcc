@@ -1,0 +1,31 @@
+[gd_resource type="Theme" format=3 uid="uid://kdcakav04xg8"]
+
+[ext_resource type="FontFile" uid="uid://b6eiyoqdxmwbn" path="res://Assets/Sprites/Pixellari.ttf" id="1_212mj"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_212mj"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vmup5"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_usui2"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7ciuc"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6yb6t"]
+
+[resource]
+default_base_scale = 20.0
+default_font = ExtResource("1_212mj")
+Button/colors/font_color = Color(0.9490196, 0.9490196, 0.9490196, 1)
+Button/colors/font_disabled_color = Color(0.4351923, 0.43519226, 0.43519226, 1)
+Button/colors/font_focus_color = Color(0.92523587, 0.8458164, 0.412061, 1)
+Button/colors/font_hover_color = Color(0.92523587, 0.8458164, 0.412061, 1)
+Button/colors/font_hover_pressed_color = Color(0.92523587, 0.8458164, 0.412061, 1)
+Button/colors/font_pressed_color = Color(0.7534958, 0.63463855, 0.05604247, 1)
+Button/colors/icon_disabled_color = Color(0.4351923, 0.43519226, 0.43519226, 1)
+Button/font_sizes/font_size = 20
+Button/fonts/font = ExtResource("1_212mj")
+Button/styles/disabled = SubResource("StyleBoxEmpty_212mj")
+Button/styles/focus = SubResource("StyleBoxEmpty_vmup5")
+Button/styles/hover = SubResource("StyleBoxEmpty_usui2")
+Button/styles/normal = SubResource("StyleBoxEmpty_7ciuc")
+Button/styles/pressed = SubResource("StyleBoxEmpty_6yb6t")

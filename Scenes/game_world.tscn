@@ -1,0 +1,110 @@
+[gd_scene format=3 uid="uid://cyek208licur5"]
+
+[ext_resource type="PackedScene" uid="uid://xocsi0yba52t" path="res://Scenes/Fade_transition.tscn" id="1_0nejw"]
+[ext_resource type="Texture2D" uid="uid://lbi306efp6vj" path="res://Assets/Buttons/Button Stop.png" id="1_p4c8d"]
+[ext_resource type="Texture2D" uid="uid://dcay3eu42tnmg" path="res://Assets/Buttons/Button stop pressed.png" id="2_f1ejf"]
+[ext_resource type="Texture2D" uid="uid://cur5ry2n616fg" path="res://Assets/Buttons/button options.png" id="3_d0bjv"]
+[ext_resource type="Texture2D" uid="uid://cm6oqsl0gw3yp" path="res://Assets/Buttons/button options pressed.png" id="4_27os8"]
+
+[sub_resource type="GDScript" id="GDScript_ucfah"]
+resource_name = "game_world"
+script/source = "extends Node2D
+class_name GameWorld
+
+const PLAYER_SCENE = preload(\"res://Scenes/player.tscn\")
+const PAUSE_MENU_SCENE = preload(\"res://Scenes/pause_menu.tscn\")
+
+@export var stage_container: Node2D
+
+var player_instance: Node2D = null
+var pause_menu_instance: CanvasLayer = null
+
+func _ready() -> void:
+	%pause.pressed.connect(_on_pause_button_pressed)
+	%settings.pressed.connect(_on_settings_pressed)
+	_load_stage(GameState.current_stage_path)
+
+	if GameState.skip_next_fade_in:
+		GameState.skip_next_fade_in = false
+		$Fade_Transition.hide()
+	else:
+		$Fade_Transition.show()
+		$Fade_Transition/AnimationPlayer.play(\"fade_out\")
+
+func _load_stage(stage_path: String) -> void:
+	for child in stage_container.get_children():
+		child.queue_free()
+
+	var stage = load(stage_path).instantiate()
+	stage_container.add_child(stage)
+
+	if player_instance == null:
+		player_instance = PLAYER_SCENE.instantiate()
+		add_child(player_instance)
+
+	if GameState.last_player_position != Vector2.ZERO:
+		player_instance.global_position = GameState.last_player_position
+
+func go_to_stage(stage_path: String) -> void:
+	GameState.current_stage_path = stage_path
+	GameState.last_player_position = Vector2.ZERO
+	_load_stage(stage_path)
+
+func _on_settings_pressed() -> void:
+	GameState.last_player_position = player_instance.global_position
+	GameState.skip_next_fade_in = true
+	SceneManager.go_to_scene(\"res://Scenes/settings.tscn\")
+
+func _on_pause_button_pressed() -> void:
+	if pause_menu_instance != null:
+		return
+
+	pause_menu_instance = PAUSE_MENU_SCENE.instantiate()
+	pause_menu_instance.closed.connect(func(): pause_menu_instance = null)
+	get_tree().root.add_child(pause_menu_instance)
+	get_tree().paused = true
+"
+
+[node name="GameWorld" type="Node2D" unique_id=1172290548 node_paths=PackedStringArray("stage_container")]
+script = SubResource("GDScript_ucfah")
+stage_container = NodePath("StageContainer")
+
+[node name="StageContainer" type="Node2D" parent="." unique_id=64840992]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1369357990]
+
+[node name="pause" type="TextureButton" parent="CanvasLayer" unique_id=793564633]
+unique_name_in_owner = true
+anchors_preset = -1
+anchor_left = 0.01015625
+anchor_top = 0.015277778
+anchor_right = 0.07386364
+anchor_bottom = 0.12361111
+offset_left = 1081.0
+offset_right = 1081.0
+size_flags_horizontal = 0
+texture_normal = ExtResource("1_p4c8d")
+texture_pressed = ExtResource("2_f1ejf")
+texture_hover = ExtResource("1_p4c8d")
+ignore_texture_size = true
+stretch_mode = 4
+metadata/_edit_use_anchors_ = true
+
+[node name="settings" type="TextureButton" parent="CanvasLayer" unique_id=203987619]
+unique_name_in_owner = true
+offset_left = 1186.0
+offset_top = 11.0
+offset_right = 1267.5454
+offset_bottom = 89.0
+size_flags_horizontal = 0
+texture_normal = ExtResource("3_d0bjv")
+texture_pressed = ExtResource("4_27os8")
+texture_hover = ExtResource("3_d0bjv")
+ignore_texture_size = true
+stretch_mode = 5
+metadata/_edit_use_anchors_ = true
+
+[node name="Fade_Transition" parent="." unique_id=555550386 instance=ExtResource("1_0nejw")]
+visible = false
+offset_right = 1278.0
+offset_bottom = 716.0

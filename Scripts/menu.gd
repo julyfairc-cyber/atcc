@@ -23,6 +23,6 @@ func _on_exit_game_pressed() :
 
 func _on_fade_timer_timeout():
 	if button_type == "play" :
-		get_tree().change_scene_to_file("res://Scenes/game.tscn")
+		SceneManager.go_to_scene("res://Scenes/game_world.tscn")
 	elif button_type == "settings" :
 		SceneManager.go_to_scene("res://Scenes/settings.tscn")

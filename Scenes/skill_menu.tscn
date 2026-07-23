@@ -2,9 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://c1xm5j8xjuamg" path="res://Assets/Sprites/Portrait Box.png" id="1_5j1s5"]
 [ext_resource type="Script" uid="uid://bwm4wpek1idua" path="res://Scripts/skill_menu.gd" id="1_kjc4w"]
-[ext_resource type="FontFile" uid="uid://b6eiyoqdxmwbn" path="res://Assets/Sprites/Pixellari.ttf" id="3_napan"]
-
-[sub_resource type="Theme" id="Theme_kjc4w"]
+[ext_resource type="Theme" uid="uid://kdcakav04xg8" path="res://Scripts/data/skill_button_theme.tres" id="4_a0uc5"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_napan"]
 content_margin_left = 60.0
@@ -17,16 +15,15 @@ texture_margin_top = 40.0
 texture_margin_right = 60.0
 texture_margin_bottom = 40.0
 
-[sub_resource type="Theme" id="Theme_a0uc5"]
-default_font = ExtResource("3_napan")
-
-[node name="skill_menu" type="CanvasLayer" unique_id=420854896 node_paths=PackedStringArray("skill_list_container", "backdrop")]
+[node name="skill_menu" type="CanvasLayer" unique_id=420854896 node_paths=PackedStringArray("skill_list_container", "backdrop", "panel")]
 process_mode = 3
 script = ExtResource("1_kjc4w")
 skill_list_container = NodePath("PanelContainer/MarginContainer/VBoxContainer")
 backdrop = NodePath("Backdrop")
+panel = NodePath("PanelContainer")
 
 [node name="Backdrop" type="Button" parent="." unique_id=1068138185]
+process_mode = 3
 modulate = Color(1, 1, 1, 0)
 anchors_preset = 15
 anchor_right = 1.0
@@ -34,7 +31,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="PanelContainer" type="PanelContainer" parent="." unique_id=1794047727]
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=2010984941]
 custom_minimum_size = Vector2(365, 150)
 anchors_preset = -1
 anchor_left = 0.35742188
@@ -44,15 +41,16 @@ anchor_bottom = 0.80277777
 grow_horizontal = 2
 grow_vertical = 0
 size_flags_vertical = 8
-theme = SubResource("Theme_kjc4w")
+theme = ExtResource("4_a0uc5")
 theme_override_styles/panel = SubResource("StyleBoxTexture_napan")
 metadata/_edit_use_anchors_ = true
 
-[node name="MarginContainer" type="MarginContainer" parent="PanelContainer" unique_id=1161499342]
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer" unique_id=1418639795]
 custom_minimum_size = Vector2(0.48, 0)
 layout_mode = 2
 size_flags_stretch_ratio = 0.0
+theme = ExtResource("4_a0uc5")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer" unique_id=178033114]
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer" unique_id=1780860575]
 layout_mode = 2
-theme = SubResource("Theme_a0uc5")
+theme = ExtResource("4_a0uc5")

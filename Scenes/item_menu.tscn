@@ -1,0 +1,80 @@
+[gd_scene format=3 uid="uid://cs0ibb0hoiskq"]
+
+[ext_resource type="Theme" uid="uid://kdcakav04xg8" path="res://Scripts/data/skill_button_theme.tres" id="1_hs6fl"]
+[ext_resource type="Texture2D" uid="uid://c1xm5j8xjuamg" path="res://Assets/Sprites/Portrait Box.png" id="2_vd0pl"]
+
+[sub_resource type="GDScript" id="GDScript_fmuat"]
+resource_name = "item_menu"
+script/source = "# item_menu.gd
+extends CanvasLayer
+
+@export var item_list_container: VBoxContainer
+signal item_selected(item: ItemData)
+signal closed
+
+func open() -> void:
+	_populate_items()
+
+func _populate_items() -> void:
+	for child in item_list_container.get_children():
+		child.queue_free()
+
+	for item in Inventory.items.keys():
+		var qty = Inventory.items[item]
+		var button = Button.new()
+		button.text = \"%s x%d\" % [item.item_name, qty]
+		button.pressed.connect(func(): _on_item_chosen(item))
+		item_list_container.add_child(button)
+
+func _on_item_chosen(item: ItemData) -> void:
+	item_selected.emit(item)
+	closed.emit()
+	queue_free()
+"
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_v2u0j"]
+content_margin_left = 60.0
+content_margin_top = 40.0
+content_margin_right = 60.0
+content_margin_bottom = 40.0
+texture = ExtResource("2_vd0pl")
+texture_margin_left = 60.0
+texture_margin_top = 40.0
+texture_margin_right = 60.0
+texture_margin_bottom = 40.0
+
+[node name="item_menu" type="CanvasLayer" unique_id=1355934624]
+script = SubResource("GDScript_fmuat")
+
+[node name="Backdrop" type="Button" parent="." unique_id=2059092173]
+process_mode = 3
+modulate = Color(1, 1, 1, 0)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=1351437517]
+custom_minimum_size = Vector2(365, 150)
+anchors_preset = -1
+anchor_left = 0.35742188
+anchor_top = 0.59444445
+anchor_right = 0.6425781
+anchor_bottom = 0.80277777
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_vertical = 8
+theme = ExtResource("1_hs6fl")
+theme_override_styles/panel = SubResource("StyleBoxTexture_v2u0j")
+metadata/_edit_use_anchors_ = true
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer" unique_id=259638262]
+custom_minimum_size = Vector2(0.48, 0)
+layout_mode = 2
+size_flags_stretch_ratio = 0.0
+theme = ExtResource("1_hs6fl")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer" unique_id=1127881653]
+layout_mode = 2
+theme = ExtResource("1_hs6fl")

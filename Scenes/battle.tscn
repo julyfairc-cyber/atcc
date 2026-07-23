@@ -1149,4 +1149,6 @@ layout_mode = 2
 layout_mode = 2
 theme_override_fonts/normal_font = ExtResource("14_xkp4y")
 theme_override_fonts/bold_font = ExtResource("14_xkp4y")
+theme_override_font_sizes/normal_font_size = 20
+theme_override_font_sizes/bold_font_size = 20
 bbcode_enabled = true
