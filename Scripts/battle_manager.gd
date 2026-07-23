@@ -22,17 +22,22 @@ var battle_over: bool = false
 var ready_time_ms: int = 0
 const SKILL_MENU_SCENE = preload("res://Scenes/skill_menu.tscn")
 const PAUSE_MENU_SCENE = preload("res://Scenes/pause_menu.tscn")
+const SETTINGS_SCENE = preload("res://Scenes/settings.tscn")
+var settings_instance: Control = null
+
 var pause_menu_instance: CanvasLayer = null
 
 func _ready() -> void:
+	settings_button.pressed.connect(_on_settings_button_pressed)
 	pause_button.pressed.connect(_on_pause_button_pressed)
-
+	fast_forward_button.pressed.connect(_on_fast_forward_pressed)
+	skip_button.pressed.connect(_on_skip_battle_pressed)
+	
 	for battler in party + enemies:
 		battler.died.connect(_on_battler_died.bind(battler))
 	sword_button.pressed.connect(_on_attack_button_pressed)
+	skill_button.pressed.connect(_on_skill_button_pressed)
 	flee_button.pressed.connect(_on_flee_button_pressed)
-	fast_forward_button.pressed.connect(_on_fast_forward_pressed)
-	skip_button.pressed.connect(_on_skip_battle_pressed)
 
 	call_deferred("_scale_enemies_and_start")
 
@@ -108,7 +113,16 @@ func _on_skip_battle_pressed() -> void:
 	battle_ended.emit(true)
 	_end_battle(true)
 	
+func _on_settings_button_pressed() -> void:
+	if settings_instance != null:
+		return
 
+	settings_instance = SETTINGS_SCENE.instantiate()
+	settings_instance.is_overlay = true
+	settings_instance.closed.connect(func(): settings_instance = null)
+	get_tree().root.add_child(settings_instance)
+	get_tree().paused = true
+	
 func _start_next_player_turn() -> void:
 	if battle_over:
 		return
@@ -199,6 +213,7 @@ func _perform_attack(attacker: Battler, target: Battler) -> void:
 func _calculate_damage(_attacker: Battler) -> int:
 	var base = randi_range(15, 25)
 	return int(base * 0.85) 
+
 
 		
 func _get_first_alive(battlers: Array[Battler]) -> Battler:

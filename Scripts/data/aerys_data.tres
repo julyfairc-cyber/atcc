@@ -11,4 +11,5 @@ level = 15
 attack = 14
 defense = 8
 portrait = ExtResource("1_hy8s5")
+skills = Array[ExtResource("3_ksoah")]([null])
 metadata/_custom_type_script = "uid://cim15u1q5i1qr"

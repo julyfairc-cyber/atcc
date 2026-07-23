@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://biwanyest4xo1"]
 
 [ext_resource type="Texture2D" uid="uid://bfyvbd2vstpft" path="res://Assets/Sprites/BG-2.png" id="1_1c72s"]
+[ext_resource type="Script" uid="uid://cpeohxts70wux" path="res://Scripts/settings.gd" id="1_vmqi3"]
 [ext_resource type="Texture2D" uid="uid://b87a1dgjqsnuy" path="res://Assets/Buttons/Header.png" id="2_vmqi3"]
 [ext_resource type="FontFile" uid="uid://b8lbphkr7l51t" path="res://Assets/Pixellari.ttf" id="3_g8dc3"]
 [ext_resource type="Theme" uid="uid://ca3uhwvu4ib3g" path="res://Assets/Buttons/Optionals.tres" id="4_d6lvq"]
@@ -14,38 +15,6 @@
 [ext_resource type="Texture2D" uid="uid://c23rvdti1dbwb" path="res://Assets/Buttons/options hvr.png" id="12_fsr8i"]
 [ext_resource type="Texture2D" uid="uid://c4h6a8aruhdkd" path="res://Assets/Buttons/options dsbld.png" id="13_yehx4"]
 [ext_resource type="Texture2D" uid="uid://csye4qenm3hx5" path="res://Assets/Buttons/Arrow.png" id="14_e1toh"]
-
-[sub_resource type="GDScript" id="GDScript_drmij"]
-script/source = "extends Control
-
-var button_type = null
-
-func _ready() :
-	$Fade_Transition.show()
-	$Fade_Transition/Fade_timer.start()
-	$Fade_Transition/AnimationPlayer.play(\"fade_out\")
-	
-func _on_volume_value_changed(value):
-	AudioServer.set_bus_volume_db(0, value)
-
-func _on_back_pressed() -> void:
-	$Fade_Transition.show()
-	$Fade_Transition/Fade_timer.start()
-	$Fade_Transition/AnimationPlayer.play(\"fade_in\")
-	SceneManager.go_back()
-	
-func _on_fs_2_item_selected(index):
-	match index:
-		0: DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
-		1: DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
-
-func _on_resolutions_item_Selected(index):
-	match index:
-		0:
-			DisplayServer.window_set_size(Vector2i(1280,720))
-		1:
-			DisplayServer.window_set_size(Vector2i(800,600))
-"
 
 [sub_resource type="LabelSettings" id="LabelSettings_64ifj"]
 font = ExtResource("3_g8dc3")
@@ -128,13 +97,14 @@ axis_stretch_vertical = 2
 region_rect = Rect2(0, 12, 363, 174)
 
 [node name="Settings" type="Control" unique_id=133396877]
+process_mode = 3
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = SubResource("GDScript_drmij")
+script = ExtResource("1_vmqi3")
 
 [node name="NinePatchRect" type="NinePatchRect" parent="." unique_id=1994001450]
 layout_mode = 0
